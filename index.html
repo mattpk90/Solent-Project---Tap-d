@@ -1,0 +1,52 @@
+<!--
+Created by Matt Kennedy, 2011-2012.
+Property of Matt Kennedy and Southampton Solent University.
+-->
+
+<!--
+Todo:
+slidey thing from the left, a control panel to start new games, add cards etc?
+Dimensions of cards- 0.7:1
+-->
+
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Tap'd</title>
+	<link rel="stylesheet" type="text/css" href="main.css" />
+	<script type='text/javascript' src='jquery.js'></script>
+	
+	<script type='text/javascript'>
+	function draw()
+	{
+		var canvas = document.getElementById('canvas1');
+		var ctx = canvas.getContext('2d');
+		ctx.fillStyle = '#ff0000'; // red 
+		ctx.fillRect(500,30,50,80);
+		
+		ctx.save();
+		ctx.rotate(1);
+		ctx.fillRect(500,60,50,80);
+		ctx.restore();
+	}
+	</script>
+	
+</head>
+
+<body onload='draw()'>
+<div id="container">
+	<div id="login"> Username: <input id="username"/> Password: <input id="password" type="password"/> <input id="submit" type="submit" value="Log In"/> </div>
+	<div id="logoDiv"></div>
+	
+	<div id="battlefield"><canvas id='canvas1' width='900' height='300'></canvas></div>
+	<div id="info">info</div>
+	
+	<div id="bottomContainer">
+		<div id="hand">hand</div>
+		<div id="library">library</div>
+		<div id="graveyard">graveyard</div>
+		<div id="exile">exile</div>
+	</div>
+</div>
+</body>
+</html>

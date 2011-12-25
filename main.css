@@ -1,0 +1,39 @@
+body { background-image: url('images/woodbg.jpg'); background-repeat: repeat; background-color: #151515; color: #d6d3c0; font-family: palatino linotype, serif; }
+
+#container { background-color: transparent; width: 1240px; height: 620px; position: relative; margin: auto; }
+
+#logoDiv { background-color: transparent; width: 100px; height: 53px; background-image: url('images/logo.png');
+			background-repeat: no-repeat; position: relative; margin: auto; }
+
+#login { background-color: #151515; width: 550px; height: 35px; float: left; margin-left: 4px; text-align: center; display: block;
+					line-height: 32px; border-color: #d6d3c0; border-style: solid; border-width: 2px;
+					border-radius: 10px; -moz-border-radius: 10px; -webkit-border-radius: 10px; }
+			
+#battlefield { background-color: transparent; width: 953px; height: 345px; margin: auto; margin-bottom: 5px; float: left;
+					border-color: #d6d3c0; border-style: dashed; border-width: 2px;
+					border-radius: 10px; -moz-border-radius: 10px; -webkit-border-radius: 10px; }
+
+#info { background-color: #151515; width: 271px; height: 345px; margin: auto; margin-bottom: 5px; float: right;
+					border-color: #d6d3c0; border-style: solid; border-width: 2px;
+					border-radius: 10px; -moz-border-radius: 10px; -webkit-border-radius: 10px; }
+
+#bottomContainer  { background-color: transparent; width: 1240px; height: 215px; margin: auto; display: block;
+					border-radius: 10px; -moz-border-radius: 10px; -webkit-border-radius: 10px; }
+					
+	#hand { background-color: transparent; width: 815px; height: 210px; float: left; margin-right: 5px;
+						border-color: #d6d3c0; border-style: dashed; border-width: 2px;
+						border-radius: 10px; -moz-border-radius: 10px; -webkit-border-radius: 10px; }
+
+	#library { background-color: transparent; width: 130px; height: 210px; float: left; margin-right: 4px;
+						border-color: #d6d3c0; border-style: dashed; border-width: 2px;
+						border-radius: 10px; -moz-border-radius: 10px; -webkit-border-radius: 10px; }
+	
+	#graveyard { background-color: transparent; width: 130px; height: 210px; float: left; margin-left: 3px;
+						border-color: #d6d3c0; border-style: dashed; border-width: 2px;
+						border-radius: 10px; -moz-border-radius: 10px; -webkit-border-radius: 10px; }
+
+	#exile { background-color: transparent; width: 130px; height: 210px; float: right;
+						border-color: #d6d3c0; border-style: dashed; border-width: 2px; 
+						border-radius: 10px; -moz-border-radius: 10px; -webkit-border-radius: 10px; }
+
+	
