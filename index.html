@@ -7,6 +7,8 @@ Property of Matt Kennedy and Southampton Solent University.
 Todo:
 slidey thing from the left, a control panel to start new games, add cards etc?
 Dimensions of cards- 0.7:1
+
+For drag and drop look into 'sortable' jqueryui.
 -->
 
 <!DOCTYPE html>
@@ -18,18 +20,20 @@ Dimensions of cards- 0.7:1
 	<script type='text/javascript' src='jquery-ui.js'></script>
 	
 	<script type='text/javascript'>
-		$(function() { $("#card").draggable(); });
+		$(function() { 
+			$("#card").draggable({ cursor: 'move' });
+		});
 	</script>
 	
 </head>
 
-<body onload='draw()'>
+<body>
 <div id="container">
 	<div id="login"> Username: <input id="username"/> Password: <input id="password" type="password"/> <input id="submit" type="submit" value="Log In"/> </div>
 	<div id="logoDiv"></div>
 	
 	<div id="battlefield">
-		<div id="card" ></div>
+		<div id="card"></div>
 	</div>
 
 	<div id="info">
@@ -41,7 +45,9 @@ Dimensions of cards- 0.7:1
 	</div>
 	
 	<div id="bottomContainer">
-		<div id="hand">hand</div>
+		<div id="hand">
+			<div id="card"></div>
+		</div>
 		<div id="library">library</div>
 		<div id="graveyard">graveyard</div>
 		<div id="exile">exile</div>
