@@ -15,20 +15,10 @@ Dimensions of cards- 0.7:1
 	<title>Tap'd</title>
 	<link rel="stylesheet" type="text/css" href="main.css" />
 	<script type='text/javascript' src='jquery.js'></script>
+	<script type='text/javascript' src='jquery-ui.js'></script>
 	
 	<script type='text/javascript'>
-	function draw()
-	{
-		var canvas = document.getElementById('canvas1');
-		var ctx = canvas.getContext('2d');
-		ctx.fillStyle = '#ff0000'; // red 
-		ctx.fillRect(500,30,50,80);
-		
-		ctx.save();
-		ctx.rotate(1);
-		ctx.fillRect(500,60,50,80);
-		ctx.restore();
-	}
+		$(function() { $("#card").draggable(); });
 	</script>
 	
 </head>
@@ -38,8 +28,17 @@ Dimensions of cards- 0.7:1
 	<div id="login"> Username: <input id="username"/> Password: <input id="password" type="password"/> <input id="submit" type="submit" value="Log In"/> </div>
 	<div id="logoDiv"></div>
 	
-	<div id="battlefield"><canvas id='canvas1' width='900' height='300'></canvas></div>
-	<div id="info">info</div>
+	<div id="battlefield">
+		<div id="card" ></div>
+	</div>
+
+	<div id="info">
+		<div id="topinfo">
+			<input id="addcard" type="button" value="Add Card"/>
+		</div>
+		
+		<div id="cardinfo">Card Information</div>
+	</div>
 	
 	<div id="bottomContainer">
 		<div id="hand">hand</div>

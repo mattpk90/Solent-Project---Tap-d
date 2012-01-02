@@ -8,6 +8,9 @@ body { background-image: url('images/woodbg.jpg'); background-repeat: repeat; ba
 #login { background-color: #151515; width: 550px; height: 35px; float: left; margin-left: 4px; text-align: center; display: block;
 					line-height: 32px; border-color: #d6d3c0; border-style: solid; border-width: 2px;
 					border-radius: 10px; -moz-border-radius: 10px; -webkit-border-radius: 10px; }
+	
+#card { background-color: red; width: 100px; height: 160px;
+			border-radius: 10px; -moz-border-radius: 10px; -webkit-border-radius: 10px; }	
 			
 #battlefield { background-color: transparent; width: 953px; height: 345px; margin: auto; margin-bottom: 5px; float: left;
 					border-color: #d6d3c0; border-style: dashed; border-width: 2px;
@@ -16,6 +19,12 @@ body { background-image: url('images/woodbg.jpg'); background-repeat: repeat; ba
 #info { background-color: #151515; width: 271px; height: 345px; margin: auto; margin-bottom: 5px; float: right;
 					border-color: #d6d3c0; border-style: solid; border-width: 2px;
 					border-radius: 10px; -moz-border-radius: 10px; -webkit-border-radius: 10px; }
+
+	#topinfo { background-color: #151515; width: 271px; height: 195px; margin: auto; float: right;
+						border-radius: 10px; -moz-border-radius: 10px; -webkit-border-radius: 10px; }
+
+	#cardinfo { background-color: transparent; width: 271px; height: 150px; float: left;
+						border-radius: 10px; -moz-border-radius: 10px; -webkit-border-radius: 10px; }
 
 #bottomContainer  { background-color: transparent; width: 1240px; height: 215px; margin: auto; display: block;
 					border-radius: 10px; -moz-border-radius: 10px; -webkit-border-radius: 10px; }
@@ -35,5 +44,3 @@ body { background-image: url('images/woodbg.jpg'); background-repeat: repeat; ba
 	#exile { background-color: transparent; width: 130px; height: 210px; float: right;
 						border-color: #d6d3c0; border-style: dashed; border-width: 2px; 
 						border-radius: 10px; -moz-border-radius: 10px; -webkit-border-radius: 10px; }
-
-	
