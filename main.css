@@ -9,8 +9,11 @@ body { background-image: url('images/woodbg.jpg'); background-repeat: repeat; ba
 					line-height: 32px; border-color: #d6d3c0; border-style: solid; border-width: 2px;
 					border-radius: 10px; -moz-border-radius: 10px; -webkit-border-radius: 10px; }
 	
-#card { background-color: red; width: 100px; height: 160px;
-			border-radius: 10px; -moz-border-radius: 10px; -webkit-border-radius: 10px; }	
+/* #card { background-color: red; width: 100px; height: 160px;
+			border-radius: 10px; -moz-border-radius: 10px; -webkit-border-radius: 10px; } */
+
+.card	{ background-color: red; width: 100px; height: 160px;
+			border-radius: 10px; -moz-border-radius: 10px; -webkit-border-radius: 10px; }
 			
 #battlefield { background-color: transparent; width: 953px; height: 345px; margin: auto; margin-bottom: 5px; float: left;
 					border-color: #d6d3c0; border-style: dashed; border-width: 2px;
@@ -34,7 +37,7 @@ body { background-image: url('images/woodbg.jpg'); background-repeat: repeat; ba
 						border-radius: 10px; -moz-border-radius: 10px; -webkit-border-radius: 10px; }
 
 	#library { background-color: transparent; width: 130px; height: 210px; float: left; margin-right: 4px;
-						border-color: #d6d3c0; border-style: dashed; border-width: 2px;
+						border-color: #d6d3c0; border-style: dashed; border-width: 2px; text-align: center;
 						border-radius: 10px; -moz-border-radius: 10px; -webkit-border-radius: 10px; }
 	
 	#graveyard { background-color: transparent; width: 130px; height: 210px; float: left; margin-left: 3px;
