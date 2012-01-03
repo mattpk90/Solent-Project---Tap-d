@@ -14,6 +14,12 @@ body { background-image: url('images/woodbg.jpg'); background-repeat: repeat; ba
 
 .card	{ background-color: red; width: 100px; height: 160px;
 			border-radius: 10px; -moz-border-radius: 10px; -webkit-border-radius: 10px; }
+
+.cardback	{ background-color: blue; width: 100px; height: 160px;
+			border-radius: 10px; -moz-border-radius: 10px; -webkit-border-radius: 10px; }
+
+.draggingFromLibrary { background-color: red; width: 100px; height: 160px;
+			border-radius: 10px; -moz-border-radius: 10px; -webkit-border-radius: 10px; }
 			
 #battlefield { background-color: transparent; width: 953px; height: 345px; margin: auto; margin-bottom: 5px; float: left;
 					border-color: #d6d3c0; border-style: dashed; border-width: 2px;
@@ -41,9 +47,9 @@ body { background-image: url('images/woodbg.jpg'); background-repeat: repeat; ba
 						border-radius: 10px; -moz-border-radius: 10px; -webkit-border-radius: 10px; }
 	
 	#graveyard { background-color: transparent; width: 130px; height: 210px; float: left; margin-left: 3px;
-						border-color: #d6d3c0; border-style: dashed; border-width: 2px;
+						border-color: #d6d3c0; border-style: dashed; border-width: 2px; text-align: center;
 						border-radius: 10px; -moz-border-radius: 10px; -webkit-border-radius: 10px; }
 
 	#exile { background-color: transparent; width: 130px; height: 210px; float: right;
-						border-color: #d6d3c0; border-style: dashed; border-width: 2px; 
+						border-color: #d6d3c0; border-style: dashed; border-width: 2px; text-align: center;
 						border-radius: 10px; -moz-border-radius: 10px; -webkit-border-radius: 10px; }

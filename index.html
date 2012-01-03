@@ -22,7 +22,12 @@ For drag and drop look into 'sortable' jqueryui.
 	<script type='text/javascript'>
 		$(function() { 
 			$(".card").draggable({ cursor: 'move' });
+			$(".cardback").draggable({ cursor: 'move', helper: libraryDragHelper });
 		});
+
+		function libraryDragHelper( event ) {
+			return '<div class="draggingFromLibrary"></div>';
+		}
 	</script>
 	
 </head>
@@ -33,7 +38,7 @@ For drag and drop look into 'sortable' jqueryui.
 	<div id="logoDiv"></div>
 	
 	<div id="battlefield">
-		<div class="ui-draggable card"></div>
+		<div class="card"></div>
 	</div>
 
 	<div id="info">
@@ -46,21 +51,21 @@ For drag and drop look into 'sortable' jqueryui.
 	
 	<div id="bottomContainer">
 		<div id="hand">
-			<div class="ui-draggable card"></div>
-			<div class="ui-draggable card"></div>
-			<div class="ui-draggable card"></div>
-			<div class="ui-draggable card"></div>
-			<div class="ui-draggable card"></div>
-			<div class="ui-draggable card"></div>
-			<div class="ui-draggable card"></div>
+			<div class="card"></div>
+			<div class="card"></div>
+			<div class="card"></div>
+			<div class="card"></div>
+			<div class="card"></div>
+			<div class="card"></div>
+			<div class="card"></div>
 		</div>
 
 		<div id="library"> Library <br />
-			<div class="ui-draggable card"></div>
+			<div class="cardback"></div>
 		</div>
 
-		<div id="graveyard">graveyard</div>
-		<div id="exile">exile</div>
+		<div id="graveyard">Graveyard</div>
+		<div id="exile">Exile</div>
 	</div>
 </div>
 </body>
