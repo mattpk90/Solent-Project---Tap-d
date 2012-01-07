@@ -9,6 +9,8 @@ slidey thing from the left, a control panel to start new games, add cards etc?
 Dimensions of cards- 0.7:1
 
 For drag and drop look into 'sortable' jqueryui.
+
+initialise function for reset
 -->
 
 <!DOCTYPE html>
@@ -19,15 +21,34 @@ For drag and drop look into 'sortable' jqueryui.
 	<script type='text/javascript' src='jquery.js'></script>
 	<script type='text/javascript' src='jquery-ui.js'></script>
 	
-	<script type='text/javascript'>
-		$(function() { 
-			$(".card").draggable({ cursor: 'move' });
-			$(".cardback").draggable({ cursor: 'move', helper: libraryDragHelper });
-		});
+	<script type='text/javascript'>	
+		$(function init() { 
+			$("document").droppable({ 
+				accept: '.draggingFromLibrary',
+				drop: function(event, ui) {
+					var leftPos = parseInt( ui.offset.left );
+					var topPos = parseInt( ui.offset.top );
+				    var newDiv = $(ui.helper).clone(false)
+				      .removeClass('ui-draggable-dragging')
+				      .removeClass('draggingFromLibrary')
+				      .addClass('card')
+				      .css({ position: 'absolute', left: leftPos-54, top: topPos-8 });
+				    $(this).append(newDiv);
+				  }
+			});
 
-		function libraryDragHelper( event ) {
-			return '<div class="draggingFromLibrary"></div>';
-		}
+			//http://stackoverflow.com/questions/4652305/jquery-ui-drop-helper
+
+
+			$(".card").draggable({ cursor: 'move', snap: true, snapTolerance: 5 });
+			
+			$(".cardback").draggable({ cursor: 'move', revert: 'invalid',
+				helper: function(event) { return '<div class="draggingFromLibrary"></div>'; }
+  				})
+			});
+
+
+		//$(document).ready(init());
 	</script>
 	
 </head>
@@ -38,7 +59,7 @@ For drag and drop look into 'sortable' jqueryui.
 	<div id="logoDiv"></div>
 	
 	<div id="battlefield">
-		<div class="card"></div>
+		<div class="card">UW <br /> Crystalline Sliver <br /> 2/2</div>
 	</div>
 
 	<div id="info">
