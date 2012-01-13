@@ -32,6 +32,7 @@ initialise function for reset
 				      .removeClass('ui-draggable-dragging')
 				      .removeClass('draggingFromLibrary')
 				      .addClass('card')
+				      .removeClass('ui-draggable')
 				      .css({ position: 'absolute', left: leftPos-54, top: topPos-8 });
 				    $(this).append(newDiv);
 				  }
@@ -59,12 +60,19 @@ initialise function for reset
 	<div id="logoDiv"></div>
 	
 	<div id="battlefield">
-		<div class="card">UW <br /> Crystalline Sliver <br /> 2/2</div>
+		<div class="card">
+			<div class="cardName"> Crystalline Sliver </div>
+			<div class="cardCost"> UW </div>
+			<div class="cardText"> All slivers have shroud. </div>
+			<br /><br />
+			<div class="cardPower"> 2 </div>
+			<div class="cardToughness"> 2 </div>
+		</div>
 	</div>
 
 	<div id="info">
 		<div id="topinfo">
-			<input id="addcard" type="button" value="Add Card"/>
+			<a href="add_deck.html"><button name="addcard" type="button"/>Add Deck</button></a>
 		</div>
 		
 		<div id="cardinfo">Card Information</div>

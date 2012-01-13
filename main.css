@@ -12,8 +12,13 @@ body { background-image: url('images/woodbg.jpg'); background-repeat: repeat; ba
 /* #card { background-color: red; width: 100px; height: 160px;
 			border-radius: 10px; -moz-border-radius: 10px; -webkit-border-radius: 10px; } */
 
-.card	{ background-color: red; width: 100px; height: 160px;
+.card	{ background-color: red; width: 100px; height: 160px; 
 			border-radius: 10px; -moz-border-radius: 10px; -webkit-border-radius: 10px; }
+	.cardName { font-size: 10px; width: 100px; height: 15px; clear: both; text-align: center; }
+	.cardCost { width: 100px; height: 15px; clear: both; text-align: center; }
+	.cardText { width: 100px; height: 45px; clear: both; margin-top: 10px; text-align: center; }
+	.cardPower { width: 20px; height: 15px; float: right; }
+	.cardToughness { width: 20px; height: 15px; float: right; }
 
 .cardback	{ background-color: blue; width: 100px; height: 160px;
 			border-radius: 10px; -moz-border-radius: 10px; -webkit-border-radius: 10px; }
