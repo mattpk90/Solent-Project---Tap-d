@@ -23,16 +23,16 @@ initialise function for reset
 	
 	<script type='text/javascript'>	
 		$(function init() { 
-			$("document").droppable({ 
+			$("#container").droppable({ 
 				accept: '.draggingFromLibrary',
 				drop: function(event, ui) {
 					var leftPos = parseInt( ui.offset.left );
 					var topPos = parseInt( ui.offset.top );
 				    var newDiv = $(ui.helper).clone(false)
+				      .addClass('card')
+				      .addClass('ui-draggable')
 				      .removeClass('ui-draggable-dragging')
 				      .removeClass('draggingFromLibrary')
-				      .addClass('card')
-				      .removeClass('ui-draggable')
 				      .css({ position: 'absolute', left: leftPos-54, top: topPos-8 });
 				    $(this).append(newDiv);
 				  }
@@ -44,7 +44,7 @@ initialise function for reset
 			$(".card").draggable({ cursor: 'move', snap: true, snapTolerance: 5 });
 			
 			$(".cardback").draggable({ cursor: 'move', revert: 'invalid',
-				helper: function(event) { return '<div class="draggingFromLibrary"></div>'; }
+				helper: function(event) { return $('<div class="draggingFromLibrary"></div>'); }
   				})
 			});
 
