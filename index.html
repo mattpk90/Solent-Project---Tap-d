@@ -32,33 +32,22 @@ initialise function for reset
 		});
 
 		$("#container").droppable({
-			//accept: '.draggingFromLibrary',
+			//accept:'.draggingFromLibrary',
 			drop: function(event, ui) {
-			    var newDiv = $(ui.helper).clone(false)
+			    var newDiv = $(ui.helper).clone(true)
 			      .addClass('card')
 			      .addClass('ui-draggable')
 			      .removeClass('ui-draggable-dragging')
 			      .removeClass('draggingFromLibrary');
-			      //.css({ position: 'absolute', left: ui.offset.left -54, top: ui.offset.top -8 });
+			      //.css({ position: 'absolute', left: 0, top: 0 });
 			    $("#container").append(newDiv);
+			    $(".card").draggable({ cursor: 'move', snap: true, snapTolerance: 5 });
 			}
-		});	
-
+		});
 		//http://stackoverflow.com/questions/4652305/jquery-ui-drop-helper
-
-		
-
 	};
-
-	function dragFromLibrary(){
-		$( "#container" ).droppable( "option", "accept", '.draggingFromLibrary' );
-	};
-
-	function afterInitDrag(){
-		$( ".card" ).draggable();
-	};
-
 	</script>
+	
 	
 </head>
 
@@ -80,7 +69,7 @@ initialise function for reset
 
 	<div id="info">
 		<div id="topinfo">
-			<a href="add_deck.html"><button name="addcard" type="button"/>Add Deck</button></a>
+			<a href="add_deck.html"><button name="addcard" type="button">Add Deck</button></a>
 			<br />
 		</div>
 		

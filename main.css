@@ -12,7 +12,7 @@ body { background-image: url('images/woodbg.jpg'); background-repeat: repeat; ba
 /* #card { background-color: red; width: 100px; height: 160px;
 			border-radius: 10px; -moz-border-radius: 10px; -webkit-border-radius: 10px; } */
 
-.card	{ background-color: red; width: 100px; height: 160px; 
+.card	{ background-color: red; width: 100px; height: 160px; float: left;
 			border-radius: 10px; -moz-border-radius: 10px; -webkit-border-radius: 10px; }
 	.cardName { font-size: 10px; width: 100px; height: 15px; clear: both; text-align: center; }
 	.cardCost { width: 100px; height: 15px; clear: both; text-align: center; }
