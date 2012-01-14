@@ -23,7 +23,7 @@ body { background-image: url('images/woodbg.jpg'); background-repeat: repeat; ba
 .cardback	{ background-color: blue; width: 100px; height: 160px;
 			border-radius: 10px; -moz-border-radius: 10px; -webkit-border-radius: 10px; }
 
-.draggingFromLibrary { background-color: red; width: 100px; height: 160px;
+.draggingFromLibrary { background-color: blue; width: 100px; height: 160px;
 			border-radius: 10px; -moz-border-radius: 10px; -webkit-border-radius: 10px; }
 			
 #battlefield { background-color: transparent; width: 953px; height: 345px; margin: auto; margin-bottom: 5px; float: left;
