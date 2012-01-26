@@ -9,17 +9,34 @@ Property of Matt Kennedy and Southampton Solent University.
 	<title>Add Deck</title>
 	<link rel="stylesheet" type="text/css" href="main.css" />
 	<script type='text/javascript' src='jquery.js'></script>
-	<script type='text/javascript' src='jquery-ui.js'></script>	
+	<script type='text/javascript' src='jquery-ui.js'></script>		
 </head>
 
 <body>
-	<textarea rows="10" cols="50">
-		ggbbvgb
-	</textarea>
-	<button name="addDeckSubmit" type="submit"/>Add Deck</button>
-	<a href="index.html"><button name="home" type="button"/>Home</button></a>
+	<a href="index.html"><button name="home" type="button"/>Home</button></a><br /><br />
+	<form action="xmlscript.php" method="post">
+	<textarea rows="10" cols="50">Paste in XML here.</textarea><br />
+	<button name="addXMLSubmit" type="submit"/>Submit XML</button>
+	</form>
+	<br /><br /><br />
+
+	<form>
+	<table>
+	<tr>	<td>Card Name:</td> <td><input type="text" name="name" /></td>					</tr>
+	<tr>	<td>Mana Cost:</td> <td><input type="text" name="cost" /></td>					</tr>
+	<tr>	<td>Text:</td> <td><input type="text" name="text" /></td>						</tr>
+	<tr>	<td>Power:</td> <td><input type="text" name="power" />&nbsp;&nbsp;</td>
+			<td>Toughness:</td> <td><input type="text" name="toughness" /></td>				</tr>
+	<tr>	<td><button name="addSingleCard" type="submit"/>Add Card</button></td>	</tr>
+	</table>
+	</form>
+	<!--
+	send xml to xmlscipt.php
+	parse xml
+	add cards to storage
+	-->
+
+
+
 </body>
 </html>
-
-
-

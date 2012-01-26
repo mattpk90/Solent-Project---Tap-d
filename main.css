@@ -20,6 +20,8 @@ body { background-image: url('images/woodbg.jpg'); background-repeat: repeat; ba
 	.cardPower { width: 20px; height: 15px; float: right; }
 	.cardToughness { width: 20px; height: 15px; float: right; }
 
+	/*CSS3 Word Wrapping*/
+
 .cardback	{ background-color: blue; width: 100px; height: 160px;
 			border-radius: 10px; -moz-border-radius: 10px; -webkit-border-radius: 10px; }
 
