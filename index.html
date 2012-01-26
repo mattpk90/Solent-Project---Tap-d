@@ -47,16 +47,16 @@ stopimmediatepropagation: stops all following functions with same name from call
 			drop: function(event, ui) {
 				var cardName = $(libraryArray).get(0);
 				libraryArray.splice(0,1);
-				var numRand = Math.floor(Math.random()*101);
 			    var newDiv = $(ui.helper).clone(false)
 			      .addClass('card')
 			      .addClass('ui-draggable')
 			      .removeClass('ui-draggable-dragging')
 			      .removeClass('cardback')
-			      .attr('id', cardName);
-			    $("#container").append(newDiv);
-			    $(".card").draggable({ cursor: 'move', snap: true, snapTolerance: 5, stack: ".card" });
+			      .attr('id', cardName)
+			      .html(cardName);
 			    if(libraryArray.length == 0) { $(".cardback").hide(); }
+			    $("#container").append(newDiv);
+			    $(".card").draggable({ cursor: 'move', snap: true, snapTolerance: 5, stack: ".card" });			    
 			}
 		});
 
@@ -70,6 +70,12 @@ stopimmediatepropagation: stops all following functions with same name from call
 			},
 			drop: function(event, ui){
 				$("#library").css('border-color', '#d6d3c0');
+				if(!($(".carddback").is(":visible"))){
+					$(".cardback").show();
+					var cardID = ui.draggable.attr("id");
+					ui.draggable.hide();
+					libraryArray.unshift(cardID);
+				}			
 			}
 		});
 
