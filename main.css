@@ -13,7 +13,7 @@ body { background-image: url('images/woodbg.jpg'); background-repeat: repeat; ba
 			border-radius: 10px; -moz-border-radius: 10px; -webkit-border-radius: 10px; } */
 
 .card	{ background-color: red; width: 100px; height: 160px; float: left; word-wrap: break-word;
-			border-radius: 10px; -moz-border-radius: 10px; -webkit-border-radius: 10px; }
+			text-align: center; border-radius: 10px; -moz-border-radius: 10px; -webkit-border-radius: 10px; }
 	.cardName { font-size: 10px; width: 100px; height: 15px; clear: both; text-align: center; }
 	.cardCost { width: 100px; height: 15px; clear: both; text-align: center; }
 	.cardText { width: 100px; height: 45px; clear: both; margin-top: 10px; text-align: center; }
@@ -21,13 +21,28 @@ body { background-image: url('images/woodbg.jpg'); background-repeat: repeat; ba
 	.cardToughness { width: 20px; height: 15px; float: right; }
 
 
-.cardback	{ background-color: blue; width: 100px; height: 160px;
+.graveyardPlaceholder { background-color: red; width: 100px; height: 160px; float: left; 
+						word-wrap: break-word; border-radius: 10px;
+						 position: relative; margin: 0px auto; margin-top: 10px;
+						-moz-border-radius: 10px; -webkit-border-radius: 10px; }
+
+.exiledPlaceholder { background-color: red; width: 100px; height: 160px; float: left; 
+						word-wrap: break-word; border-radius: 10px;
+						 position: relative; margin: 0px auto; margin-top: 10px;
+						-moz-border-radius: 10px; -webkit-border-radius: 10px; }
+
+
+.cardback{ background-color: blue; width: 100px; height: 160px; position: relative; margin: 0px auto;
+			margin-top: 10px;
 			border-radius: 10px; -moz-border-radius: 10px; -webkit-border-radius: 10px; }
 
 .draggingFromLibrary { background-color: blue; width: 100px; height: 160px;
 			border-radius: 10px; -moz-border-radius: 10px; -webkit-border-radius: 10px; }
+		
+		
 			
-#battlefield { background-color: transparent; width: 953px; height: 345px; margin: auto; margin-bottom: 5px; float: left;
+#battlefield { background-color: transparent; width: 953px; height: 345px; 
+					margin: auto; margin-bottom: 5px; float: left; text-align: center;
 					border-color: #d6d3c0; border-style: dashed; border-width: 2px;
 					border-radius: 10px; -moz-border-radius: 10px; -webkit-border-radius: 10px; }
 
@@ -59,6 +74,7 @@ body { background-image: url('images/woodbg.jpg'); background-repeat: repeat; ba
 	#exile { background-color: transparent; width: 130px; height: 210px; float: right;
 						border-color: #d6d3c0; border-style: dashed; border-width: 2px; text-align: center;
 						border-radius: 10px; -moz-border-radius: 10px; -webkit-border-radius: 10px; }
+
 
 #addCardForm { background-color: transparent; width: 500px; height: 200px;
 						border-color: #d6d3c0; border-style: dashed;
