@@ -8,15 +8,13 @@ Todo/ideas:
 slidey thing from the left, a control panel to start new games, add cards etc?
 Dimensions of cards- 0.7:1
 
-For drag and drop look into 'sortable' jqueryui.
-
-initialise function for reset
-
-change cards to have id as well as class
-
-drag over library, layover on card with 'add to library'
-
-stopimmediatepropagation: stops all following functions with same name from calling
+-For drag and drop look into 'sortable' jqueryui.
+-initialise function for reset
+-change cards to have id as well as class
+-drag over library, layover on card with 'add to library'
+-stopimmediatepropagation: stops all following functions with same name from calling
+-store cards in localstorage, convert to javascript array? no database
+-when helper dropped over library, disappears, not add card to field
 -->
 
 <!DOCTYPE html>
@@ -34,12 +32,15 @@ stopimmediatepropagation: stops all following functions with same name from call
 
 		var libraryArray = [1,2,3];
 
-		$(".card").draggable({ cursor: 'move', snap: true, snapTolerance: 5, stack: ".card"
+		$(".card").draggable({ cursor: 'move', snap: true, snapTolerance: 5, stack: ".card",
+			stop: function(event, ui){ $('body').css('cursor','default') }
 		});		
 
 		$(".cardback").draggable({ cursor: 'move', revert: 'invalid',
-			helper: "clone"
-		});		
+			helper: "clone",
+			stop: function(event, ui){ $('body').css('cursor','default') }
+		});	
+			
 			
 		$("#container").droppable({
 			accept: '.cardback',
@@ -56,7 +57,13 @@ stopimmediatepropagation: stops all following functions with same name from call
 			      .html(cardName);
 			    if(libraryArray.length == 0) { $(".cardback").hide(); }
 			    $("#container").append(newDiv);
-			    $(".card").draggable({ cursor: 'move', snap: true, snapTolerance: 5, stack: ".card" });			    
+			    $(".card").draggable({ cursor: 'move', snap: true, snapTolerance: 5, stack: ".card" });
+			    $("#library").css('border-color', '#d6d3c0');
+			    $("#hand").css('border-color', '#d6d3c0');
+			    $("#graveyard").css('border-color', '#d6d3c0');
+			    $("#battlefield").css('border-color', '#d6d3c0');
+			    $("#exile").css('border-color', '#d6d3c0');
+			    $('body').css('cursor','default');			    
 			}
 		});
 
@@ -69,15 +76,14 @@ stopimmediatepropagation: stops all following functions with same name from call
 				$("#library").css('border-color', '#d6d3c0');
 			},
 			drop: function(event, ui){
-				$("#library").css('border-color', '#d6d3c0');
-				if(!($(".carddback").is(":visible"))){
+				$("#library").css('border-color', '#d6d3c0');				
 					$(".cardback").show();
 					var cardID = ui.draggable.attr("id");
-					ui.draggable.hide();
+					ui.draggable.hide();			
 					libraryArray.unshift(cardID);
-				}			
+					$('body').css('cursor','default');								
 			}
-		});
+		});	
 
 		$("#battlefield").droppable({
 			tolerance: 'pointer',

@@ -10,6 +10,12 @@ Property of Matt Kennedy and Southampton Solent University.
 	<link rel="stylesheet" type="text/css" href="main.css" />
 	<script type='text/javascript' src='jquery.js'></script>
 	<script type='text/javascript' src='jquery-ui.js'></script>		
+
+	<script type='text/javascript'>	
+	function clear() {
+		localStorage.clear();
+	}
+	</script>
 </head>
 
 <body>
@@ -20,23 +26,69 @@ Property of Matt Kennedy and Southampton Solent University.
 	</form>
 	<br /><br /><br />
 
-	<form>
+
+	<form id="addCard">
 	<table>
-	<tr>	<td>Card Name:</td> <td><input type="text" name="name" /></td>					</tr>
-	<tr>	<td>Mana Cost:</td> <td><input type="text" name="cost" /></td>					</tr>
-	<tr>	<td>Text:</td> <td><input type="text" name="text" /></td>						</tr>
-	<tr>	<td>Power:</td> <td><input type="text" name="power" />&nbsp;&nbsp;</td>
-			<td>Toughness:</td> <td><input type="text" name="toughness" /></td>				</tr>
-	<tr>	<td><button name="addSingleCard" type="submit"/>Add Card</button></td>	</tr>
+	<tr>	<td>Card Name:</td> <td><input type="text" id="name" /></td>					</tr>
+	<tr>	<td>Mana Cost:</td> <td><input type="text" id="cost" /></td>					</tr>
+	<tr>	<td>Text:</td> <td><input type="text" id="text" /></td>						</tr>
+	<tr>	<td>Power:</td> <td><input type="text" id="power" />&nbsp;&nbsp;</td>
+			<td>Toughness:</td> <td><input type="text" id="toughness" /></td>				</tr>
+	<tr>	<td><button id="addSingleCard" type="submit"/>Add Card</button></td>	</tr>
 	</table>
 	</form>
+
+	<p id="test">hello</p>
 	<!--
 	send xml to xmlscipt.php
 	parse xml
 	add cards to storage
 	-->
+	<button onclick="clear()">Clear</button>
+
+<script type='text/javascript'>	
+	$("#addCard").submit(
+		function(){
+			var cardValues = [];
+			var count = cardValues.length;
+			
+			var cardID = count;
+			count++;
+			var nameVal = $("#name").val();
+			var costVal = $("#cost").val();
+			var textVal = $("#text").val();
+			var powerVal = $("#power").val();
+			var toughnessVal = $("#toughness").val();
+			
+			cardValues.push(nameVal);
+			cardValues.push(costVal);
+			cardValues.push(textVal);
+			cardValues.push(powerVal);
+			cardValues.push(toughnessVal);
+
+			
+			localStorage.setItem(cardID, cardValues.join(";"));
+			cardValues.length = 0;		
+			//$("#test").html(cardValues);
+		}
+	);	
+
+	for (var i = 0; i < localStorage.length; i++){
+    	$('#test').append(localStorage.getItem(localStorage.key(i)));
+	}
+
+	/*var cardKey = localStorage.key(0);
+	var getCardValues = localStorage.getItem(cardKey);
+	var values = getCardValues.split(";");
+	var nameA = values[0];
+	var costA = values[1];
+	var textA = values[2];
+	var powerA = values[3];
+	var toughnessA = values[4];
+	$("#test").html(cardKey + nameA + costA + textA + powerA + toughnessA);*/
 
 
+	</script>
 
 </body>
 </html>

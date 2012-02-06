@@ -1,5 +1,5 @@
 <?php
-$conn=mysql_connect("aquarius.solent.ac.uk/","8kennm51","hiogro");
+$conn=mysql_connect("https://aquarius.solent.ac.uk/","8kennm51","hiogro");
 
 mysql_select_db("8kennm51");
 
