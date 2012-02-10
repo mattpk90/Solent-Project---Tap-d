@@ -79,3 +79,8 @@ body { background-image: url('images/woodbg.jpg'); background-repeat: repeat; ba
 #addCardForm { background-color: transparent; width: 500px; height: 200px;
 						border-color: #d6d3c0; border-style: dashed;
 						border-radius: 10px; -moz-border-radius: 10px; -webkit-border-radius: 10px; }
+
+#cardList { background-color: transparent; width: 300px; height: 600px; float: right; 
+				list-style-type: none; margin-right: 200px; }
+#cardList li { margin: 0 3px 3px 3px; padding: 0.4em; padding-left: 1.5em; font-size: 0.7em; height: 18px; }
+#cardList li span { position: absolute; margin-left: -1.3em; }
