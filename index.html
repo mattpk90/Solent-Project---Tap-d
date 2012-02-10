@@ -33,8 +33,15 @@ store cards in localstorage, convert to javascript array? no database
 	$(document).ready(onLoad);
 
 	function onLoad() {
+		var libraryArray = [];
 
-		var libraryArray = [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17];
+		for(var i=0; i < localStorage.length; i++)
+		{
+			var j = localStorage.key(i);
+			libraryArray.push(j);
+			j++;
+		}
+
 		var graveyardArray = [];
 		var exiledArray = [];
 		$(".graveyardPlaceholder").hide();
@@ -69,7 +76,20 @@ store cards in localstorage, convert to javascript array? no database
 
 		$(".exiledPlaceholder").draggable({ cursor: 'move',
 			helper: "clone",
-			stop: function(event, ui){ $('body').css('cursor','default') }
+			stop: function(event, ui){ $('body').css('cursor','default')}, 
+			start: function(event, ui) { 
+				if(exiledArray.length == 1) 
+				{
+					$(".exiledPlaceholder").hide();
+					ui.helper.show();
+				}
+				else if(exiledArray.length > 1) 
+				{
+					var text = exiledArray[1];
+					$(".exiledPlaceholder").html(text);
+					ui.helper.html(exiledArray[0]);
+				}
+			}
 		});	
 
 			
@@ -85,15 +105,22 @@ store cards in localstorage, convert to javascript array? no database
 			drop: function(event, ui) {
 				if(ui.draggable.hasClass("cardback"))
 				{
-					var cardName = $(libraryArray).get(0);
+					var cardID = $(libraryArray).get(0);
+					var getCardValues = localStorage.getItem(cardID);
+					var values = getCardValues.split(";");
+					var name = values[0];
+					var cost = values[1];
+					var text = values[2];
+					var power = values[3];
+					var toughness = values[4];
 					libraryArray.splice(0,1);
 				    var newDiv = $(ui.helper).clone(false)
 				      .addClass('card')
 				      .addClass('ui-draggable')
 				      .removeClass('ui-draggable-dragging')
 				      .removeClass('cardback')
-				      .attr('id', cardName)
-				      .html(cardName);
+				      .attr('id', cardID)
+				      .html(name + " " + cost + "<br />" + text + "<br />" + power+"/"+toughness);
 				    if(libraryArray.length == 0) { $(".cardback").hide(); }
 				    $("#container").append(newDiv);
 				    $(".card").draggable({ cursor: 'move', snap: true, snapTolerance: 5, stack: ".card" });
@@ -246,20 +273,12 @@ store cards in localstorage, convert to javascript array? no database
 	<a href="index.html"><div id="logoDiv"></div></a>
 	
 	<div id="battlefield">
-		<div id="crystalline_sliver_1" class="card">
-			<div class="cardName"> Crystalline Sliver</div>
-			<div class="cardCost"> UW </div>
-			<div class="cardText"> All slivers have shroud. </div>
-			<br /><br />
-			<div class="cardToughness"> 2 </div>
-			<div class="cardPower"> 2 </div>
-		</div>
 	</div>
 
 	<div id="info">
 		<div id="topinfo">
-			<a href="add_deck.html"><button name="addcard" type="button">Add Deck</button></a>
-			<a href="xmlscript.php"><button name="xmlscript" type="button">xmlscript</button></a>
+			<a href="add_deck.html"><button name="addcard" type="button">Deck Management</button></a>
+			<!-- <a href="xmlscript.php"><button name="xmlscript" type="button">xmlscript</button></a> -->
 			<br />
 		</div>
 		
@@ -268,13 +287,6 @@ store cards in localstorage, convert to javascript array? no database
 	
 	<div id="bottomContainer">
 		<div id="hand">
-			<div id="card1" class="card"></div>
-			<!-- <div class="card"></div>
-			<div class="card"></div>
-			<div class="card"></div>
-			<div class="card"></div>
-			<div class="card"></div>
-			<div class="card"></div> -->
 		</div>
 
 		<div id="library"> Library <br />

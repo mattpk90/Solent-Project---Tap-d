@@ -19,42 +19,61 @@ Property of Matt Kennedy and Southampton Solent University.
 		$("#cardList").sortable();
 		$("#cardList").disableSelection();
 
-		for(var i=0; i < localStorage.length; i++)
+		if(localStorage.length > 0)
 		{
-			cardKey = localStorage.key(i);
-			var getCardValues = localStorage.getItem(cardKey);
-			var values = getCardValues.split(";");
-			var nameA = values[0];
-			var costA = values[1];
-			var textA = values[2];
-			var powerA = values[3];
-			var toughnessA = values[4];
+			for(var i=0; i < localStorage.length; i++)
+			{
+				cardKey = localStorage.key(i);
+				var getCardValues = localStorage.getItem(cardKey);
+				var values = getCardValues.split(";");
+				var nameA = values[0];
+				var costA = values[1];
+				var textA = values[2];
+				var powerA = values[3];
+				var toughnessA = values[4];
 
-			$("#cardList").append("<li class='ui-state-default'>Name: " + 
-				nameA + ", Power: " + powerA + ", Toughness: " + toughnessA 
-				+ "</li>");
+				$("#cardList").append("<li class='ui-state-default'>Name: " + 
+					nameA + ", Cost: " + costA + "</li>");
+			}
+		}
+		else
+		{
+			$("#cardList").append("No cards added yet.");
 		}
 
 	}
+	</script>
 
-	function clear() {
+	<script type='text/javascript'>	
+	function clearDeck()
+	{
 		localStorage.clear();
 		alert("Deck cleared.");
+		window.location.reload();
 	}	
 	</script>
 </head>
 
 <body>
 	<ul id="cardList">
+	Current Deck: <br /><br />
 	</ul>
 
 
 	<a href="index.html"><button name="home" type="button"/>Home</button></a><br /><br />
-	<form action="xmlscript.php" method="post">
-	<textarea rows="10" cols="50">Paste in XML here.</textarea><br />
-	<button name="addXMLSubmit" type="submit"/>Submit XML</button>
-	</form>
-	<br /><br /><br />
+
+	<table>
+	<tr>	<td>Type:</td> 
+			<td><select>
+				<option id="creature">Creature</option>
+				<option id="instant">Instant</option>
+				<option id="sorcery">Sorcery</option>
+				<option id="enchantment">Enchamtment</option>
+				<option id="land">Land</option>
+				</select></td>
+	</tr>
+	</table>
+	<!-- modify add card table based on card type when selected-->
 
 	<form id="addCard">
 	<table>
@@ -67,13 +86,7 @@ Property of Matt Kennedy and Southampton Solent University.
 	</table>
 	</form>
 
-	<p id="test">hello</p>
-	<!--
-	send xml to xmlscipt.php
-	parse xml
-	add cards to storage
-	-->
-	<button onclick="clear()">Clear</button>
+	<button onclick="clearDeck()">Clear</button>
 
 <script type='text/javascript'>	
 	$("#addCard").submit(
