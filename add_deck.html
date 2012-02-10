@@ -1,0 +1,126 @@
+<!--
+Created by Matt Kennedy, 2011-2012.
+Property of Matt Kennedy and Southampton Solent University.
+-->
+
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Add Deck</title>
+	<link rel="stylesheet" type="text/css" href="main.css" />
+	<link rel="stylesheet" type="text/css" href="jquery-ui-css.css" />
+	<script type='text/javascript' src='jquery.js'></script>
+	<script type='text/javascript' src='jquery-ui.js'></script>
+	
+	<script type='text/javascript'>	
+	$(document).ready(onLoad);
+
+	function onLoad() {
+		$("#cardList").sortable();
+		$("#cardList").disableSelection();
+
+		for(var i=0; i < localStorage.length; i++)
+		{
+			cardKey = localStorage.key(i);
+			var getCardValues = localStorage.getItem(cardKey);
+			var values = getCardValues.split(";");
+			var nameA = values[0];
+			var costA = values[1];
+			var textA = values[2];
+			var powerA = values[3];
+			var toughnessA = values[4];
+
+			$("#cardList").append("<li class='ui-state-default'>Name: " + 
+				nameA + ", Power: " + powerA + ", Toughness: " + toughnessA 
+				+ "</li>");
+		}
+
+	}
+
+	function clear() {
+		localStorage.clear();
+		alert("Deck cleared.");
+	}	
+	</script>
+</head>
+
+<body>
+	<ul id="cardList">
+	</ul>
+
+
+	<a href="index.html"><button name="home" type="button"/>Home</button></a><br /><br />
+	<form action="xmlscript.php" method="post">
+	<textarea rows="10" cols="50">Paste in XML here.</textarea><br />
+	<button name="addXMLSubmit" type="submit"/>Submit XML</button>
+	</form>
+	<br /><br /><br />
+
+	<form id="addCard">
+	<table>
+	<tr>	<td>Card Name:</td> <td><input type="text" id="name" /></td>					</tr>
+	<tr>	<td>Mana Cost:</td> <td><input type="text" id="cost" /></td>					</tr>
+	<tr>	<td>Text:</td> <td><input type="text" id="text" /></td>						</tr>
+	<tr>	<td>Power:</td> <td><input type="text" id="power" />&nbsp;&nbsp;</td>
+			<td>Toughness:</td> <td><input type="text" id="toughness" /></td>				</tr>
+	<tr>	<td><button id="addSingleCard" type="submit"/>Add Card</button></td>	</tr>
+	</table>
+	</form>
+
+	<p id="test">hello</p>
+	<!--
+	send xml to xmlscipt.php
+	parse xml
+	add cards to storage
+	-->
+	<button onclick="clear()">Clear</button>
+
+<script type='text/javascript'>	
+	$("#addCard").submit(
+		function(){
+			var cardValues = [];
+			var count = localStorage.length;
+			
+			var cardID = count;		
+			var nameVal = $("#name").val();
+			var costVal = $("#cost").val();
+			var textVal = $("#text").val();
+			var powerVal = $("#power").val();
+			var toughnessVal = $("#toughness").val();
+			
+			cardValues.push(nameVal);
+			cardValues.push(costVal);
+			cardValues.push(textVal);
+			cardValues.push(powerVal);
+			cardValues.push(toughnessVal);
+
+			
+			localStorage.setItem(cardID, cardValues.join(";"));
+			count++;
+			cardValues.length = 0;		
+			//$("#test").html(cardValues);
+		}
+	);	
+
+	
+
+	/*var cardKey = localStorage.key(0);
+	var getCardValues = localStorage.getItem(cardKey);
+	var values = getCardValues.split(";");
+	var nameA = values[0];
+	var costA = values[1];
+	var textA = values[2];
+	var powerA = values[3];
+	var toughnessA = values[4];
+	$("#test").html(cardKey + nameA + costA + textA + powerA + toughnessA);
+
+	for (var i = 0; i < localStorage.length; i++){
+    				$(this).append("<li class='ui-state-default'>" + 
+    				localStorage.getItem(localStorage.key(i)) + "</li>");
+				}
+
+	*/
+	</script>
+
+</body>
+</html>
