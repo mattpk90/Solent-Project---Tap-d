@@ -42,6 +42,8 @@ store cards in localstorage, convert to javascript array? no database
 			j++;
 		}
 
+		$("#libCounter").html(libraryArray.length);
+
 		var graveyardArray = [];
 		var exiledArray = [];
 		$(".graveyardPlaceholder").hide();
@@ -49,7 +51,7 @@ store cards in localstorage, convert to javascript array? no database
 
 		$(".card").draggable({ cursor: 'move', snap: true, snapTolerance: 5, stack: ".card",
 			stop: function(event, ui){ $('body').css('cursor','default') }
-		});		
+		});
 
 		$(".cardback").draggable({ cursor: 'move', revert: 'invalid',
 			helper: "clone",
@@ -123,6 +125,7 @@ store cards in localstorage, convert to javascript array? no database
 				      .html(name + " " + cost + "<br />" + text + "<br />" + power+"/"+toughness);
 				    if(libraryArray.length == 0) { $(".cardback").hide(); }
 				    $("#container").append(newDiv);
+				    $("#libCounter").html(libraryArray.length);
 				    $(".card").draggable({ cursor: 'move', snap: true, snapTolerance: 5, stack: ".card" });
 				    $("#library").css('border-color', '#d6d3c0');
 				    $("#hand").css('border-color', '#d6d3c0');
@@ -194,7 +197,8 @@ store cards in localstorage, convert to javascript array? no database
 					var cardID = ui.draggable.attr("id");
 					ui.draggable.remove();			
 					libraryArray.unshift(cardID);
-					$('body').css('cursor','default');								
+					$('body').css('cursor','default');
+					$("#libCounter").html(libraryArray.length);								
 			}
 		});	
 
@@ -291,6 +295,7 @@ store cards in localstorage, convert to javascript array? no database
 
 		<div id="library"> Library <br />
 			<div class="cardback"></div>
+			<p id="libCounter"></div>
 		</div>
 
 		<div id="graveyard">Graveyard <br />

@@ -1,6 +1,11 @@
 <!--
 Created by Matt Kennedy, 2011-2012.
 Property of Matt Kennedy and Southampton Solent University.
+
+
+To do:
+add box to preview full card details on hover/click of card list
+remove individual cards from list
 -->
 
 <!DOCTYPE html>
@@ -42,15 +47,114 @@ Property of Matt Kennedy and Southampton Solent University.
 		}
 
 	}
-	</script>
 
-	<script type='text/javascript'>	
 	function clearDeck()
 	{
 		localStorage.clear();
 		alert("Deck cleared.");
 		window.location.reload();
 	}	
+
+	function addPlains()
+	{
+		var cardValues = [];		
+		var nameVal = "Plains";
+		var costVal, textVal, powerVal, toughnessVal = "";
+		
+		cardValues.push(nameVal);
+		cardValues.push(costVal);
+		cardValues.push(textVal);
+		cardValues.push(powerVal);
+		cardValues.push(toughnessVal);
+
+		var count = localStorage.length;	
+		var cardID = count;	
+		localStorage.setItem(cardID, cardValues.join(";"));	
+		count++;
+		cardValues.length = 0;
+		window.location.reload();
+	}
+	
+	function addIsland()
+	{
+		var cardValues = [];			
+		var nameVal = "Island";
+		var costVal, textVal, powerVal, toughnessVal = "";
+		
+		cardValues.push(nameVal);
+		cardValues.push(costVal);
+		cardValues.push(textVal);
+		cardValues.push(powerVal);
+		cardValues.push(toughnessVal);
+
+		var count = localStorage.length;	
+		var cardID = count;	
+		localStorage.setItem(cardID, cardValues.join(";"));	
+		count++;
+		cardValues.length = 0;
+		window.location.reload();
+	}
+	
+	function addMountain()
+	{
+		var cardValues = [];			
+		var nameVal = "Mountain";
+		var costVal, textVal, powerVal, toughnessVal = "";
+		
+		cardValues.push(nameVal);
+		cardValues.push(costVal);
+		cardValues.push(textVal);
+		cardValues.push(powerVal);
+		cardValues.push(toughnessVal);
+
+		var count = localStorage.length;	
+		var cardID = count;	
+		localStorage.setItem(cardID, cardValues.join(";"));		
+		count++;
+		cardValues.length = 0;
+		window.location.reload();
+	}
+	
+	function addForest()
+	{
+		var cardValues = [];			
+		var nameVal = "Forest";
+		var costVal, textVal, powerVal, toughnessVal = "";
+		
+		cardValues.push(nameVal);
+		cardValues.push(costVal);
+		cardValues.push(textVal);
+		cardValues.push(powerVal);
+		cardValues.push(toughnessVal);
+
+		var count = localStorage.length;	
+		var cardID = count;	
+		localStorage.setItem(cardID, cardValues.join(";"));			
+		count++;
+		cardValues.length = 0;
+		window.location.reload();
+	}
+	
+	function addSwamp()
+	{
+		var cardValues = [];			
+		var nameVal = "Swamp";
+		var costVal, textVal, powerVal, toughnessVal = "";
+		
+		cardValues.push(nameVal);
+		cardValues.push(costVal);
+		cardValues.push(textVal);
+		cardValues.push(powerVal);
+		cardValues.push(toughnessVal);
+
+		var count = localStorage.length;	
+		var cardID = count;		
+		localStorage.setItem(cardID, cardValues.join(";"));		
+		count++;
+		cardValues.length = 0;
+		window.location.reload();
+	}	
+
 	</script>
 </head>
 
@@ -69,7 +173,7 @@ Property of Matt Kennedy and Southampton Solent University.
 				<option id="instant">Instant</option>
 				<option id="sorcery">Sorcery</option>
 				<option id="enchantment">Enchamtment</option>
-				<option id="land">Land</option>
+				<option id="artifact">Artifact</option>
 				</select></td>
 	</tr>
 	</table>
@@ -85,6 +189,12 @@ Property of Matt Kennedy and Southampton Solent University.
 	<tr>	<td><button id="addSingleCard" type="submit"/>Add Card</button></td>	</tr>
 	</table>
 	</form>
+
+	<table><tr><td><button onclick="addPlains()">Add Plains</button></td>
+			<td><button onclick="addIsland()">Add Island</button></td>
+			<td><button onclick="addMountain()">Add Mountain</button></td>
+			<td><button onclick="addForest()">Add Forest</button></td>
+			<td><button onclick="addSwamp()">Add Swamp</button></td></tr></table>
 
 	<button onclick="clearDeck()">Clear</button>
 
@@ -109,7 +219,6 @@ Property of Matt Kennedy and Southampton Solent University.
 
 			
 			localStorage.setItem(cardID, cardValues.join(";"));
-			count++;
 			cardValues.length = 0;		
 			//$("#test").html(cardValues);
 		}
