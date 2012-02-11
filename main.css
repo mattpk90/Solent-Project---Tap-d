@@ -20,19 +20,20 @@ body { background-image: url('images/woodbg.jpg'); background-repeat: repeat; ba
 			-webkit-border-radius: 10px; -moz-transform: rotate(90deg); -webkit-transform: rotate(90deg); }
 
 
-.graveyardPlaceholder { background-color: red; width: 100px; height: 160px; float: left; 
-						word-wrap: break-word; border-radius: 10px;
-						 position: relative; margin: 0px auto; margin-top: 10px;
+.graveyardPlaceholder { background-color: red; width: 100px; height: 160px;
+						word-wrap: break-word; border-radius: 10px;					
+						position: relative; margin: 0px auto;
+						margin-bottom: 5px;
 						-moz-border-radius: 10px; -webkit-border-radius: 10px; }
 
-.exiledPlaceholder { background-color: red; width: 100px; height: 160px; float: left; 
+.exiledPlaceholder { background-color: red; width: 100px; height: 160px;
 						word-wrap: break-word; border-radius: 10px;
-						 position: relative; margin: 0px auto; margin-top: 10px;
+						 position: relative; margin: 0px auto;
 						-moz-border-radius: 10px; -webkit-border-radius: 10px; }
 
 
 .cardback{ background-color: blue; width: 100px; height: 160px; position: relative; margin: 0px auto;
-			margin-top: 5px;
+			margin-bottom: 5px;
 			border-radius: 10px; -moz-border-radius: 10px; -webkit-border-radius: 10px; }
 
 .draggingFromLibrary { background-color: blue; width: 100px; height: 160px;
@@ -85,3 +86,7 @@ body { background-image: url('images/woodbg.jpg'); background-repeat: repeat; ba
 #cardList li span { position: absolute; margin-left: -1.3em; }
 
 #libCounter { margin: 0; text-align: center; padding: 0; }
+#graveyardCounter { margin: 0; text-align: center; padding: 0; }
+#exiledCounter { margin: 0; text-align: center; padding: 0; }
+#battlefieldCounter { margin: 0; text-align: center; padding: 0; }
+#handCounter { margin: 0; text-align: center; padding: 0; }
