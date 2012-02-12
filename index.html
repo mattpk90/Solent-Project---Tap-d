@@ -1,24 +1,23 @@
 <!--
 Created by Matt Kennedy, 2011-2012.
 Property of Matt Kennedy and Southampton Solent University.
--->
 
-<!--
 Todo/ideas:
 slidey thing from the left, a control panel to start new games, add cards etc?
 Dimensions of cards- 0.7:1
 
-For drag and drop look into 'sortable' jqueryui.
-
-initialise function for reset
-
-change cards to have id as well as class
-
 drag over library, layover on card with 'add to library'
-
 stopimmediatepropagation: stops all following functions with same name from calling
+add a token card to the field- specify text and can duplicate
+draw seven cards for hand
+mulligan
+shuffle library
+send card to top/bottom
+flip card
 
-store cards in localstorage, convert to javascript array? no database
+
+bug: card shows id not text when card above is being dragged from graveyard/exile
+need type on card: creature, instant etc
 -->
 
 <!DOCTYPE html>
@@ -48,6 +47,13 @@ store cards in localstorage, convert to javascript array? no database
 				j++;
 			}
 		}
+
+		shuffle = function(v){
+		    for(var j, x, i = v.length; i; j = parseInt(Math.random() * i), x = v[--i], v[i] = v[j], v[j] = x);
+		    return v;
+		};
+
+		shuffle(libraryArray);
 
 		var graveyardArray = [];
 		var exiledArray = [];

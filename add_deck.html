@@ -5,7 +5,8 @@ Property of Matt Kennedy and Southampton Solent University.
 Trash icon property of "The Noun Project" http://thenounproject.com/
 
 To do:
-add box to preview full card details on hover/click of card list
+when adding card, item in list glows (yellow?) for a few seconds to show where it is
+ability to duplicate a card
 -->
 
 <!DOCTYPE html>
@@ -72,15 +73,14 @@ add box to preview full card details on hover/click of card list
 				var powerA = values[3];
 				var toughnessA = values[4];
 
-				$("#cardList").append("<li class='ui-state-default' id="+cardKey+">Name: " + 
-					nameA + ", Cost: " + costA + "</li>");
+				$("#cardList").append("<li class='ui-state-default' id="+cardKey+">" + 
+					nameA + "</li>");
 			}
 		}
 		else
 		{
 			$("#cardList").append("No cards added yet.");
 		}
-
 	}
 
 	function clearDeck()
@@ -184,6 +184,23 @@ add box to preview full card details on hover/click of card list
 		cardValues.length = 0;
 		window.location.reload();
 	}	
+
+
+	function populateTest()
+	{
+		for(var i = 0; i < 60; i++)
+		{
+			var cardValues = [];		
+			var newDate = new Date();		
+			cardValues.push(i);
+			cardValues.push(i);
+			cardValues.push(i);
+			cardValues.push(i);
+			cardValues.push(i);			
+			localStorage.setItem(newDate.getTime(), cardValues.join(";"));
+		}
+		window.location.reload();
+	}
 	</script>
 </head>
 
@@ -225,7 +242,9 @@ add box to preview full card details on hover/click of card list
 			<td><button onclick="addForest()">Add Forest</button></td>
 			<td><button onclick="addSwamp()">Add Swamp</button></td></tr></table>
 
-	<button onclick="clearDeck()">Remove All Cards</button>
+	<button onclick="clearDeck()">Remove All Cards</button><br />
+	<button onclick="populateTest()">Populate Test Deck</button>
+
 	<br /><br /><br /><br />
 	<div id="deckManagementTrash">Drag and drop to remove card.</div>
 	<div id="cardView"></div>
