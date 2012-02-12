@@ -2,10 +2,10 @@
 Created by Matt Kennedy, 2011-2012.
 Property of Matt Kennedy and Southampton Solent University.
 
+Trash icon property of "The Noun Project" http://thenounproject.com/
 
 To do:
 add box to preview full card details on hover/click of card list
-remove individual cards from list
 -->
 
 <!DOCTYPE html>
@@ -18,11 +18,46 @@ remove individual cards from list
 	<script type='text/javascript' src='jquery-ui.js'></script>
 	
 	<script type='text/javascript'>	
+	var count = 0;
 	$(document).ready(onLoad);
 
 	function onLoad() {
 		$("#cardList").sortable();
 		$("#cardList").disableSelection();
+
+		$("#deckManagementTrash").droppable({
+			over: function(event, ui){
+				$("#deckManagementTrash").css("backgroundColor", "#565656");
+			},
+			out: function(event, ui){
+				$("#deckManagementTrash").css("backgroundColor", "#151515");
+			},
+			drop: function(event, ui){
+				var cardID = $(ui.helper).attr("id");
+				localStorage.removeItem(cardID);
+				alert("Card Removed.");
+				window.location.reload();
+			}
+		});
+
+		$("#cardView").droppable({
+			drop: function(event, ui){
+				var getID = $(ui.helper).attr("id");
+				var getCardValues = localStorage.getItem(getID);
+
+				var values = getCardValues.split(";");
+				var name = values[0];
+				var cost = values[1];
+				var text = values[2];
+				var power = values[3];
+				var toughness = values[4];
+
+				$("#cardView").html(name + " " + cost + "<br />" + text + 
+										"<br />" + power+"/"+toughness);
+			}
+		});
+
+		$("#deckCounter").html(localStorage.length);
 
 		if(localStorage.length > 0)
 		{
@@ -37,7 +72,7 @@ remove individual cards from list
 				var powerA = values[3];
 				var toughnessA = values[4];
 
-				$("#cardList").append("<li class='ui-state-default'>Name: " + 
+				$("#cardList").append("<li class='ui-state-default' id="+cardKey+">Name: " + 
 					nameA + ", Cost: " + costA + "</li>");
 			}
 		}
@@ -67,10 +102,9 @@ remove individual cards from list
 		cardValues.push(powerVal);
 		cardValues.push(toughnessVal);
 
-		var count = localStorage.length;	
-		var cardID = count;	
-		localStorage.setItem(cardID, cardValues.join(";"));	
-		count++;
+		var newDate = new Date();
+		var cardID = newDate.getTime();	
+		window.localStorage.setItem(cardID, cardValues.join(";"));	
 		cardValues.length = 0;
 		window.location.reload();
 	}
@@ -87,10 +121,9 @@ remove individual cards from list
 		cardValues.push(powerVal);
 		cardValues.push(toughnessVal);
 
-		var count = localStorage.length;	
-		var cardID = count;	
+		var newDate = new Date();
+		var cardID = newDate.getTime();	
 		localStorage.setItem(cardID, cardValues.join(";"));	
-		count++;
 		cardValues.length = 0;
 		window.location.reload();
 	}
@@ -107,10 +140,9 @@ remove individual cards from list
 		cardValues.push(powerVal);
 		cardValues.push(toughnessVal);
 
-		var count = localStorage.length;	
-		var cardID = count;	
+		var newDate = new Date();
+		var cardID = newDate.getTime();
 		localStorage.setItem(cardID, cardValues.join(";"));		
-		count++;
 		cardValues.length = 0;
 		window.location.reload();
 	}
@@ -127,10 +159,9 @@ remove individual cards from list
 		cardValues.push(powerVal);
 		cardValues.push(toughnessVal);
 
-		var count = localStorage.length;	
-		var cardID = count;	
+		var newDate = new Date();
+		var cardID = newDate.getTime();
 		localStorage.setItem(cardID, cardValues.join(";"));			
-		count++;
 		cardValues.length = 0;
 		window.location.reload();
 	}
@@ -147,20 +178,18 @@ remove individual cards from list
 		cardValues.push(powerVal);
 		cardValues.push(toughnessVal);
 
-		var count = localStorage.length;	
-		var cardID = count;		
-		localStorage.setItem(cardID, cardValues.join(";"));		
-		count++;
+		var newDate = new Date();
+		var cardID = newDate.getTime();		
+		localStorage.setItem(cardID, cardValues.join(";"));
 		cardValues.length = 0;
 		window.location.reload();
 	}	
-
 	</script>
 </head>
 
 <body>
 	<ul id="cardList">
-	Current Deck: <br /><br />
+	<h3 class="deckTitle">Current Deck</h3><br />Count: <div id="deckCounter"></div><br />
 	</ul>
 
 
@@ -196,15 +225,19 @@ remove individual cards from list
 			<td><button onclick="addForest()">Add Forest</button></td>
 			<td><button onclick="addSwamp()">Add Swamp</button></td></tr></table>
 
-	<button onclick="clearDeck()">Clear</button>
+	<button onclick="clearDeck()">Remove All Cards</button>
+	<br /><br /><br /><br />
+	<div id="deckManagementTrash">Drag and drop to remove card.</div>
+	<div id="cardView"></div>
+
 
 <script type='text/javascript'>	
 	$("#addCard").submit(
 		function(){
-			var cardValues = [];
-			var count = localStorage.length;
-			
-			var cardID = count;		
+			var cardValues = [];		
+			var newDate = new Date();
+
+			var cardID = newDate.getTime();	
 			var nameVal = $("#name").val();
 			var costVal = $("#cost").val();
 			var textVal = $("#text").val();
@@ -216,32 +249,11 @@ remove individual cards from list
 			cardValues.push(textVal);
 			cardValues.push(powerVal);
 			cardValues.push(toughnessVal);
-
 			
 			localStorage.setItem(cardID, cardValues.join(";"));
 			cardValues.length = 0;		
-			//$("#test").html(cardValues);
 		}
 	);	
-
-	
-
-	/*var cardKey = localStorage.key(0);
-	var getCardValues = localStorage.getItem(cardKey);
-	var values = getCardValues.split(";");
-	var nameA = values[0];
-	var costA = values[1];
-	var textA = values[2];
-	var powerA = values[3];
-	var toughnessA = values[4];
-	$("#test").html(cardKey + nameA + costA + textA + powerA + toughnessA);
-
-	for (var i = 0; i < localStorage.length; i++){
-    				$(this).append("<li class='ui-state-default'>" + 
-    				localStorage.getItem(localStorage.key(i)) + "</li>");
-				}
-
-	*/
 	</script>
 
 </body>

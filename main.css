@@ -1,4 +1,10 @@
-body { background-image: url('images/woodbg.jpg'); background-repeat: repeat; background-color: #151515; color: #d6d3c0; font-family: palatino linotype, serif; }
+/*
+	background colour: #151515
+	text color: #d6d3c0
+*/
+
+body { background-image: url('images/woodbg.jpg'); background-repeat: repeat; background-color: #151515; 
+		color: #d6d3c0; font-family: palatino linotype, serif; }
 
 #container { background-color: transparent; width: 1240px; height: 620px; position: relative; margin: auto; }
 
@@ -88,5 +94,16 @@ body { background-image: url('images/woodbg.jpg'); background-repeat: repeat; ba
 #libCounter { margin: 0; text-align: center; padding: 0; }
 #graveyardCounter { margin: 0; text-align: center; padding: 0; }
 #exiledCounter { margin: 0; text-align: center; padding: 0; }
-#battlefieldCounter { margin: 0; text-align: center; padding: 0; }
-#handCounter { margin: 0; text-align: center; padding: 0; }
+#deckCounter { margin: 0; padding: 0; float: right; margin-right: 150px;}
+
+#deckManagementTrash { 	height: 100px; width: 200px; border-color: #d6d3c0; border-style: dashed; 
+						border-width: 2px; border-radius: 10px; -moz-border-radius: 10px; 
+						-webkit-border-radius: 10px; background-position: center; font-size: 12px;
+						text-align: center;
+						background-image: url('images/trash.png'); background-repeat: no-repeat; }
+
+#cardView { width: 200px; height: 320px; border-color: #d6d3c0; text-align: center; position: relative;
+						border-radius: 10px; background-color: red; float: right; margin-right: 305px;
+						margin-top: -150px; -moz-border-radius: 10px; -webkit-border-radius: 10px; }
+
+.deckTitle { padding: 0; margin: 0; margin-left: 90px; }

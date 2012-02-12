@@ -145,15 +145,22 @@ store cards in localstorage, convert to javascript array? no database
 			    }
 			    else if (ui.draggable.hasClass("graveyardPlaceholder"))   
 			    {
-			    	var cardName = $(graveyardArray).get(0);
+			    	var cardID = $(graveyardArray).get(0);
+			    	var getCardValues = localStorage.getItem(cardID);
+					var values = getCardValues.split(";");
+					var name = values[0];
+					var cost = values[1];
+					var text = values[2];
+					var power = values[3];
+					var toughness = values[4];
 					graveyardArray.splice(0,1);
 				    var newDiv = $(ui.helper).clone(false)
 				      .addClass('card')
 				      .addClass('ui-draggable')
 				      .removeClass('ui-draggable-dragging')
 				      .removeClass('graveyardPlaceholder')
-				      .attr('id', cardName)
-				      .html(cardName);
+				      .attr('id', cardID)
+				      .html(name + " " + cost + "<br />" + text + "<br />" + power+"/"+toughness);
 				    if(graveyardArray.length == 0) { $(".graveyardPlaceholder").hide(); }
 				    $("#container").append(newDiv);
 				    $("#graveyardCounter").html(graveyardArray.length);
@@ -168,16 +175,23 @@ store cards in localstorage, convert to javascript array? no database
 				    $('body').css('cursor','default');
 			    }
 			    else if (ui.draggable.hasClass("exiledPlaceholder"))   
-			    {
-			    	var cardName = $(exiledArray).get(0);
+			    {	    	
+			    	var cardID = $(exiledArray).get(0);
+			    	var getCardValues = localStorage.getItem(cardID);
+					var values = getCardValues.split(";");
+					var name = values[0];
+					var cost = values[1];
+					var text = values[2];
+					var power = values[3];
+					var toughness = values[4];
 					exiledArray.splice(0,1);
 				    var newDiv = $(ui.helper).clone(false)
 				      .addClass('card')
 				      .addClass('ui-draggable')
 				      .removeClass('ui-draggable-dragging')
 				      .removeClass('exiledPlaceholder')
-				      .attr('id', cardName)
-				      .html(cardName);
+				      .attr('id', cardID)
+				      .html(name + " " + cost + "<br />" + text + "<br />" + power+"/"+toughness);
 				    if(exiledArray.length == 0) { $(".exiledPlaceholder").hide(); }
 				    $("#container").append(newDiv);	
 				    $("#exiledCounter").html(exiledArray.length);	    
@@ -236,13 +250,21 @@ store cards in localstorage, convert to javascript array? no database
 				$("#graveyard").css('border-color', '#d6d3c0');
 			},
 			drop: function(event, ui){
-				$("#graveyard").css('border-color', '#d6d3c0');
+				$("#graveyard").css('border-color', '#d6d3c0');			
 				var cardID = ui.draggable.attr("id");
+				var getCardValues = localStorage.getItem(cardID);
+				var values = getCardValues.split(";");
+				var name = values[0];
+				var cost = values[1];
+				var text = values[2];
+				var power = values[3];
+				var toughness = values[4];
 				ui.draggable.remove();
 				if(graveyardArray.length == 0) { $(".graveyardPlaceholder").show(); }			
 				graveyardArray.unshift(cardID);
 				$("#graveyardCounter").html(graveyardArray.length);
-				$(".graveyardPlaceholder").html(cardID);		
+				$(".graveyardPlaceholder").html(name + " " + cost + "<br />" 
+							+ text + "<br />" + power+"/"+toughness);		
 				$('body').css('cursor','default');
 			}
 		});
@@ -258,11 +280,19 @@ store cards in localstorage, convert to javascript array? no database
 			drop: function(event, ui){
 				$("#exile").css('border-color', '#d6d3c0');
 				var cardID = ui.draggable.attr("id");
+				var getCardValues = localStorage.getItem(cardID);
+				var values = getCardValues.split(";");
+				var name = values[0];
+				var cost = values[1];
+				var text = values[2];
+				var power = values[3];
+				var toughness = values[4];
 				ui.draggable.remove();
 				if(exiledArray.length == 0) { $(".exiledPlaceholder").show(); }			
 				exiledArray.unshift(cardID);
 				$("#exiledCounter").html(exiledArray.length);
-				$(".exiledPlaceholder").html(cardID);
+				$(".exiledPlaceholder").html(name + " " + cost + "<br />" 
+							+ text + "<br />" + power+"/"+toughness);
 				$('body').css('cursor','default');
 			}
 		});
