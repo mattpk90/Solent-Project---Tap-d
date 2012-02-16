@@ -102,8 +102,9 @@ body { background-image: url('images/woodbg.jpg'); background-repeat: repeat; ba
 						text-align: center;
 						background-image: url('images/trash.png'); background-repeat: no-repeat; }
 
-#cardView { width: 200px; height: 320px; border-color: #d6d3c0; text-align: center; position: relative;
-						border-radius: 10px; background-color: red; float: right; margin-right: 305px;
+#cardView { width: 150px; height: 240px; border-color: #d6d3c0; border-style: dashed; 
+						border-width: 2px; text-align: center; position: relative;
+						border-radius: 10px; background-color: transparent; float: right; margin-right: 305px;
 						margin-top: -150px; -moz-border-radius: 10px; -webkit-border-radius: 10px; }
 
 .deckTitle { padding: 0; margin: 0; margin-left: 90px; }
