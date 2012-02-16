@@ -86,15 +86,17 @@ body { background-image: url('images/woodbg.jpg'); background-repeat: repeat; ba
 						border-color: #d6d3c0; border-style: dashed;
 						border-radius: 10px; -moz-border-radius: 10px; -webkit-border-radius: 10px; }
 
-#cardList { background-color: transparent; width: 300px; height: 600px; float: right; 
-				list-style-type: none; margin-right: 200px; }
-#cardList li { margin: 0 3px 3px 3px; padding: 0.4em; padding-left: 1.5em; font-size: 0.7em; height: 18px; }
-#cardList li span { position: absolute; margin-left: -1.3em; }
+#leftSide { position: absolute; top: 10px; left: 10px; float: left; }
+
+#cardList { background-color: transparent; float: right; 
+				list-style-type: none; margin-left: 600px; }
+#cardList li { margin: 0 3px 3px 3px; padding: 0.4em; padding-left: 1.5em; 
+				font-size: 0.7em; height: 15px; width: 150px; float: right; overflow: hidden; }
 
 #libCounter { margin: 0; text-align: center; padding: 0; }
 #graveyardCounter { margin: 0; text-align: center; padding: 0; }
 #exiledCounter { margin: 0; text-align: center; padding: 0; }
-#deckCounter { margin: 0; padding: 0; float: right; margin-right: 150px;}
+#deckCounter { margin: 0; padding: 0; float: right; }
 
 #deckManagementTrash { 	height: 100px; width: 200px; border-color: #d6d3c0; border-style: dashed; 
 						border-width: 2px; border-radius: 10px; -moz-border-radius: 10px; 
@@ -103,8 +105,9 @@ body { background-image: url('images/woodbg.jpg'); background-repeat: repeat; ba
 						background-image: url('images/trash.png'); background-repeat: no-repeat; }
 
 #cardView { width: 150px; height: 240px; border-color: #d6d3c0; border-style: dashed; 
-						border-width: 2px; text-align: center; position: relative;
-						border-radius: 10px; background-color: transparent; float: right; margin-right: 305px;
+						border-width: 2px; text-align: center; position: relative; word-wrap: break-word;
+						border-radius: 10px; background-color: transparent; float: right; margin-right: 105px;
 						margin-top: -150px; -moz-border-radius: 10px; -webkit-border-radius: 10px; }
 
-.deckTitle { padding: 0; margin: 0; margin-left: 90px; }
+.deckTitle { padding: 0; margin: 0; margin-right: 100px; float: right; }
+#countDiv { padding: 0; margin: 0; width: 200px; height: 20px; float: right; }
