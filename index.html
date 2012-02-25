@@ -32,6 +32,10 @@ need type on card: creature, instant etc
 
 	function onLoad() {
 		var libraryArray = [];
+		var tappedArray = [];
+
+		var clickStart, clickStop, diff;
+		var clickTime = 100;
 
 		if(localStorage.length == 0)
 		{
@@ -64,14 +68,25 @@ need type on card: creature, instant etc
 		$(".exiledPlaceholder").hide();
 
 		$(".card").draggable({ cursor: 'move', snap: true, snapTolerance: 5, stack: ".card",
-			stop: function(event, ui){ $('body').css('cursor','default') }
-		})
-		.dblclick(function(){
-            if ( $(this).is('.ui-draggable-dragging') ) {
-                  return;
-            }
-            $(this).addClass("cardTapped");
-      	});
+			start: function(event, ui){ clickStart = event.timeStamp; },
+			stop: function(event, ui){
+				$('body').css('cursor','default');
+				clickStop = event.timeStamp;
+				diff = clickStop - clickStart;
+				if($(this).hasClass("cardTapped")){
+					if(diff<clickTime){
+						$(this).removeClass("cardTapped");}
+				}else{
+				if(diff<clickTime)
+				{ $(this).addClass("cardTapped"); }
+				}}
+			});
+				/*
+				var id = $(this).attr('id');
+				tappedArray.push(id);
+				$("#" + id).addClass("cardTapped");
+				*/
+
 
 		$(".cardback").draggable({ cursor: 'move', revert: 'invalid',
 			helper: "clone",
@@ -212,7 +227,22 @@ need type on card: creature, instant etc
 				    if(libraryArray.length == 0) { $(".cardback").hide(); }
 				    $("#container").append(newDiv);
 				    $("#libCounter").html(libraryArray.length);
-				    $(".card").draggable({ cursor: 'move', snap: true, snapTolerance: 5, stack: ".card" });
+
+				    $(".card").draggable({ cursor: 'move', snap: true, snapTolerance: 5, stack: ".card",
+					start: function(event, ui){ clickStart = event.timeStamp; },
+					stop: function(event, ui){
+						$('body').css('cursor','default');
+						clickStop = event.timeStamp;
+						diff = clickStop - clickStart;
+						if($(this).hasClass("cardTapped")){
+							if(diff<clickTime){
+								$(this).removeClass("cardTapped");}
+						}else{
+						if(diff<clickTime)
+						{ $(this).addClass("cardTapped"); }
+						}}
+					});
+
 				    $("#library").css('border-color', '#d6d3c0');
 				    $("#hand").css('border-color', '#d6d3c0');
 				    $("#graveyard").css('border-color', '#d6d3c0');
@@ -395,6 +425,7 @@ need type on card: creature, instant etc
 	<a href="index.html"><div id="logoDiv"></div></a>
 	
 	<div id="battlefield">
+		<div class="card"></div>
 	</div>
 
 	<div id="info">
