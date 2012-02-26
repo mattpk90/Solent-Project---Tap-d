@@ -49,11 +49,12 @@ ability to duplicate a card
 				var values = getCardValues.split(";");
 				var name = values[0];
 				var cost = values[1];
-				var text = values[2];
-				var power = values[3];
-				var toughness = values[4];
+				var type = values[2];
+				var text = values[3];
+				var power = values[4];
+				var toughness = values[5];
 
-				$("#cardView").html(name + " " + cost + "<br />" + text + 
+				$("#cardView").html(name + " " + cost + "<br />" + type + "<br />" + text + 
 										"<br />" + power+"/"+toughness);
 			}
 		});
@@ -94,10 +95,11 @@ ability to duplicate a card
 	{
 		var cardValues = [];		
 		var nameVal = "Plains";
-		var costVal, textVal, powerVal, toughnessVal = "";
+		var costVal, textVal, typeVal, powerVal, toughnessVal = "";
 		
 		cardValues.push(nameVal);
 		cardValues.push(costVal);
+		cardValues.push(typeVal);
 		cardValues.push(textVal);
 		cardValues.push(powerVal);
 		cardValues.push(toughnessVal);
@@ -113,10 +115,11 @@ ability to duplicate a card
 	{
 		var cardValues = [];			
 		var nameVal = "Island";
-		var costVal, textVal, powerVal, toughnessVal = "";
+		var costVal, textVal, typeVal, powerVal, toughnessVal = "";
 		
 		cardValues.push(nameVal);
 		cardValues.push(costVal);
+		cardValues.push(typeVal);
 		cardValues.push(textVal);
 		cardValues.push(powerVal);
 		cardValues.push(toughnessVal);
@@ -132,10 +135,11 @@ ability to duplicate a card
 	{
 		var cardValues = [];			
 		var nameVal = "Mountain";
-		var costVal, textVal, powerVal, toughnessVal = "";
+		var costVal, textVal, typeVal, powerVal, toughnessVal = "";
 		
 		cardValues.push(nameVal);
 		cardValues.push(costVal);
+		cardValues.push(typeVal);
 		cardValues.push(textVal);
 		cardValues.push(powerVal);
 		cardValues.push(toughnessVal);
@@ -151,10 +155,11 @@ ability to duplicate a card
 	{
 		var cardValues = [];			
 		var nameVal = "Forest";
-		var costVal, textVal, powerVal, toughnessVal = "";
+		var costVal, textVal, typeVal, powerVal, toughnessVal = "";
 		
 		cardValues.push(nameVal);
 		cardValues.push(costVal);
+		cardValues.push(typeVal);
 		cardValues.push(textVal);
 		cardValues.push(powerVal);
 		cardValues.push(toughnessVal);
@@ -170,10 +175,11 @@ ability to duplicate a card
 	{
 		var cardValues = [];			
 		var nameVal = "Swamp";
-		var costVal, textVal, powerVal, toughnessVal = "";
+		var costVal, textVal, typeVal, powerVal, toughnessVal = "";
 		
 		cardValues.push(nameVal);
 		cardValues.push(costVal);
+		cardValues.push(typeVal);
 		cardValues.push(textVal);
 		cardValues.push(powerVal);
 		cardValues.push(toughnessVal);
@@ -192,6 +198,7 @@ ability to duplicate a card
 		{
 			var cardValues = [];		
 			var newDate = new Date();		
+			cardValues.push(i);
 			cardValues.push(i);
 			cardValues.push(i);
 			cardValues.push(i);
@@ -229,11 +236,12 @@ ability to duplicate a card
 
 	<form id="addCard">
 	<table>
-	<tr>	<td>Card Name:</td> <td><input type="text" id="name" /></td>					</tr>
-	<tr>	<td>Mana Cost:</td> <td><input type="text" id="cost" /></td>					</tr>
-	<tr>	<td>Text:</td> <td><input type="text" id="text" /></td>						</tr>
+	<tr>	<td>Card Name:</td> <td><input type="text" id="name" /></td>			</tr>
+	<tr>	<td>Mana Cost:</td> <td><input type="text" id="cost" /></td>			</tr>
+	<tr>	<td>Type:</td> <td><input type="text" id="type" /></td>					</tr>
+	<tr>	<td>Text:</td> <td><input type="text" id="text" /></td>					</tr>
 	<tr>	<td>Power:</td> <td><input type="text" id="power" />&nbsp;&nbsp;</td>
-			<td>Toughness:</td> <td><input type="text" id="toughness" /></td>				</tr>
+			<td>Toughness:</td> <td><input type="text" id="toughness" /></td>		</tr>
 	<tr>	<td><button id="addSingleCard" type="submit"/>Add Card</button></td>	</tr>
 	</table>
 	</form>
@@ -262,12 +270,14 @@ ability to duplicate a card
 			var cardID = newDate.getTime();	
 			var nameVal = $("#name").val();
 			var costVal = $("#cost").val();
+			var typeVal = $("#type").val();
 			var textVal = $("#text").val();
 			var powerVal = $("#power").val();
 			var toughnessVal = $("#toughness").val();
 			
 			cardValues.push(nameVal);
 			cardValues.push(costVal);
+			cardValues.push(typeVal);
 			cardValues.push(textVal);
 			cardValues.push(powerVal);
 			cardValues.push(toughnessVal);

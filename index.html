@@ -12,7 +12,6 @@ stopimmediatepropagation: stops all following functions with same name from call
 add a token card to the field- specify text and can duplicate
 draw seven cards for hand
 mulligan
-shuffle library
 send card to top/bottom
 flip card
 
@@ -27,7 +26,7 @@ need type on card: creature, instant etc
 	<script type='text/javascript' src='jquery.js'></script>
 	<script type='text/javascript' src='jquery-ui.js'></script>
 	
-	<script type='text/javascript'>	
+	<script type='text/javascript'>
 	$(document).ready(onLoad);
 
 	function onLoad() {
@@ -68,7 +67,11 @@ need type on card: creature, instant etc
 		$(".exiledPlaceholder").hide();
 
 		$(".card").draggable({ cursor: 'move', snap: true, snapTolerance: 5, stack: ".card",
-			start: function(event, ui){ clickStart = event.timeStamp; },
+			start: function(event, ui){
+				clickStart = event.timeStamp;
+				if($(this).hasClass("cardTapped")){
+					$(this).css({position: 'absolute', left:ui.offset.left -54, top:ui.offset.top -8});
+				}},
 			stop: function(event, ui){
 				$('body').css('cursor','default');
 				clickStop = event.timeStamp;
@@ -80,16 +83,11 @@ need type on card: creature, instant etc
 				if(diff<clickTime)
 				{ $(this).addClass("cardTapped"); }
 				}}
-			});
-				/*
-				var id = $(this).attr('id');
-				tappedArray.push(id);
-				$("#" + id).addClass("cardTapped");
-				*/
-
+		});
 
 		$(".cardback").draggable({ cursor: 'move', revert: 'invalid',
 			helper: "clone",
+			start: function(event, ui){ $('#libCounter').html(libraryArray.length-1) },
 			stop: function(event, ui){ $('body').css('cursor','default') }
 		});	
 
@@ -105,12 +103,13 @@ need type on card: creature, instant etc
 					var values = getCardValues.split(";");
 					var name = values[0];
 					var cost = values[1];
-					var text = values[2];
-					var power = values[3];
-					var toughness = values[4];
+					var type = values[2];
+					var text = values[3];
+					var power = values[4];
+					var toughness = values[5];
 
 					$(".graveyardPlaceholder").hide();
-					ui.helper.html(name + " " + cost + "<br />" 
+					ui.helper.html(name + " " + cost + "<br />" + type + "<br />"
 											+ text + "<br />" + power+"/"+toughness);
 					ui.helper.show();
 				}
@@ -122,22 +121,24 @@ need type on card: creature, instant etc
 					var values = getCardValues.split(";");
 					var name = values[0];
 					var cost = values[1];
-					var text = values[2];
-					var power = values[3];
-					var toughness = values[4];
+					var type = values[2];
+					var text = values[3];
+					var power = values[4];
+					var toughness = values[5];
 					
 					var cardID_1 = $(graveyardArray).get(1);
 					var getCardValues_1 = localStorage.getItem(cardID_1);
 					var values_1 = getCardValues_1.split(";");
 					var name_1 = values_1[0];
 					var cost_1 = values_1[1];
-					var text_1 = values_1[2];
-					var power_1 = values_1[3];
-					var toughness_1 = values_1[4];					
+					var type_1 = values_1[2];
+					var text_1 = values_1[3];
+					var power_1 = values_1[4];
+					var toughness_1 = values_1[5];				
 
-					$(".graveyardPlaceholder").html(name_1 + " " + cost_1 + "<br />" 
+					$(".graveyardPlaceholder").html(name_1 + " " + cost_1 + "<br />" + type_1 + "<br />" 
 											+ text_1 + "<br />" + power_1+"/"+toughness_1);
-					ui.helper.html(name + " " + cost + "<br />" 
+					ui.helper.html(name + " " + cost + "<br />"  + type + "<br />"
 											+ text + "<br />" + power+"/"+toughness);
 					ui.helper.show();
 				}
@@ -156,12 +157,13 @@ need type on card: creature, instant etc
 					var values = getCardValues.split(";");
 					var name = values[0];
 					var cost = values[1];
-					var text = values[2];
-					var power = values[3];
-					var toughness = values[4];
+					var type = values[2];
+					var text = values[3];
+					var power = values[4];
+					var toughness = values[5];
 
 					$(".exiledPlaceholder").hide();
-					ui.helper.html(name + " " + cost + "<br />" 
+					ui.helper.html(name + " " + cost + "<br />" + type + "<br />"
 											+ text + "<br />" + power+"/"+toughness);
 					ui.helper.show();				
 				}
@@ -182,13 +184,14 @@ need type on card: creature, instant etc
 					var values_1 = getCardValues_1.split(";");
 					var name_1 = values_1[0];
 					var cost_1 = values_1[1];
-					var text_1 = values_1[2];
-					var power_1 = values_1[3];
-					var toughness_1 = values_1[4];					
+					var type_1 = values_1[2];
+					var text_1 = values_1[3];
+					var power_1 = values_1[4];
+					var toughness_1 = values_1[5];					
 
-					$(".exiledPlaceholder").html(name_1 + " " + cost_1 + "<br />" 
+					$(".exiledPlaceholder").html(name_1 + " " + cost_1 + "<br />" + type_1 + "<br />"
 											+ text_1 + "<br />" + power_1+"/"+toughness_1);
-					ui.helper.html(name + " " + cost + "<br />" 
+					ui.helper.html(name + " " + cost + "<br />"   + type + "<br />"
 											+ text + "<br />" + power+"/"+toughness);
 					ui.helper.show();
 				}
@@ -213,9 +216,10 @@ need type on card: creature, instant etc
 					var values = getCardValues.split(";");
 					var name = values[0];
 					var cost = values[1];
-					var text = values[2];
-					var power = values[3];
-					var toughness = values[4];
+					var type = values[2];
+					var text = values[3];
+					var power = values[4];
+					var toughness = values[5];
 					libraryArray.splice(0,1);
 				    var newDiv = $(ui.helper).clone(false)
 				      .addClass('card')
@@ -223,24 +227,25 @@ need type on card: creature, instant etc
 				      .removeClass('ui-draggable-dragging')
 				      .removeClass('cardback')
 				      .attr('id', cardID)
-				      .html(name + " " + cost + "<br />" + text + "<br />" + power+"/"+toughness);
+				      .html(name + " " + cost + "<br />" + type + "<br />" + text + "<br />" + power+"/"+toughness);
 				    if(libraryArray.length == 0) { $(".cardback").hide(); }
 				    $("#container").append(newDiv);
 				    $("#libCounter").html(libraryArray.length);
 
 				    $(".card").draggable({ cursor: 'move', snap: true, snapTolerance: 5, stack: ".card",
-					start: function(event, ui){ clickStart = event.timeStamp; },
-					stop: function(event, ui){
-						$('body').css('cursor','default');
-						clickStop = event.timeStamp;
-						diff = clickStop - clickStart;
-						if($(this).hasClass("cardTapped")){
-							if(diff<clickTime){
-								$(this).removeClass("cardTapped");}
-						}else{
-						if(diff<clickTime)
-						{ $(this).addClass("cardTapped"); }
-						}}
+						start: function(event, ui){
+							clickStart = event.timeStamp;},
+						stop: function(event, ui){
+							$('body').css('cursor','default');
+							clickStop = event.timeStamp;
+							diff = clickStop - clickStart;
+							if($(this).hasClass("cardTapped")){
+								if(diff<clickTime){
+									$(this).removeClass("cardTapped");}
+							}else{
+							if(diff<clickTime)
+							{ $(this).addClass("cardTapped"); }
+							}}
 					});
 
 				    $("#library").css('border-color', '#d6d3c0');
@@ -257,9 +262,10 @@ need type on card: creature, instant etc
 					var values = getCardValues.split(";");
 					var name = values[0];
 					var cost = values[1];
-					var text = values[2];
-					var power = values[3];
-					var toughness = values[4];
+					var type = values[2];
+					var text = values[3];
+					var power = values[4];
+					var toughness = values[5];
 
 					graveyardArray.splice(0,1);
 				    var newDiv = $(ui.helper).clone(false)
@@ -268,7 +274,7 @@ need type on card: creature, instant etc
 				      .removeClass('ui-draggable-dragging')
 				      .removeClass('graveyardPlaceholder')
 				      .attr('id', cardID)
-				      .html(name + " " + cost + "<br />" + text + "<br />" + power+"/"+toughness);
+				      .html(name + " " + cost + "<br />" + type + "<br />" + text + "<br />" + power+"/"+toughness);
 				    if(graveyardArray.length == 0) { $(".graveyardPlaceholder").hide(); }
 				    $("#container").append(newDiv);
 				    $("#graveyardCounter").html(graveyardArray.length);
@@ -287,9 +293,10 @@ need type on card: creature, instant etc
 					var values = getCardValues.split(";");
 					var name = values[0];
 					var cost = values[1];
-					var text = values[2];
-					var power = values[3];
-					var toughness = values[4];
+					var type = values[2];
+					var text = values[3];
+					var power = values[4];
+					var toughness = values[5];
 
 					exiledArray.splice(0,1);
 				    var newDiv = $(ui.helper).clone(false)
@@ -298,7 +305,7 @@ need type on card: creature, instant etc
 				      .removeClass('ui-draggable-dragging')
 				      .removeClass('exiledPlaceholder')
 				      .attr('id', cardID)
-				      .html(name + " " + cost + "<br />" + text + "<br />" + power+"/"+toughness);
+				      .html(name + " " + cost + "<br />" + type + "<br />" + text + "<br />" + power+"/"+toughness);
 				    if(exiledArray.length == 0) { $(".exiledPlaceholder").hide(); }
 				    $("#container").append(newDiv);	
 				    $("#exiledCounter").html(exiledArray.length);	    
@@ -328,7 +335,7 @@ need type on card: creature, instant etc
 					ui.draggable.remove();			
 					libraryArray.unshift(cardID);
 					$('body').css('cursor','default');
-					$("#libCounter").html(libraryArray.length);								
+					$("#libCounter").html(libraryArray.length);							
 			}
 		});	
 
@@ -361,14 +368,15 @@ need type on card: creature, instant etc
 				var values = getCardValues.split(";");
 				var name = values[0];
 				var cost = values[1];
-				var text = values[2];
-				var power = values[3];
-				var toughness = values[4];
+				var type = values[2];
+				var text = values[3];
+				var power = values[4];
+				var toughness = values[5];
 				ui.draggable.remove();
 				if(graveyardArray.length == 0) { $(".graveyardPlaceholder").show(); }			
 				graveyardArray.unshift(cardID);
 				$("#graveyardCounter").html(graveyardArray.length);
-				$(".graveyardPlaceholder").html(name + " " + cost + "<br />" 
+				$(".graveyardPlaceholder").html(name + " " + cost + "<br />" + type + "<br />" 
 							+ text + "<br />" + power+"/"+toughness);		
 				$('body').css('cursor','default');
 			}
@@ -389,14 +397,15 @@ need type on card: creature, instant etc
 				var values = getCardValues.split(";");
 				var name = values[0];
 				var cost = values[1];
-				var text = values[2];
-				var power = values[3];
-				var toughness = values[4];
+				var type = values[2];
+				var text = values[3];
+				var power = values[4];
+				var toughness = values[5];
 				ui.draggable.remove();
 				if(exiledArray.length == 0) { $(".exiledPlaceholder").show(); }			
 				exiledArray.unshift(cardID);
 				$("#exiledCounter").html(exiledArray.length);
-				$(".exiledPlaceholder").html(name + " " + cost + "<br />" 
+				$(".exiledPlaceholder").html(name + " " + cost + "<br />" + type + "<br />" 
 							+ text + "<br />" + power+"/"+toughness);
 				$('body').css('cursor','default');
 			}
@@ -431,7 +440,7 @@ need type on card: creature, instant etc
 	<div id="info">
 		<div id="topinfo">
 			<a href="add_deck.html"><button name="addcard" type="button">Deck Management</button></a>
-			<a href="signup.php"><button name="signup" type="button">Register</button></a>
+			<a href="signup.html"><button name="signup" type="button">Register</button></a>
 			<br />
 		</div>
 		

@@ -12,32 +12,30 @@
 
 	function onLoad() {
 	}
+
+	function validate()
+	{
+		var e = $("email").val();
+		var p = $("password").val();
+		if(e == "" || p == "")
+		{
+			alert("You must enter an email and password.");
+			return false;
+		}
+		return true;
+	}
 	</script>
 </head>
 
 <body>
 	<a href="index.html"><button name="home" type="button"/>Home</button></a><br /><br />
 
-	<form>
+	<form onsubmit="return validate()" action="register.php" method="post">
 	<table>
-	<tr>	<td>Email:</td> <td><input type="text" id="email" /></td>		</tr>
-	<tr>	<td>Password:</td> <td><input type="text" id="password" /></td>	</tr>
+	<tr>	<td>Email:</td> <td><input type="text" name="email"/></td>		</tr>
+	<tr>	<td>Password:</td> <td><input type="text" name="password"/></td>	</tr>
 	<tr>	<td><button id="register" type="submit"/>Register</button></td>	</tr>
 	</table>
 	</form>
-
-	<?php
-	$conn=mysql_connect("","8kennm51","hiogro") or die (mysql_error());
-	mysql_select_db("8kennm51");
-	$a = mysql_query("select * from cards");
-	
-	while($row = mysql_fetch_array($a))
-	{
-		echo $row["id"]."&nbsp;".$row["name"];
-		echo "<br />";
-	}
-
-	mysql_close($conn);
-	?>
 </body>
 </html>
