@@ -24,6 +24,7 @@ body { background-image: url('images/woodbg.jpg'); background-repeat: repeat; ba
 .cardTapped { -moz-transform: rotate(90deg); -webkit-transform: rotate(90deg); }
 
 
+
 .graveyardPlaceholder { background-color: red; width: 100px; height: 160px;
 						word-wrap: break-word; border-radius: 10px;					
 						position: relative; margin: 0px auto;

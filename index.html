@@ -14,8 +14,6 @@ draw seven cards for hand
 mulligan
 send card to top/bottom
 flip card
-
-need type on card: creature, instant etc
 -->
 
 <!DOCTYPE html>
@@ -28,6 +26,21 @@ need type on card: creature, instant etc
 	
 	<script type='text/javascript'>
 	$(document).ready(onLoad);
+
+	function makeDraggable(){
+		$(".card").draggable({ cursor: 'move', snap: true, snapTolerance: 5, stack: ".card", delay: 50,
+			stop: function(event, ui){
+				$('body').css('cursor','default');}})
+		.click(function(){
+			var id = $(this).attr("id");
+			if($(this).hasClass("cardTapped"))
+			{
+				$(this).removeClass("cardTapped");
+			}else{
+			$(this).addClass("cardTapped");
+			}
+		});
+	}
 
 	function onLoad() {
 		var libraryArray = [];
@@ -66,24 +79,7 @@ need type on card: creature, instant etc
 		$(".graveyardPlaceholder").hide();
 		$(".exiledPlaceholder").hide();
 
-		$(".card").draggable({ cursor: 'move', snap: true, snapTolerance: 5, stack: ".card",
-			start: function(event, ui){
-				clickStart = event.timeStamp;
-				if($(this).hasClass("cardTapped")){
-					$(this).css({position: 'absolute', left:ui.offset.left -54, top:ui.offset.top -8});
-				}},
-			stop: function(event, ui){
-				$('body').css('cursor','default');
-				clickStop = event.timeStamp;
-				diff = clickStop - clickStart;
-				if($(this).hasClass("cardTapped")){
-					if(diff<clickTime){
-						$(this).removeClass("cardTapped");}
-				}else{
-				if(diff<clickTime)
-				{ $(this).addClass("cardTapped"); }
-				}}
-		});
+		makeDraggable();
 
 		$(".cardback").draggable({ cursor: 'move', revert: 'invalid',
 			helper: "clone",
@@ -201,13 +197,12 @@ need type on card: creature, instant etc
 			
 			
 		$("#container").droppable({
-			accept: function(d)
-			{
+			tolerance: 'pointer',
+			accept: function(d){
 				if((d.hasClass("cardback"))||(d.hasClass("graveyardPlaceholder"))
 					||(d.hasClass("exiledPlaceholder")))
 				{ return true; }
-			},
-			tolerance: 'pointer',
+			},		
 			drop: function(event, ui) {
 				if(ui.draggable.hasClass("cardback"))
 				{
@@ -232,20 +227,17 @@ need type on card: creature, instant etc
 				    $("#container").append(newDiv);
 				    $("#libCounter").html(libraryArray.length);
 
-				    $(".card").draggable({ cursor: 'move', snap: true, snapTolerance: 5, stack: ".card",
-						start: function(event, ui){
-							clickStart = event.timeStamp;},
+				    $("#"+cardID).draggable({ cursor: 'move', snap: true, snapTolerance: 5, stack: ".card", delay: 50,
 						stop: function(event, ui){
-							$('body').css('cursor','default');
-							clickStop = event.timeStamp;
-							diff = clickStop - clickStart;
-							if($(this).hasClass("cardTapped")){
-								if(diff<clickTime){
-									$(this).removeClass("cardTapped");}
-							}else{
-							if(diff<clickTime)
-							{ $(this).addClass("cardTapped"); }
-							}}
+							$('body').css('cursor','default');}})
+					.click(function(){
+						var id = $(this).attr("id");
+						if($(this).hasClass("cardTapped"))
+						{
+							$(this).removeClass("cardTapped");
+						}else{
+						$(this).addClass("cardTapped");
+						}
 					});
 
 				    $("#library").css('border-color', '#d6d3c0');
@@ -434,7 +426,10 @@ need type on card: creature, instant etc
 	<a href="index.html"><div id="logoDiv"></div></a>
 	
 	<div id="battlefield">
-		<div class="card"></div>
+		<div class="card"><div id="clickTest"></div></div>
+		<div class="card"><div id="clickTest"></div></div>
+		<div class="card"><div id="clickTest"></div></div>
+		<div class="card"><div id="clickTest"></div></div>
 	</div>
 
 	<div id="info">
