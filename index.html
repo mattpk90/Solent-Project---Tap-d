@@ -27,21 +27,6 @@ flip card
 	<script type='text/javascript'>
 	$(document).ready(onLoad);
 
-	function makeDraggable(){
-		$(".card").draggable({ cursor: 'move', snap: true, snapTolerance: 5, stack: ".card", delay: 50,
-			stop: function(event, ui){
-				$('body').css('cursor','default');}})
-		.click(function(){
-			var id = $(this).attr("id");
-			if($(this).hasClass("cardTapped"))
-			{
-				$(this).removeClass("cardTapped");
-			}else{
-			$(this).addClass("cardTapped");
-			}
-		});
-	}
-
 	function onLoad() {
 		var libraryArray = [];
 		var tappedArray = [];
@@ -79,7 +64,18 @@ flip card
 		$(".graveyardPlaceholder").hide();
 		$(".exiledPlaceholder").hide();
 
-		makeDraggable();
+		$(".card").draggable({ cursor: 'move', snap: true, snapTolerance: 5, stack: ".card", delay: 50,
+			stop: function(event, ui){
+				$('body').css('cursor','default');}})
+		.click(function(){
+			var id = $(this).attr("id");
+			if($(this).hasClass("cardTapped"))
+			{
+				$(this).removeClass("cardTapped");
+			}else{
+			$(this).addClass("cardTapped");
+			}
+		});
 
 		$(".cardback").draggable({ cursor: 'move', revert: 'invalid',
 			helper: "clone",
@@ -270,7 +266,20 @@ flip card
 				    if(graveyardArray.length == 0) { $(".graveyardPlaceholder").hide(); }
 				    $("#container").append(newDiv);
 				    $("#graveyardCounter").html(graveyardArray.length);
-				    $(".card").draggable({ cursor: 'move', snap: true, snapTolerance: 5, stack: ".card" });
+				    
+				    $("#"+cardID).draggable({ cursor: 'move', snap: true, snapTolerance: 5, stack: ".card", delay: 50,
+						stop: function(event, ui){
+							$('body').css('cursor','default');}})
+					.click(function(){
+						var id = $(this).attr("id");
+						if($(this).hasClass("cardTapped"))
+						{
+							$(this).removeClass("cardTapped");
+						}else{
+						$(this).addClass("cardTapped");
+						}
+					});
+
 				    $("#library").css('border-color', '#d6d3c0');
 				    $("#hand").css('border-color', '#d6d3c0');
 				    $("#graveyard").css('border-color', '#d6d3c0');
@@ -301,7 +310,20 @@ flip card
 				    if(exiledArray.length == 0) { $(".exiledPlaceholder").hide(); }
 				    $("#container").append(newDiv);	
 				    $("#exiledCounter").html(exiledArray.length);	    
-				    $(".card").draggable({ cursor: 'move', snap: true, snapTolerance: 5, stack: ".card" });	
+				    
+				    $("#"+cardID).draggable({ cursor: 'move', snap: true, snapTolerance: 5, stack: ".card", delay: 50,
+						stop: function(event, ui){
+							$('body').css('cursor','default');}})
+					.click(function(){
+						var id = $(this).attr("id");
+						if($(this).hasClass("cardTapped"))
+						{
+							$(this).removeClass("cardTapped");
+						}else{
+						$(this).addClass("cardTapped");
+						}
+					});
+
 				    $("#library").css('border-color', '#d6d3c0');
 				    $("#hand").css('border-color', '#d6d3c0');
 				    $("#graveyard").css('border-color', '#d6d3c0');
@@ -426,10 +448,6 @@ flip card
 	<a href="index.html"><div id="logoDiv"></div></a>
 	
 	<div id="battlefield">
-		<div class="card"><div id="clickTest"></div></div>
-		<div class="card"><div id="clickTest"></div></div>
-		<div class="card"><div id="clickTest"></div></div>
-		<div class="card"><div id="clickTest"></div></div>
 	</div>
 
 	<div id="info">
