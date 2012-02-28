@@ -18,11 +18,15 @@ body { background-image: url('images/woodbg.jpg'); background-repeat: repeat; ba
 /* #card { background-color: red; width: 100px; height: 160px;
 			border-radius: 10px; -moz-border-radius: 10px; -webkit-border-radius: 10px; } */
 
-.card	{ background-color: red; width: 100px; height: 160px; float: left; word-wrap: break-word;
+.card	{ background-color: red; width: 100px; height: 160px; float: left; 
 			text-align: center; border-radius: 10px; -moz-border-radius: 10px; -webkit-border-radius: 10px; }
 
 .cardTapped { -moz-transform: rotate(90deg); -webkit-transform: rotate(90deg); }
 
+.textbox { width: 100px; height: 140px; text-overflow: ellipsis; line-height: 15px;
+			background-color: transparent; word-wrap: break-word; font-size: 15px; }
+
+.cardInfoBox { width: 20px; height: 20px; background-color: green; z-index: 2; }
 
 
 .graveyardPlaceholder { background-color: red; width: 100px; height: 160px;

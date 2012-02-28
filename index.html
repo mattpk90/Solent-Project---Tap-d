@@ -77,6 +77,8 @@ flip card
 			}
 		});
 
+		$(".cardInfoBox").click(function(event){event.stopImmediatePropagation(); alert("clicked");});
+
 		$(".cardback").draggable({ cursor: 'move', revert: 'invalid',
 			helper: "clone",
 			start: function(event, ui){ $('#libCounter').html(libraryArray.length-1) },
@@ -448,6 +450,12 @@ flip card
 	<a href="index.html"><div id="logoDiv"></div></a>
 	
 	<div id="battlefield">
+		<div class="card"><div class="textbox"> Shifting Sliver 3U 
+			<br /> Creature - Sliver <br />
+			Slivers cannot be blocked except by slivers. 
+			<br /> 2/2</div>
+			<div class="cardInfoBox"></div>
+		</div>
 	</div>
 
 	<div id="info">
