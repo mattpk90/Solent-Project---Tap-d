@@ -15,11 +15,22 @@ body { background-image: url('images/woodbg.jpg'); background-repeat: repeat; ba
 					line-height: 32px; border-color: #d6d3c0; border-style: solid; border-width: 2px;
 					border-radius: 10px; -moz-border-radius: 10px; -webkit-border-radius: 10px; }
 	
-/* #card { background-color: red; width: 100px; height: 160px;
-			border-radius: 10px; -moz-border-radius: 10px; -webkit-border-radius: 10px; } */
 
 .card	{ background-color: red; width: 100px; height: 160px; float: left; 
 			text-align: center; border-radius: 10px; -moz-border-radius: 10px; -webkit-border-radius: 10px; }
+
+.cardName { float: left; text-overflow: ellipsis; width: 75px; }
+
+.cardCost { float: right; text-overflow: ellipsis; width: 25px; }
+
+.cardType { text-overflow: ellipsis; }
+
+.cardText { text-overflow: ellipsis; }
+
+.cardPower { float: left; text-overflow: ellipsis; }
+
+.cardToughness { float: left; text-overflow: ellipsis; }
+
 
 .cardTapped { -moz-transform: rotate(90deg); -webkit-transform: rotate(90deg); }
 
@@ -62,7 +73,10 @@ body { background-image: url('images/woodbg.jpg'); background-repeat: repeat; ba
 	#topinfo { background-color: #151515; width: 271px; height: 195px; margin: auto; float: right;
 						border-radius: 10px; -moz-border-radius: 10px; -webkit-border-radius: 10px; }
 
-	#cardinfo { background-color: transparent; width: 271px; height: 150px; float: left;
+		#cardinfo { background-color: transparent; width: 271px; height: 150px; float: left;
+							border-radius: 10px; -moz-border-radius: 10px; -webkit-border-radius: 10px; }
+
+	#cardcontrols { background-color: transparent; width: 271px; height: 150px; float: left;
 						border-radius: 10px; -moz-border-radius: 10px; -webkit-border-radius: 10px; }
 
 #bottomContainer  { background-color: transparent; width: 1240px; height: 215px; margin: auto; display: block;
