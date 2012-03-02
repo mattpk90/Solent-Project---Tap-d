@@ -8,7 +8,7 @@ body { background-image: url('images/woodbg.jpg'); background-repeat: repeat; ba
 
 #container { background-color: transparent; width: 1240px; height: 620px; position: relative; margin: auto; }
 
-#logoDiv { background-color: transparent; width: 100px; height: 53px; background-image: url('images/logo.png');
+#logoDiv { background-color: transparent; width: 100px; height: 53px; background-image: url('images/logo2.png');
 			background-repeat: no-repeat; position: relative; margin: auto; }
 
 #login { background-color: #151515; width: 550px; height: 35px; float: left; margin-left: 4px; text-align: center; display: block;

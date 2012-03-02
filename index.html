@@ -92,7 +92,10 @@ flip card
 
 		$(".cardInfoBox").click(function(event){
 			event.stopImmediatePropagation();
-			$("#cardinfo").html($(this).parent().attr("id"));
+			var cardIDInfo = $(this).parent().attr("id");
+			var cardDataInfo = fetchCard(cardIDInfo);
+			$("#cardinfo").html(cardDataInfo.name + " " + cardDataInfo.cost + "<br />" + cardDataInfo.type + 
+				"<br />" + cardDataInfo.text + "<br />" + cardDataInfo.power+"/"+cardDataInfo.toughness);
 		});
 
 		$(".cardback").draggable({ cursor: 'move', revert: 'invalid',
@@ -109,47 +112,27 @@ flip card
 				{
 					$("#graveyardCounter").html("0");
 					var cardID = $(graveyardArray).get(0);
-					var getCardValues = localStorage.getItem(cardID);
-					var values = getCardValues.split(";");
-					var name = values[0];
-					var cost = values[1];
-					var type = values[2];
-					var text = values[3];
-					var power = values[4];
-					var toughness = values[5];
+					var cardData = fetchCard(cardID);
 
 					$(".graveyardPlaceholder").hide();
-					ui.helper.html(name + " " + cost + "<br />" + type + "<br />"
-											+ text + "<br />" + power+"/"+toughness);
+					ui.helper.html(cardData.name + " " + cardData.cost + "<br />" + cardData.type + "<br />"
+											+ cardData.text + "<br />" + cardData.power+"/"+cardData.toughness);
 					ui.helper.show();
 				}
 				else if(graveyardArray.length > 1) 
 				{
 					$("#graveyardCounter").html(graveyardArray.length-1);
 					var cardID = $(graveyardArray).get(0);
-					var getCardValues = localStorage.getItem(cardID);
-					var values = getCardValues.split(";");
-					var name = values[0];
-					var cost = values[1];
-					var type = values[2];
-					var text = values[3];
-					var power = values[4];
-					var toughness = values[5];
+					var cardData = fetchCard(cardID);
 					
 					var cardID_1 = $(graveyardArray).get(1);
-					var getCardValues_1 = localStorage.getItem(cardID_1);
-					var values_1 = getCardValues_1.split(";");
-					var name_1 = values_1[0];
-					var cost_1 = values_1[1];
-					var type_1 = values_1[2];
-					var text_1 = values_1[3];
-					var power_1 = values_1[4];
-					var toughness_1 = values_1[5];				
+					var cardData_1 = fetchCard(cardID_1);				
 
-					$(".graveyardPlaceholder").html(name_1 + " " + cost_1 + "<br />" + type_1 + "<br />" 
-											+ text_1 + "<br />" + power_1+"/"+toughness_1);
-					ui.helper.html(name + " " + cost + "<br />"  + type + "<br />"
-											+ text + "<br />" + power+"/"+toughness);
+					$(".graveyardPlaceholder").html(cardData_1.name + " " + cardData_1.cost + 
+											"<br />" + cardData_1.type + "<br />" 
+											+ cardData_1.text + "<br />" + cardData_1.power+"/"+cardData_1.toughness);
+					ui.helper.html(cardData.name + " " + cardData.cost + "<br />"  + cardData.type + "<br />"
+											+ cardData.text + "<br />" + cardData.power+"/"+cardData.toughness);
 					ui.helper.show();
 				}
 			}
@@ -163,46 +146,27 @@ flip card
 				{
 					$("#exiledCounter").html("0");
 					var cardID = $(exiledArray).get(0);
-					var getCardValues = localStorage.getItem(cardID);
-					var values = getCardValues.split(";");
-					var name = values[0];
-					var cost = values[1];
-					var type = values[2];
-					var text = values[3];
-					var power = values[4];
-					var toughness = values[5];
+					var cardData = fetchCard(cardID);
 
 					$(".exiledPlaceholder").hide();
-					ui.helper.html(name + " " + cost + "<br />" + type + "<br />"
-											+ text + "<br />" + power+"/"+toughness);
+					ui.helper.html(cardData.name + " " + cardData.cost + "<br />" + cardData.type + "<br />"
+											+ cardData.text + "<br />" + cardData.power+"/"+cardData.toughness);
 					ui.helper.show();				
 				}
 				else if(exiledArray.length > 1) 
 				{
 					$("#exiledCounter").html(exiledArray.length-1);
 					var cardID = $(exiledArray).get(0);
-					var getCardValues = localStorage.getItem(cardID);
-					var values = getCardValues.split(";");
-					var name = values[0];
-					var cost = values[1];
-					var text = values[2];
-					var power = values[3];
-					var toughness = values[4];
+					var cardData = fetchCard(cardID);
 					
 					var cardID_1 = $(exiledArray).get(1);
-					var getCardValues_1 = localStorage.getItem(cardID_1);
-					var values_1 = getCardValues_1.split(";");
-					var name_1 = values_1[0];
-					var cost_1 = values_1[1];
-					var type_1 = values_1[2];
-					var text_1 = values_1[3];
-					var power_1 = values_1[4];
-					var toughness_1 = values_1[5];					
+					var cardData_1 = fetchCard(cardID_1);				
 
-					$(".exiledPlaceholder").html(name_1 + " " + cost_1 + "<br />" + type_1 + "<br />"
-											+ text_1 + "<br />" + power_1+"/"+toughness_1);
-					ui.helper.html(name + " " + cost + "<br />"   + type + "<br />"
-											+ text + "<br />" + power+"/"+toughness);
+					$(".exiledPlaceholder").html(cardData_1.name + " " + cardData_1.cost + 
+											"<br />" + cardData_1.type + "<br />"
+											+ cardData_1.text + "<br />" + cardData_1.power+"/"+cardData_1.toughness);
+					ui.helper.html(cardData.name + " " + cardData.cost + "<br />"   + cardData.type + "<br />"
+											+ cardData.text + "<br />" + cardData.power+"/"+cardData.toughness);
 					ui.helper.show();
 				}
 			}
@@ -221,15 +185,7 @@ flip card
 				if(ui.draggable.hasClass("cardback"))
 				{
 					var cardID = $(libraryArray).get(0);
-					var cardData = fetchCard(cardID);			
-					/*var getCardValues = localStorage.getItem(cardID);
-					var values = getCardValues.split(";");
-					var name = values[0];
-					var cost = values[1];
-					var type = values[2];
-					var text = values[3];
-					var power = values[4];
-					var toughness = values[5];*/
+					var cardData = fetchCard(cardID);
 					libraryArray.splice(0,1);
 
 					if(cardData.cost == "")
@@ -278,22 +234,14 @@ flip card
 				      	if(libraryArray.length == 0) { $(".cardback").hide(); }
 				   		$("#container").append(newDiv);
 				    	$("#libCounter").html(libraryArray.length);			    
-					}
-					
+					}				
 
 				    $(".cardInfoBox").click(function(event){
 						event.stopImmediatePropagation();
-						var id = $(this).parent().attr("id");
-						var getCardValues = localStorage.getItem(id);
-						var values = getCardValues.split(";");
-						var name = values[0];
-						var cost = values[1];
-						var type = values[2];
-						var text = values[3];
-						var power = values[4];
-						var toughness = values[5];
-						$("#cardinfo").html(name + " " + cost + "<br />" + type + 
-							"<br />" + text + "<br />" + power+"/"+toughness);
+						var cardID = $(this).parent().attr("id");
+						var cardData = fetchCard(cardID);
+						$("#cardinfo").html(cardData.name + " " + cardData.cost + "<br />" + cardData.type + 
+							"<br />" + cardData.text + "<br />" + cardData.power+"/"+cardData.toughness);
 					});
 
 				    $("#"+cardID).draggable({ cursor: 'move', snap: true, snapTolerance: 5, 
@@ -320,17 +268,10 @@ flip card
 			    else if (ui.draggable.hasClass("graveyardPlaceholder"))   
 			    {
 			    	var cardID = $(graveyardArray).get(0);
-			    	var getCardValues = localStorage.getItem(cardID);
-					var values = getCardValues.split(";");
-					var name = values[0];
-					var cost = values[1];
-					var type = values[2];
-					var text = values[3];
-					var power = values[4];
-					var toughness = values[5];
+			    	var cardData = fetchCard(cardID);
 					graveyardArray.splice(0,1);
 
-				    if(cost == "")
+				    if(cardData.cost == "")
 					{
 						var newDiv = $(ui.helper).clone(false)
 				      .addClass('card')
@@ -338,13 +279,13 @@ flip card
 				      .removeClass('ui-draggable-dragging')
 				      .removeClass('graveyardPlaceholder')
 				      .attr('id', cardID)
-				      .html("<div class='cardName'>" + name + "</div>")
+				      .html("<div class='cardName'>" + cardData.name + "</div>")
 				      .append("<div class='cardInfoBox'></div>");
 				      	if(graveyardArray.length == 0) { $(".graveyardPlaceholder").hide(); }
 				    	$("#container").append(newDiv);
 				    	$("#graveyardCounter").html(graveyardArray.length);			    
 					}
-					else if(power == "")
+					else if(cardData.power == "")
 					{
 						var newDiv = $(ui.helper).clone(false)
 				      .addClass('card')
@@ -352,9 +293,9 @@ flip card
 				      .removeClass('ui-draggable-dragging')
 				      .removeClass('graveyardPlaceholder')
 				      .attr('id', cardID)
-				      .html("<div class='cardName'>" + name + "</div><div class='cardCost'>" + cost + 
-				      	"</div><br /><div class='cardType'>" + type + "</div><br /><div class='cardText'>" 
-				      		+ text + "</div>")
+				      .html("<div class='cardName'>" + cardData.name + "</div><div class='cardCost'>" + cardData.cost + 
+				      	"</div><br /><div class='cardType'>" + cardData.type + "</div><br /><div class='cardText'>" 
+				      		+ cardData.text + "</div>")
 				      .append("<div class='cardInfoBox'></div>");
 				      	if(graveyardArray.length == 0) { $(".graveyardPlaceholder").hide(); }
 				    	$("#container").append(newDiv);
@@ -368,10 +309,10 @@ flip card
 				      .removeClass('ui-draggable-dragging')
 				      .removeClass('graveyardPlaceholder')
 				      .attr('id', cardID)
-				      .html("<div class='cardName'>" + name + "</div><div class='cardCost'>" + cost + 
-				      	"</div><br /><div class='cardType'>" + type + "</div><br /><div class='cardText'>" 
-				      		+ text + "</div><br /><div class='cardStats'>" 
-				      		+ power + "/" + toughness + "</div>")
+				      .html("<div class='cardName'>" + cardData.name + "</div><div class='cardCost'>" + cardData.cost + 
+				      	"</div><br /><div class='cardType'>" + cardData.type + "</div><br /><div class='cardText'>" 
+				      		+ cardData.text + "</div><br /><div class='cardStats'>" 
+				      		+ cardData.power + "/" + cardData.toughness + "</div>")
 				      .append("<div class='cardInfoBox'></div>");
 				      	if(graveyardArray.length == 0) { $(".graveyardPlaceholder").hide(); }
 				   		$("#container").append(newDiv);
@@ -381,17 +322,10 @@ flip card
 
 				    $(".cardInfoBox").click(function(event){
 						event.stopImmediatePropagation();
-						var id = $(this).parent().attr("id");
-						var getCardValues = localStorage.getItem(id);
-						var values = getCardValues.split(";");
-						var name = values[0];
-						var cost = values[1];
-						var type = values[2];
-						var text = values[3];
-						var power = values[4];
-						var toughness = values[5];
-						$("#cardinfo").html(name + " " + cost + "<br />" + type + 
-							"<br />" + text + "<br />" + power+"/"+toughness);
+						var cardID = $(this).parent().attr("id");
+						var cardData = fetchCard(cardID);
+						$("#cardinfo").html(cardData.name + " " + cardData.cost + "<br />" + cardData.type + 
+							"<br />" + cardData.text + "<br />" + cardData.power+"/"+cardData.toughness);
 					});
 
 				    $("#"+cardID).draggable({ cursor: 'move', snap: true, snapTolerance: 5, 
@@ -418,17 +352,10 @@ flip card
 			    else if (ui.draggable.hasClass("exiledPlaceholder"))   
 			    {	    	
 			    	var cardID = $(exiledArray).get(0);
-			    	var getCardValues = localStorage.getItem(cardID);
-					var values = getCardValues.split(";");
-					var name = values[0];
-					var cost = values[1];
-					var type = values[2];
-					var text = values[3];
-					var power = values[4];
-					var toughness = values[5];
+			    	var cardData = fetchCard(cardID);
 					exiledArray.splice(0,1);
 
-				    if(cost == "")
+				    if(cardData.cost == "")
 					{
 						var newDiv = $(ui.helper).clone(false)
 				      .addClass('card')
@@ -436,13 +363,13 @@ flip card
 				      .removeClass('ui-draggable-dragging')
 				      .removeClass('exiledPlaceholder')
 				      .attr('id', cardID)
-				      .html("<div class='cardName'>" + name + "</div>")
+				      .html("<div class='cardName'>" + cardData.name + "</div>")
 				      .append("<div class='cardInfoBox'></div>");
 				      	if(exiledArray.length == 0) { $(".exiledPlaceholder").hide(); }
 				    	$("#container").append(newDiv);
 				    	$("#exiledCounter").html(exiledArray.length);			    
 					}
-					else if(power == "")
+					else if(cardData.power == "")
 					{
 						var newDiv = $(ui.helper).clone(false)
 				      .addClass('card')
@@ -450,9 +377,9 @@ flip card
 				      .removeClass('ui-draggable-dragging')
 				      .removeClass('exiledPlaceholder')
 				      .attr('id', cardID)
-				      .html("<div class='cardName'>" + name + "</div><div class='cardCost'>" + cost + 
-				      	"</div><br /><div class='cardType'>" + type + "</div><br /><div class='cardText'>" 
-				      		+ text + "</div>")
+				      .html("<div class='cardName'>" + cardData.name + "</div><div class='cardCost'>" + cardData.cost + 
+				      	"</div><br /><div class='cardType'>" + cardData.type + "</div><br /><div class='cardText'>" 
+				      		+ cardData.text + "</div>")
 				      .append("<div class='cardInfoBox'></div>");
 				      	if(exiledArray.length == 0) { $(".exiledPlaceholder").hide(); }
 				    	$("#container").append(newDiv);
@@ -466,10 +393,10 @@ flip card
 				      .removeClass('ui-draggable-dragging')
 				      .removeClass('exiledPlaceholder')
 				      .attr('id', cardID)
-				      .html("<div class='cardName'>" + name + "</div><div class='cardCost'>" + cost + 
-				      	"</div><br /><div class='cardType'>" + type + "</div><br /><div class='cardText'>" 
-				      		+ text + "</div><br /><div class='cardStats'>" 
-				      		+ power + "/" + toughness + "</div>")
+				      .html("<div class='cardName'>" + cardData.name + "</div><div class='cardCost'>" + cardData.cost + 
+				      	"</div><br /><div class='cardType'>" + cardData.type + "</div><br /><div class='cardText'>" 
+				      		+ cardData.text + "</div><br /><div class='cardStats'>" 
+				      		+ cardData.power + "/" + cardData.toughness + "</div>")
 				      .append("<div class='cardInfoBox'></div>");
 				      	if(exiledArray.length == 0) { $(".exiledPlaceholder").hide(); }
 				   		$("#container").append(newDiv);
@@ -479,17 +406,10 @@ flip card
 
 				    $(".cardInfoBox").click(function(event){
 						event.stopImmediatePropagation();
-						var id = $(this).parent().attr("id");
-						var getCardValues = localStorage.getItem(id);
-						var values = getCardValues.split(";");
-						var name = values[0];
-						var cost = values[1];
-						var type = values[2];
-						var text = values[3];
-						var power = values[4];
-						var toughness = values[5];
-						$("#cardinfo").html(name + " " + cost + "<br />" + type + 
-							"<br />" + text + "<br />" + power+"/"+toughness);
+						var cardID = $(this).parent().attr("id");
+						var cardData = fetchCard(cardID);
+						$("#cardinfo").html(cardData.name + " " + cardData.cost + "<br />" + cardData.type + 
+							"<br />" + cardData.text + "<br />" + cardData.power+"/"+cardData.toughness);
 					});
 
 				    $("#"+cardID).draggable({ cursor: 'move', snap: true, snapTolerance: 5, 
@@ -560,39 +480,44 @@ flip card
 			drop: function(event, ui){
 				$("#graveyard").css('border-color', '#d6d3c0');			
 				var cardID = ui.draggable.attr("id");
-				var getCardValues = localStorage.getItem(cardID);
-				var values = getCardValues.split(";");
-				var name = values[0];
-				var cost = values[1];
-				var type = values[2];
-				var text = values[3];
-				var power = values[4];
-				var toughness = values[5];
+				var cardData = fetchCard(cardID);
 				ui.draggable.remove();
 				if(graveyardArray.length == 0) { $(".graveyardPlaceholder").show(); }			
 				graveyardArray.unshift(cardID);
 				$("#graveyardCounter").html(graveyardArray.length);
-				if(cost == "")
+
+				if(cardData.cost == "")
 				{
 					$(".graveyardPlaceholder")
-					.html("<div class='cardName'>" + name + "</div>")
+					.html("<div class='cardName'>" + cardData.name + "</div>")
 					.append("<div class='cardInfoBox'></div>");	
 				}
-				else if(power == "")
+				else if(cardData.power == "")
 				{
-					$(".graveyardPlaceholder").html("<div class='cardName'>" + name + "</div><div class='cardCost'>" + cost + 
-				      	"</div><br /><div class='cardType'>" + type + "</div><br /><div class='cardText'>" 
-				      		+ text + "</div>")
+					$(".graveyardPlaceholder").html("<div class='cardName'>" + cardData.name + 
+						"</div><div class='cardCost'>" + cardData.cost + 
+				      	"</div><br /><div class='cardType'>" + cardData.type + "</div><br /><div class='cardText'>" 
+				      		+ cardData.text + "</div>")
 					.append("<div class='cardInfoBox'></div>");
 				}
 				else
 				{
-					$(".graveyardPlaceholder").html("<div class='cardName'>" + name + "</div><div class='cardCost'>" + cost + 
-				      	"</div><br /><div class='cardType'>" + type + "</div><br /><div class='cardText'>" 
-				      		+ text + "</div><br /><div class='cardStats'>" 
-				      		+ power + "/" + toughness + "</div>")
+					$(".graveyardPlaceholder").html("<div class='cardName'>" + cardData.name + 
+						"</div><div class='cardCost'>" + cardData.cost + 
+				      	"</div><br /><div class='cardType'>" + cardData.type + "</div><br /><div class='cardText'>" 
+				      		+ cardData.text + "</div><br /><div class='cardStats'>" 
+				      		+ cardData.power + "/" + cardData.toughness + "</div>")
 					.append("<div class='cardInfoBox'></div>");
 				}				
+
+				$(".cardInfoBox").click(function(event){
+					event.stopImmediatePropagation();
+					var cardIDInfo = $(graveyardArray).get(0);
+					var cardDataInfo = fetchCard(cardIDInfo);
+					$("#cardinfo").html(cardDataInfo.name + " " + cardDataInfo.cost + "<br />" + cardDataInfo.type + 
+						"<br />" + cardDataInfo.text + "<br />" + cardDataInfo.power+"/"+cardDataInfo.toughness);
+				});
+
 				$('body').css('cursor','default');
 			}
 		});
@@ -608,20 +533,43 @@ flip card
 			drop: function(event, ui){
 				$("#exile").css('border-color', '#d6d3c0');
 				var cardID = ui.draggable.attr("id");
-				var getCardValues = localStorage.getItem(cardID);
-				var values = getCardValues.split(";");
-				var name = values[0];
-				var cost = values[1];
-				var type = values[2];
-				var text = values[3];
-				var power = values[4];
-				var toughness = values[5];
+				var cardData = fetchCard(cardID);
 				ui.draggable.remove();
 				if(exiledArray.length == 0) { $(".exiledPlaceholder").show(); }			
 				exiledArray.unshift(cardID);
 				$("#exiledCounter").html(exiledArray.length);
-				$(".exiledPlaceholder").html(name + " " + cost + "<br />" + type + "<br />" 
-							+ text + "<br />" + power+"/"+toughness);
+
+				if(cardData.cost == "")
+				{
+					$(".exiledPlaceholder")
+					.html("<div class='cardName'>" + cardData.name + "</div>")
+					.append("<div class='cardInfoBox'></div>");	
+				}
+				else if(cardData.power == "")
+				{
+					$(".exiledPlaceholder").html("<div class='cardName'>" + cardData.name + 
+						"</div><div class='cardCost'>" + cardData.cost + 
+				      	"</div><br /><div class='cardType'>" + cardData.type + "</div><br /><div class='cardText'>" 
+				      		+ cardData.text + "</div>")
+					.append("<div class='cardInfoBox'></div>");
+				}
+				else
+				{
+					$(".exiledPlaceholder").html("<div class='cardName'>" + cardData.name + 
+						"</div><div class='cardCost'>" + cardData.cost + 
+				      	"</div><br /><div class='cardType'>" + cardData.type + "</div><br /><div class='cardText'>" 
+				      		+ cardData.text + "</div><br /><div class='cardStats'>" 
+				      		+ cardData.power + "/" + cardData.toughness + "</div>")
+					.append("<div class='cardInfoBox'></div>");
+				}				
+
+				$(".cardInfoBox").click(function(event){
+					event.stopImmediatePropagation();
+					var cardIDInfo = $(exiledArray).get(0);
+					var cardDataInfo = fetchCard(cardIDInfo);
+					$("#cardinfo").html(cardDataInfo.name + " " + cardDataInfo.cost + "<br />" + cardDataInfo.type + 
+						"<br />" + cardDataInfo.text + "<br />" + cardDataInfo.power+"/"+cardDataInfo.toughness);
+				});
 				$('body').css('cursor','default');
 			}
 		});
