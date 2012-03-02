@@ -86,9 +86,16 @@ ability to duplicate a card
 
 	function clearDeck()
 	{
-		localStorage.clear();
-		alert("Deck cleared.");
-		window.location.reload();
+		if(confirm('Are you sure?'))
+		{
+			localStorage.clear();
+			alert('Deck Cleared.');
+			window.location.reload();
+		}
+		else
+		{
+			alert('Operation cancelled.');
+		} 
 	}	
 
 	function addPlains()
@@ -221,18 +228,6 @@ ability to duplicate a card
 	<div id="leftSide">
 	<a href="index.html"><button name="home" type="button"/>Home</button></a><br /><br />
 
-	<table>
-	<tr>	<td>Type:</td> 
-			<td><select>
-				<option id="creature">Creature</option>
-				<option id="instant">Instant</option>
-				<option id="sorcery">Sorcery</option>
-				<option id="enchantment">Enchamtment</option>
-				<option id="artifact">Artifact</option>
-				</select></td>
-	</tr>
-	</table>
-	<!-- modify add card table based on card type when selected-->
 
 	<form id="addCard">
 	<table>
@@ -246,11 +241,15 @@ ability to duplicate a card
 	</table>
 	</form>
 
+	<br />
+
 	<table><tr><td><button onclick="addPlains()">Add Plains</button></td>
 			<td><button onclick="addIsland()">Add Island</button></td>
 			<td><button onclick="addMountain()">Add Mountain</button></td>
 			<td><button onclick="addForest()">Add Forest</button></td>
 			<td><button onclick="addSwamp()">Add Swamp</button></td></tr></table>
+
+	<br />
 
 	<button onclick="clearDeck()">Remove All Cards</button><br />
 	<button onclick="populateTest()">Populate Test Deck</button>

@@ -16,20 +16,22 @@ body { background-image: url('images/woodbg.jpg'); background-repeat: repeat; ba
 					border-radius: 10px; -moz-border-radius: 10px; -webkit-border-radius: 10px; }
 	
 
-.card	{ background-color: red; width: 100px; height: 160px; float: left; 
+.card	{ background-color: #2986ce; width: 100px; height: 160px; float: left; position: absolute;
 			text-align: center; border-radius: 10px; -moz-border-radius: 10px; -webkit-border-radius: 10px; }
 
-.cardName { float: left; text-overflow: ellipsis; width: 75px; }
+.cardName { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; padding: 1px;
+	width: 100px; height: 22px; text-align: center; }
 
-.cardCost { float: right; text-overflow: ellipsis; width: 25px; }
+.cardCost { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; 
+	width: 100px; text-align: center; font-size: 10px; }
 
-.cardType { text-overflow: ellipsis; }
+.cardType { overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+	text-align: center; font-size: 10px; }
 
-.cardText { text-overflow: ellipsis; }
+.cardText { overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+	text-align: center; font-size: 10px; }
 
-.cardPower { float: left; text-overflow: ellipsis; }
-
-.cardToughness { float: left; text-overflow: ellipsis; }
+.cardStats { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; position: relative; bottom: 20px; }
 
 
 .cardTapped { -moz-transform: rotate(90deg); -webkit-transform: rotate(90deg); }
@@ -37,38 +39,42 @@ body { background-image: url('images/woodbg.jpg'); background-repeat: repeat; ba
 .textbox { width: 100px; height: 140px; text-overflow: ellipsis; line-height: 15px;
 			background-color: transparent; word-wrap: break-word; font-size: 15px; }
 
-.cardInfoBox { width: 20px; height: 20px; background-color: green; z-index: 2; }
+.cardInfoBox { width: 100px; height: 20px; background-color: #848076; 
+	z-index: 2; float: left; position: absolute; bottom: 0; 
+	-webkit-border-bottom-right-radius: 9px;
+	-webkit-border-bottom-left-radius: 9px;
+	-moz-border-radius-bottomright: 9px;
+	-moz-border-radius-bottomleft: 9px;
+	border-bottom-right-radius: 9px;
+	border-bottom-left-radius: 9px; }
 
 
-.graveyardPlaceholder { background-color: red; width: 100px; height: 160px;
+.graveyardPlaceholder { background-color: #2986ce; width: 100px; height: 160px;
 						word-wrap: break-word; border-radius: 10px;					
 						position: relative; margin: 0px auto;
 						margin-bottom: 5px;
 						-moz-border-radius: 10px; -webkit-border-radius: 10px; }
 
-.exiledPlaceholder { background-color: red; width: 100px; height: 160px;
+.exiledPlaceholder { background-color: #2986ce; width: 100px; height: 160px;
 						word-wrap: break-word; border-radius: 10px;
 						 position: relative; margin: 0px auto;
 						-moz-border-radius: 10px; -webkit-border-radius: 10px; }
 
 
-.cardback{ background-color: blue; width: 100px; height: 160px; position: relative; margin: 0px auto;
-			margin-bottom: 5px;
-			border-radius: 10px; -moz-border-radius: 10px; -webkit-border-radius: 10px; }
-
-.draggingFromLibrary { background-color: blue; width: 100px; height: 160px;
+.cardback{ background-color: #000; width: 100px; height: 160px; position: relative; margin: 0px auto;
+			margin-bottom: 5px; border-color: #fff; border-width: 2px;
 			border-radius: 10px; -moz-border-radius: 10px; -webkit-border-radius: 10px; }
 		
-		
-			
 #battlefield { background-color: transparent; width: 953px; height: 345px; 
 					margin: auto; margin-bottom: 5px; float: left; text-align: center;
 					border-color: #d6d3c0; border-style: dashed; border-width: 2px;
 					border-radius: 10px; -moz-border-radius: 10px; -webkit-border-radius: 10px; }
 
+
 #info { background-color: #151515; width: 271px; height: 345px; margin: auto; margin-bottom: 5px; float: right;
 					border-color: #d6d3c0; border-style: solid; border-width: 2px;
 					border-radius: 10px; -moz-border-radius: 10px; -webkit-border-radius: 10px; }
+	.infoheader { text-align: center; margin: auto; }
 
 	#topinfo { background-color: #151515; width: 271px; height: 195px; margin: auto; float: right;
 						border-radius: 10px; -moz-border-radius: 10px; -webkit-border-radius: 10px; }
