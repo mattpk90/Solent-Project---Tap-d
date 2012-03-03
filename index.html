@@ -238,6 +238,13 @@ flip card
 							gCreature;
 						}    
 					}
+					$(".cardInfoBox").click(function(event){
+						event.stopImmediatePropagation();
+						var cardIDInfo = $(graveyardArray).get(0);
+						var cardDataInfo = fetchCard(cardIDInfo);
+						$("#cardinfo").html(cardDataInfo.name + " " + cardDataInfo.cost + "<br />" + cardDataInfo.type + 
+							"<br />" + cardDataInfo.text + "<br />" + cardDataInfo.power+"/"+cardDataInfo.toughness);
+					});
 					ui.helper.show();
 				}
 			}
@@ -254,24 +261,135 @@ flip card
 					var cardData = fetchCard(cardID);
 
 					$(".exiledPlaceholder").hide();
-					ui.helper.html(cardData.name + " " + cardData.cost + "<br />" + cardData.type + "<br />"
-											+ cardData.text + "<br />" + cardData.power+"/"+cardData.toughness);
-					ui.helper.show();				
+					if(cardData.cost == "")
+					{
+						ui.helper.html("<div class='cardName'>" + cardData.name + "</div>")
+						 	.append("<div class='cardInfoBox'></div>");			    
+					}
+					else if(cardData.power == "")
+					{
+				    	ui.helper.html("<div class='cardName'>" + cardData.name + 
+				    	 	"</div><div class='cardCost'>" + cardData.cost + 
+				      	"</div><br /><div class='cardType'>" + cardData.type + 
+				      	"</div><br /><div class='cardText'>" + cardData.text + "</div>")
+				      .append("<div class='cardInfoBox'></div>");	    
+					}
+					else
+					{
+				      ui.helper.html("<div class='cardName'>" + cardData.name + 
+				      	"</div><div class='cardCost'>" + cardData.cost + 
+				      	"</div><br /><div class='cardType'>" + cardData.type + 
+				      	"</div><br /><div class='cardText'>" +
+				      	cardData.text + "</div><br /><div class='cardStats'>" +
+				      	cardData.power + "/" + cardData.toughness + "</div>")
+				      .append("<div class='cardInfoBox'></div>");		    
+					}
+
+					$(".cardInfoBox").click(function(event){
+						event.stopImmediatePropagation();
+						var cardIDInfo = $(this).parent().attr("id");
+						var cardDataInfo = fetchCard(cardIDInfo);
+						$("#cardinfo").html(cardDataInfo.name + " " + cardDataInfo.cost + "<br />" + cardDataInfo.type + 
+							"<br />" + cardDataInfo.text + "<br />" + cardDataInfo.power+"/"+cardDataInfo.toughness);
+					});
+					ui.helper.show();					
 				}
-				else if(exiledArray.length > 1) 
+				else if(exiledArray.length >= 2) 
 				{
-					$("#exiledCounter").html(exiledArray.length-1);
+					$("#exiledPlaceholder").html(exiledArray.length-1);
 					var cardID = $(exiledArray).get(0);
 					var cardData = fetchCard(cardID);
 					
 					var cardID_1 = $(exiledArray).get(1);
-					var cardData_1 = fetchCard(cardID_1);				
+					var cardData_1 = fetchCard(cardID_1);
 
-					$(".exiledPlaceholder").html(cardData_1.name + " " + cardData_1.cost + 
-											"<br />" + cardData_1.type + "<br />"
-											+ cardData_1.text + "<br />" + cardData_1.power+"/"+cardData_1.toughness);
-					ui.helper.html(cardData.name + " " + cardData.cost + "<br />"   + cardData.type + "<br />"
-											+ cardData.text + "<br />" + cardData.power+"/"+cardData.toughness);
+					var gLand = $(".exiledPlaceholder").html("<div class='cardName'>" + cardData_1.name + "</div>")
+						 	.append("<div class='cardInfoBox'></div>");
+
+					var gSpell = $(".exiledPlaceholder").html("<div class='cardName'>" + cardData_1.name + 
+					    	 	"</div><div class='cardCost'>" + cardData_1.cost + 
+					      	"</div><br /><div class='cardType'>" + cardData_1.type + 
+					      	"</div><br /><div class='cardText'>" + cardData_1.text + "</div>")
+					    	.append("<div class='cardInfoBox'></div>"); 
+
+					var gCreature = $(".exiledPlaceholder").html("<div class='cardName'>" + cardData_1.name + 
+					      	"</div><div class='cardCost'>" + cardData_1.cost + 
+					      	"</div><br /><div class='cardType'>" + cardData_1.type + 
+					      	"</div><br /><div class='cardText'>" +
+					      	cardData_1.text + "</div><br /><div class='cardStats'>" +
+					      	cardData_1.power + "/" + cardData_1.toughness + "</div>")
+					    	.append("<div class='cardInfoBox'></div>");
+
+
+					if(cardData.cost == "")
+					{
+						ui.helper.html("<div class='cardName'>" + cardData.name + "</div>")
+						 	.append("<div class='cardInfoBox'></div>");
+
+						if(cardData_1.cost == "")
+						{
+							gLand;
+						}
+						else if(cardData_1.power == "")
+						{
+							gSpell;
+						}
+						else
+						{
+							gCreature;
+						}					    
+					}
+					else if(cardData.power == "")
+					{
+				    	ui.helper.html("<div class='cardName'>" + cardData.name + 
+				    	 	"</div><div class='cardCost'>" + cardData.cost + 
+				      	"</div><br /><div class='cardType'>" + cardData.type + 
+				      	"</div><br /><div class='cardText'>" + cardData.text + "</div>")
+				    	.append("<div class='cardInfoBox'></div>");
+
+				    	if(cardData_1.cost == "")
+						{
+							gLand;
+						}
+						else if(cardData_1.power == "")
+						{
+							gSpell;
+						}
+						else
+						{
+							gCreature;
+						}
+					}
+					else
+					{
+				      ui.helper.html("<div class='cardName'>" + cardData.name + 
+				      	"</div><div class='cardCost'>" + cardData.cost + 
+				      	"</div><br /><div class='cardType'>" + cardData.type + 
+				      	"</div><br /><div class='cardText'>" +
+				      	cardData.text + "</div><br /><div class='cardStats'>" +
+				      	cardData.power + "/" + cardData.toughness + "</div>")
+				      .append("<div class='cardInfoBox'></div>");
+
+				    	if(cardData_1.cost == "")
+						{
+							gLand;
+						}
+						else if(cardData_1.power == "")
+						{
+							gSpell; 
+						}
+						else
+						{
+							gCreature;
+						}    
+					}
+					$(".cardInfoBox").click(function(event){
+						event.stopImmediatePropagation();
+						var cardIDInfo = $(exiledArray).get(0);
+						var cardDataInfo = fetchCard(cardIDInfo);
+						$("#cardinfo").html(cardDataInfo.name + " " + cardDataInfo.cost + "<br />" + cardDataInfo.type + 
+							"<br />" + cardDataInfo.text + "<br />" + cardDataInfo.power+"/"+cardDataInfo.toughness);
+					});
 					ui.helper.show();
 				}
 			}
