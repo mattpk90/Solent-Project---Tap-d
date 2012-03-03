@@ -4,20 +4,25 @@
 */
 
 body { background-image: url('images/woodbg.jpg'); background-repeat: repeat; background-color: #151515; 
-		color: #d6d3c0; font-family: palatino linotype, serif; }
+	color: #d6d3c0; font-family: palatino linotype, serif; }
 
 #container { background-color: transparent; width: 1240px; height: 620px; position: relative; margin: auto; }
 
 #logoDiv { background-color: transparent; width: 100px; height: 53px; background-image: url('images/logo2.png');
-			background-repeat: no-repeat; position: relative; margin: auto; }
+	background-repeat: no-repeat; position: relative; }
 
-#login { background-color: #151515; width: 550px; height: 35px; float: left; margin-left: 4px; text-align: center; display: block;
-					line-height: 32px; border-color: #d6d3c0; border-style: solid; border-width: 2px;
-					border-radius: 10px; -moz-border-radius: 10px; -webkit-border-radius: 10px; }
-	
+#login { background-color: #151515; width: 550px; height: 35px; float: right; margin-left: 4px; 
+	line-height: 35px; border-color: #d6d3c0; 
+	border-style: solid; border-width: 2px; border-radius: 10px; 
+	-moz-border-radius: 10px; -webkit-border-radius: 10px; }
 
-.card	{ background-color: #2986ce; width: 100px; height: 160px; float: left; position: absolute;
-			text-align: center; border-radius: 10px; -moz-border-radius: 10px; -webkit-border-radius: 10px; }
+	.panelForm { float: left; padding: 0; margin: 0; margin-left: 3px; }
+	.panelRegister { float: right; padding: 0; margin: 0; margin-right: 30px; }
+
+.deckManageButton { float: right; }
+
+.card { background-color: #2986ce; width: 100px; height: 160px; float: left; position: absolute;
+	text-align: center; border-radius: 10px; -moz-border-radius: 10px; -webkit-border-radius: 10px; }
 
 .cardName { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; padding: 1px;
 	width: 100px; height: 22px; text-align: center; }
@@ -37,7 +42,7 @@ body { background-image: url('images/woodbg.jpg'); background-repeat: repeat; ba
 .cardTapped { -moz-transform: rotate(90deg); -webkit-transform: rotate(90deg); }
 
 .textbox { width: 100px; height: 140px; text-overflow: ellipsis; line-height: 15px;
-			background-color: transparent; word-wrap: break-word; font-size: 15px; }
+	background-color: transparent; word-wrap: break-word; font-size: 15px; }
 
 .cardInfoBox { width: 100px; height: 20px; background-color: #848076; 
 	z-index: 2; float: left; position: absolute; bottom: 0; 
@@ -50,71 +55,72 @@ body { background-image: url('images/woodbg.jpg'); background-repeat: repeat; ba
 
 
 .graveyardPlaceholder { background-color: #2986ce; width: 100px; height: 160px;
-						word-wrap: break-word; border-radius: 10px;					
-						position: relative; margin: 0px auto;
-						margin-bottom: 5px;
-						-moz-border-radius: 10px; -webkit-border-radius: 10px; }
+	word-wrap: break-word; border-radius: 10px;					
+	position: relative; margin: 0px auto;
+	margin-bottom: 5px;
+	-moz-border-radius: 10px; -webkit-border-radius: 10px; }
 
 .exiledPlaceholder { background-color: #2986ce; width: 100px; height: 160px;
-						word-wrap: break-word; border-radius: 10px;
-						 position: relative; margin: 0px auto;
-						-moz-border-radius: 10px; -webkit-border-radius: 10px; }
+	word-wrap: break-word; border-radius: 10px;
+	position: relative; margin: 0px auto;
+	-moz-border-radius: 10px; -webkit-border-radius: 10px; }
 
 
 .cardback{ background-color: #e6e3d3; width: 100px; height: 160px; position: relative; margin: 0px auto;
-			margin-bottom: 5px; border-color: #fff; border-width: 2px;
-			border-radius: 10px; -moz-border-radius: 10px; -webkit-border-radius: 10px; }
+	margin-bottom: 5px; border-color: #fff; border-width: 2px;
+	border-radius: 10px; -moz-border-radius: 10px; -webkit-border-radius: 10px; }
 		
 #battlefield { background-color: transparent; width: 953px; height: 345px; 
-					margin: auto; margin-bottom: 5px; float: left; text-align: center;
-					border-color: #d6d3c0; border-style: dashed; border-width: 2px;
-					border-radius: 10px; -moz-border-radius: 10px; -webkit-border-radius: 10px; }
+	margin: auto; margin-bottom: 5px; float: left; text-align: center;
+	border-color: #d6d3c0; border-style: dashed; border-width: 2px;
+	border-radius: 10px; -moz-border-radius: 10px; -webkit-border-radius: 10px; }
 
 
 #info { background-color: #151515; width: 271px; height: 345px; margin: auto; margin-bottom: 5px; float: right;
-					border-color: #d6d3c0; border-style: solid; border-width: 2px;
-					border-radius: 10px; -moz-border-radius: 10px; -webkit-border-radius: 10px; }
+	border-color: #d6d3c0; border-style: solid; border-width: 2px;
+	border-radius: 10px; -moz-border-radius: 10px; -webkit-border-radius: 10px; }
+
 	.infoheader { text-align: center; margin: auto; }
 
 	#topinfo { background-color: #151515; width: 271px; height: 195px; margin: auto; float: right;
-						border-radius: 10px; -moz-border-radius: 10px; -webkit-border-radius: 10px; }
+		border-radius: 10px; -moz-border-radius: 10px; -webkit-border-radius: 10px; }
 
 		#cardinfo { background-color: transparent; width: 271px; height: 150px; float: left;
-							border-radius: 10px; -moz-border-radius: 10px; -webkit-border-radius: 10px; }
+			border-radius: 10px; -moz-border-radius: 10px; -webkit-border-radius: 10px; }
 
 	#cardcontrols { background-color: transparent; width: 271px; height: 150px; float: left;
-						border-radius: 10px; -moz-border-radius: 10px; -webkit-border-radius: 10px; }
+		border-radius: 10px; -moz-border-radius: 10px; -webkit-border-radius: 10px; }
 
 #bottomContainer  { background-color: transparent; width: 1240px; height: 215px; margin: auto; display: block;
-					border-radius: 10px; -moz-border-radius: 10px; -webkit-border-radius: 10px; }
+	border-radius: 10px; -moz-border-radius: 10px; -webkit-border-radius: 10px; }
 					
 	#hand { background-color: transparent; width: 815px; height: 210px; float: left; margin-right: 5px;
-						border-color: #d6d3c0; border-style: dashed; border-width: 2px;
-						border-radius: 10px; -moz-border-radius: 10px; -webkit-border-radius: 10px; }
+		border-color: #d6d3c0; border-style: dashed; border-width: 2px;
+		border-radius: 10px; -moz-border-radius: 10px; -webkit-border-radius: 10px; }
 
 	#library { background-color: transparent; width: 130px; height: 210px; float: left; margin-right: 4px;
-						border-color: #d6d3c0; border-style: dashed; border-width: 2px; text-align: center;
-						border-radius: 10px; -moz-border-radius: 10px; -webkit-border-radius: 10px; }
+		border-color: #d6d3c0; border-style: dashed; border-width: 2px; text-align: center;
+		border-radius: 10px; -moz-border-radius: 10px; -webkit-border-radius: 10px; }
 	
 	#graveyard { background-color: transparent; width: 130px; height: 210px; float: left; margin-left: 3px;
-						border-color: #d6d3c0; border-style: dashed; border-width: 2px; text-align: center;
-						border-radius: 10px; -moz-border-radius: 10px; -webkit-border-radius: 10px; }	
+		border-color: #d6d3c0; border-style: dashed; border-width: 2px; text-align: center;
+		border-radius: 10px; -moz-border-radius: 10px; -webkit-border-radius: 10px; }	
 
 	#exile { background-color: transparent; width: 130px; height: 210px; float: right;
-						border-color: #d6d3c0; border-style: dashed; border-width: 2px; text-align: center;
-						border-radius: 10px; -moz-border-radius: 10px; -webkit-border-radius: 10px; }
+		border-color: #d6d3c0; border-style: dashed; border-width: 2px; text-align: center;
+		border-radius: 10px; -moz-border-radius: 10px; -webkit-border-radius: 10px; }
 
 
 #addCardForm { background-color: transparent; width: 500px; height: 200px;
-						border-color: #d6d3c0; border-style: dashed;
-						border-radius: 10px; -moz-border-radius: 10px; -webkit-border-radius: 10px; }
+	border-color: #d6d3c0; border-style: dashed;
+	border-radius: 10px; -moz-border-radius: 10px; -webkit-border-radius: 10px; }
 
 #leftSide { position: absolute; top: 10px; left: 10px; float: left; }
 
-#cardList { background-color: transparent; float: right; 
-				list-style-type: none; margin-left: 600px; }
+#cardList { background-color: transparent; float: right; width: 380px; height: 500px;
+	list-style-type: none; margin-left: 600px; overflow-y: auto; }
 #cardList li { margin: 0 3px 3px 3px; padding: 0.4em; padding-left: 1.5em; 
-				font-size: 0.7em; height: 15px; width: 150px; float: right; overflow: hidden; }
+	font-size: 0.7em; height: 15px; width: 150px; float: right; overflow: hidden; }
 
 #libCounter { margin: 0; text-align: center; padding: 0; }
 #graveyardCounter { margin: 0; text-align: center; padding: 0; }
@@ -122,15 +128,15 @@ body { background-image: url('images/woodbg.jpg'); background-repeat: repeat; ba
 #deckCounter { margin: 0; padding: 0; float: right; }
 
 #deckManagementTrash { 	height: 100px; width: 200px; border-color: #d6d3c0; border-style: dashed; 
-						border-width: 2px; border-radius: 10px; -moz-border-radius: 10px; 
-						-webkit-border-radius: 10px; background-position: center; font-size: 12px;
-						text-align: center;
-						background-image: url('images/trash.png'); background-repeat: no-repeat; }
+	border-width: 2px; border-radius: 10px; -moz-border-radius: 10px; 
+	-webkit-border-radius: 10px; background-position: center; font-size: 12px;
+	text-align: center;
+	background-image: url('images/trash.png'); background-repeat: no-repeat; }
 
 #cardView { width: 150px; height: 240px; border-color: #d6d3c0; border-style: dashed; 
-						border-width: 2px; text-align: center; position: relative; word-wrap: break-word;
-						border-radius: 10px; background-color: transparent; float: right; margin-right: 105px;
-						margin-top: -150px; -moz-border-radius: 10px; -webkit-border-radius: 10px; }
+	border-width: 2px; text-align: center; position: relative; word-wrap: break-word;
+	border-radius: 10px; background-color: transparent; float: right; margin-right: 105px;
+	margin-top: -150px; -moz-border-radius: 10px; -webkit-border-radius: 10px; }
 
 .deckTitle { padding: 0; margin: 0; margin-right: 100px; float: right; }
 #countDiv { padding: 0; margin: 0; width: 200px; height: 20px; float: right; }

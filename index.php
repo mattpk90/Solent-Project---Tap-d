@@ -810,22 +810,33 @@ flip card
 			}
 		});
 	};
+
+	function validate()
+	{
+		var e = document.forms["loginform"]["email"].value;
+		var p = document.forms["loginform"]["password"].value;
+		if(e == "" || p == "")
+		{
+			alert("You must enter an email and password.");
+			return false;
+		}
+		return true;
+	}
 	</script>
+	<?php include "./functions.php"; ?>
 </head>
 
 
 <body>
 <div id="container">
-	<div id="login"> Username: <input id="username"/> Password: <input id="password" type="password"/> <input id="submit" type="submit" value="Log In"/> </div>
-	<a href="index.html"><div id="logoDiv"></div></a>
-	
+	<div id="login"> <?php panel() ?> </div>
+	<a class="deckManageButton" href='add_deck.php'><button name='addcard' type='button'>Deck Management</button></a>
+	<a href="index.php"><div id="logoDiv"></div></a>
+
 	<div id="battlefield"></div>
 
 	<div id="info">
-		<div id="topinfo">
-			<a href="add_deck.html"><button name="addcard" type="button">Deck Management</button></a>
-			<a href="signup.html"><button name="signup" type="button">Register</button></a>
-			<br />
+		<div id="topinfo">		
 			<h3 class="infoheader">Card Information</h3>
 			<div id="cardinfo"></div>
 		</div>
