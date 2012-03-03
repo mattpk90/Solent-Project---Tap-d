@@ -216,9 +216,12 @@ ability to duplicate a card
 		window.location.reload();
 	}
 	</script>
+	<?php include "./functions.php"; ?>
 </head>
 
 <body>
+	<div id="login"> <?php panel() ?> </div>
+	<a href="index.php"><div id="logoDiv"></div></a>
 	<h3 class="deckTitle">Current Deck</h3><br />
 	<div id="countDiv">Count: <div id="deckCounter"></div></div>
 	<br />
@@ -226,9 +229,6 @@ ability to duplicate a card
 	</ul>
 
 	<div id="leftSide">
-	<a href="index.php"><button name="home" type="button"/>Home</button></a><br /><br />
-
-
 	<form id="addCard">
 	<table>
 	<tr>	<td>Card Name:</td> <td><input type="text" id="name" /></td>			</tr>
@@ -253,6 +253,15 @@ ability to duplicate a card
 
 	<button onclick="clearDeck()">Remove All Cards</button><br />
 	<button onclick="populateTest()">Populate Test Deck</button>
+	<?php
+	if(isset($_COOKIE['id']))
+	{
+		echo "<a href='deck_to_db.php'><button name='decktodb' type='button'>
+			Store Deck in Database
+		</button></a>";
+	}
+	?>
+	
 
 	<br /><br /><br /><br />
 	<div id="deckManagementTrash">Drag and drop to remove card.</div>

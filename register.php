@@ -21,15 +21,6 @@ if((!isset($_POST["email"])) || (!isset($_POST["password"])))
 	echo "You've reached this page with no credentials, please use the sign up form. <br /><br />";
 	echo "<a href='index.php'><button name='home' type='button'/>Home</button></a>";
 	echo "<a href='signup.html'><button name='home' type='button'/>Sign Up</button></a>";
-
-	$select = mysql_query("SELECT * FROM users");
-
-	while($row=mysql_fetch_array($select))
-	{
-		echo $row['id'];
-		echo $row['username'];
-		echo $row['password'];
-	}
 }else{
 	$e = $_POST["email"];
 	$p = $_POST["password"];
@@ -39,9 +30,6 @@ if((!isset($_POST["email"])) || (!isset($_POST["password"])))
 	echo "You have registered. Please log in on the main page. <br /><br />";
 	echo "<a href='index.php'><button name='home' type='button'/>Home</button></a>";
 }
-
-//mysql_query("DELETE FROM users WHERE id !='1'");
-
 
 mysql_close($conn);
 ?>

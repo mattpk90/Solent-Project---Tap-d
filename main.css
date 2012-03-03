@@ -115,7 +115,7 @@ body { background-image: url('images/woodbg.jpg'); background-repeat: repeat; ba
 	border-color: #d6d3c0; border-style: dashed;
 	border-radius: 10px; -moz-border-radius: 10px; -webkit-border-radius: 10px; }
 
-#leftSide { position: absolute; top: 10px; left: 10px; float: left; }
+#leftSide { position: absolute; top: 80px; left: 10px; float: left; }
 
 #cardList { background-color: transparent; float: right; width: 380px; height: 500px;
 	list-style-type: none; margin-left: 600px; overflow-y: auto; }
@@ -133,7 +133,7 @@ body { background-image: url('images/woodbg.jpg'); background-repeat: repeat; ba
 	text-align: center;
 	background-image: url('images/trash.png'); background-repeat: no-repeat; }
 
-#cardView { width: 150px; height: 240px; border-color: #d6d3c0; border-style: dashed; 
+#cardView { width: 120px; height: 200px; border-color: #d6d3c0; border-style: dashed; 
 	border-width: 2px; text-align: center; position: relative; word-wrap: break-word;
 	border-radius: 10px; background-color: transparent; float: right; margin-right: 105px;
 	margin-top: -150px; -moz-border-radius: 10px; -webkit-border-radius: 10px; }
