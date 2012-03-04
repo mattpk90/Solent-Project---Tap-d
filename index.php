@@ -853,7 +853,7 @@ flip card
 
 		<div id="library">Library<br />
 			<p id="libCounter"></p>		
-			<div class="cardback"></div>	
+			<div class="cardback"><div class="backDesign"></div></div>	
 		</div>
 
 		<div id="graveyard">Graveyard <br />
