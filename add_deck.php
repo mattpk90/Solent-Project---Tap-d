@@ -23,6 +23,13 @@ ability to duplicate a card
 	$(document).ready(onLoad);
 
 	function onLoad() {
+
+		function fetchCard(id){
+			var getCardString = localStorage.getItem(id);
+			var card = JSON.parse(getCardString);
+			return card;
+		}
+
 		$("#cardList").sortable();
 		$("#cardList").disableSelection();
 
@@ -43,19 +50,26 @@ ability to duplicate a card
 
 		$("#cardView").droppable({
 			drop: function(event, ui){
-				var getID = $(ui.helper).attr("id");
-				var getCardValues = localStorage.getItem(getID);
+				var id = $(ui.helper).attr("id");
+				var card = fetchCard(id);
 
-				var values = getCardValues.split(";");
-				var name = values[0];
-				var cost = values[1];
-				var type = values[2];
-				var text = values[3];
-				var power = values[4];
-				var toughness = values[5];
-
-				$("#cardView").html(name + " " + cost + "<br />" + type + "<br />" + text + 
-										"<br />" + power+"/"+toughness);
+				if(typeof card.cost == "undefined") //land card
+				{
+					$("#cardView").html("<div class='cardName'>" + card.name + "</div>");
+				}
+				else if(typeof card.power == "undefined") //spell card
+				{
+					$("#cardView").html("<div class='cardName'>" + card.name + "</div><div class='cardCost'>" + card.cost + 
+				      	"</div><br /><div class='cardType'>" + card.type + "</div><br /><div class='cardText'>" 
+				      		+ card.text + "</div>");
+				}
+				else //creature card
+				{
+					$("#cardView").html("<div class='cardName'>" + card.name + "</div><div class='cardCost'>" + card.cost + 
+				      	"</div><br /><div class='cardType'>" + card.type + "</div><br /><div class='cardText'>" 
+				      		+ card.text + "</div><br /><div class='cardStats'>" 
+				      		+ card.power + "/" + card.toughness + "</div>");
+				}
 			}
 		});
 
@@ -65,17 +79,11 @@ ability to duplicate a card
 		{
 			for(var i=0; i < localStorage.length; i++)
 			{
-				cardKey = localStorage.key(i);
-				var getCardValues = localStorage.getItem(cardKey);
-				var values = getCardValues.split(";");
-				var nameA = values[0];
-				var costA = values[1];
-				var textA = values[2];
-				var powerA = values[3];
-				var toughnessA = values[4];
+				var id = localStorage.key(i);
+				var card = fetchCard(id);
 
-				$("#cardList").append("<li class='ui-state-default' id="+cardKey+">" + 
-					nameA + "</li>");
+				$("#cardList").append("<li class='ui-state-default' id="+id+">" + 
+					card.name + "</li>");
 			}
 		}
 		else
@@ -98,120 +106,56 @@ ability to duplicate a card
 		} 
 	}	
 
-	function addPlains()
-	{
-		var cardValues = [];		
-		var nameVal = "Plains";
-		var costVal, textVal, typeVal, powerVal, toughnessVal = "";
-		
-		cardValues.push(nameVal);
-		cardValues.push(costVal);
-		cardValues.push(typeVal);
-		cardValues.push(textVal);
-		cardValues.push(powerVal);
-		cardValues.push(toughnessVal);
-
-		var newDate = new Date();
-		var cardID = newDate.getTime();	
-		window.localStorage.setItem(cardID, cardValues.join(";"));	
-		cardValues.length = 0;
-		window.location.reload();
-	}
-	
-	function addIsland()
-	{
-		var cardValues = [];			
-		var nameVal = "Island";
-		var costVal, textVal, typeVal, powerVal, toughnessVal = "";
-		
-		cardValues.push(nameVal);
-		cardValues.push(costVal);
-		cardValues.push(typeVal);
-		cardValues.push(textVal);
-		cardValues.push(powerVal);
-		cardValues.push(toughnessVal);
-
-		var newDate = new Date();
-		var cardID = newDate.getTime();	
-		localStorage.setItem(cardID, cardValues.join(";"));	
-		cardValues.length = 0;
-		window.location.reload();
-	}
-	
-	function addMountain()
-	{
-		var cardValues = [];			
-		var nameVal = "Mountain";
-		var costVal, textVal, typeVal, powerVal, toughnessVal = "";
-		
-		cardValues.push(nameVal);
-		cardValues.push(costVal);
-		cardValues.push(typeVal);
-		cardValues.push(textVal);
-		cardValues.push(powerVal);
-		cardValues.push(toughnessVal);
-
+	function addLandCard(l){
 		var newDate = new Date();
 		var cardID = newDate.getTime();
-		localStorage.setItem(cardID, cardValues.join(";"));		
-		cardValues.length = 0;
-		window.location.reload();
+		if(l == "p")
+		{		
+			var plains = { 'name': "Plains" };
+			localStorage.setItem(cardID, JSON.stringify(plains));
+			window.location.reload();
+		}
+		else if(l == "i")
+		{
+			var island = { 'name': "Island" };
+			localStorage.setItem(cardID, JSON.stringify(island));
+			window.location.reload();
+		}
+		else if(l == "m")
+		{
+			var mountain = { 'name': "Mountain" };
+			localStorage.setItem(cardID, JSON.stringify(mountain));
+			window.location.reload();
+		}
+		else if(l == "f")
+		{
+			var forest = { 'name': "Forest" };
+			localStorage.setItem(cardID, JSON.stringify(forest));
+			window.location.reload();
+		}
+		else if(l == "s")
+		{
+			var swamp = { 'name': "Swamp" };
+			localStorage.setItem(cardID, JSON.stringify(swamp));
+			window.location.reload();
+		}
 	}
-	
-	function addForest()
-	{
-		var cardValues = [];			
-		var nameVal = "Forest";
-		var costVal, textVal, typeVal, powerVal, toughnessVal = "";
-		
-		cardValues.push(nameVal);
-		cardValues.push(costVal);
-		cardValues.push(typeVal);
-		cardValues.push(textVal);
-		cardValues.push(powerVal);
-		cardValues.push(toughnessVal);
-
-		var newDate = new Date();
-		var cardID = newDate.getTime();
-		localStorage.setItem(cardID, cardValues.join(";"));			
-		cardValues.length = 0;
-		window.location.reload();
-	}
-	
-	function addSwamp()
-	{
-		var cardValues = [];			
-		var nameVal = "Swamp";
-		var costVal, textVal, typeVal, powerVal, toughnessVal = "";
-		
-		cardValues.push(nameVal);
-		cardValues.push(costVal);
-		cardValues.push(typeVal);
-		cardValues.push(textVal);
-		cardValues.push(powerVal);
-		cardValues.push(toughnessVal);
-
-		var newDate = new Date();
-		var cardID = newDate.getTime();		
-		localStorage.setItem(cardID, cardValues.join(";"));
-		cardValues.length = 0;
-		window.location.reload();
-	}	
 
 
 	function populateTest()
 	{
 		for(var i = 0; i < 60; i++)
-		{
-			var cardValues = [];		
-			var newDate = new Date();		
-			cardValues.push(i);
-			cardValues.push(i);
-			cardValues.push(i);
-			cardValues.push(i);
-			cardValues.push(i);
-			cardValues.push(i);			
-			localStorage.setItem(newDate.getTime(), cardValues.join(";"));
+		{	
+			var newDate = new Date();
+			var card = { 
+				'name': i,
+				'cost': i,
+				'type': i,
+				'text': i,
+				'power': i,
+				'toughness': i
+			}	
+			localStorage.setItem(newDate.getTime(), JSON.stringify(card));
 		}
 		window.location.reload();
 	}
@@ -243,11 +187,11 @@ ability to duplicate a card
 
 	<br />
 
-	<table><tr><td><button onclick="addPlains()">Add Plains</button></td>
-			<td><button onclick="addIsland()">Add Island</button></td>
-			<td><button onclick="addMountain()">Add Mountain</button></td>
-			<td><button onclick="addForest()">Add Forest</button></td>
-			<td><button onclick="addSwamp()">Add Swamp</button></td></tr></table>
+	<table><tr><td><button onclick="addLandCard('p')">Add Plains</button></td>
+			<td><button onclick="addLandCard('i')">Add Island</button></td>
+			<td><button onclick="addLandCard('m')">Add Mountain</button></td>
+			<td><button onclick="addLandCard('f')">Add Forest</button></td>
+			<td><button onclick="addLandCard('s')">Add Swamp</button></td></tr></table>
 
 	<br />
 
@@ -272,10 +216,9 @@ ability to duplicate a card
 <script type='text/javascript'>	
 	$("#addCard").submit(
 		function(){
-			var cardValues = [];		
 			var newDate = new Date();
-
 			var cardID = newDate.getTime();	
+
 			var nameVal = $("#name").val();
 			var costVal = $("#cost").val();
 			var typeVal = $("#type").val();
@@ -283,15 +226,16 @@ ability to duplicate a card
 			var powerVal = $("#power").val();
 			var toughnessVal = $("#toughness").val();
 			
-			cardValues.push(nameVal);
-			cardValues.push(costVal);
-			cardValues.push(typeVal);
-			cardValues.push(textVal);
-			cardValues.push(powerVal);
-			cardValues.push(toughnessVal);
+			var card = {
+				'name': nameVal,
+				'cost': costVal,
+				'type': typeVal,
+				'text': textVal,
+				'power': powerVal,
+				'toughness': toughnessVal
+			};
 			
-			localStorage.setItem(cardID, cardValues.join(";"));
-			cardValues.length = 0;		
+			localStorage.setItem(cardID, JSON.stringify(card));		
 		}
 	);	
 	</script>
