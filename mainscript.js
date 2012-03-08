@@ -4,21 +4,57 @@ Dimensions of cards- 0.7:1
 
 css3 page transitions? single file different divs for pages- maintain state of game
 
-drag over library, layover on card with 'add to library'
 stopimmediatepropagation: stops all following functions with same name from calling
 add a token card to the field- specify text and can duplicate
 draw seven cards for hand
 mulligan
 send card to top/bottom
 flip card
+
+use associative array for library, graveyard etc instead of normal one?
 */
 $(document).ready(onLoad);
 
-function onLoad() {
-	var libraryArray = [];
-	var graveyardArray = [];
-	var exiledArray = [];
+var libraryArray = [];
+var graveyardArray = [];
+var exiledArray = [];
+var tappedArray = [];
 
+//return a card object from localstorage
+function fetchCard(id){
+	var getCardString = localStorage.getItem(id);
+	var card = JSON.parse(getCardString);
+	return card;
+}
+
+//set card to either land, spell or creature
+function outputCardType(id){
+	var card = fetchCard(id);
+
+	if(typeof card.cost == "undefined")
+	{
+		return "<div class='cardName'>" + card.name + "</div>";			
+	}
+	else if(card.power == "")
+	{
+		return "<div class='cardName'>" + card.name + 
+		   "</div><div class='cardCost'>" + card.cost + 
+		    "</div><br /><div class='cardType'>" + card.type + 
+		    "</div><br /><div class='cardText'>" + card.text + "</div>";
+	}
+	else
+	{
+		return "<div class='cardName'>" + card.name + 
+		    "</div><div class='cardCost'>" + card.cost + 
+		   	"</div><br /><div class='cardType'>" + card.type + 
+		    "</div><br /><div class='cardText'>" +
+		    card.text + "</div><br /><div class='cardStats'>" +
+		    card.power + "/" + card.toughness + "</div>";
+	}
+}
+
+function onLoad() {
+	
 	//populate the library
 	if(localStorage.length == 0)
 	{
@@ -41,39 +77,6 @@ function onLoad() {
 	};
 	shuffle(libraryArray);
 
-	//return a card object from localstorage
-	function fetchCard(id){
-		var getCardString = localStorage.getItem(id);
-		var card = JSON.parse(getCardString);
-		return card;
-	}
-
-	//set card to either land, spell or creature
-	function outputCardType(id){
-		var card = fetchCard(id);
-
-		if(typeof card.cost == "undefined")
-		{
-			return "<div class='cardName'>" + card.name + "</div>";			
-		}
-		else if(card.power == "")
-		{
-			return "<div class='cardName'>" + card.name + 
-			   "</div><div class='cardCost'>" + card.cost + 
-			    "</div><br /><div class='cardType'>" + card.type + 
-			    "</div><br /><div class='cardText'>" + card.text + "</div>";
-		}
-		else
-		{
-			return "<div class='cardName'>" + card.name + 
-			    "</div><div class='cardCost'>" + card.cost + 
-			   	"</div><br /><div class='cardType'>" + card.type + 
-			    "</div><br /><div class='cardText'>" +
-			    card.text + "</div><br /><div class='cardStats'>" +
-			    card.power + "/" + card.toughness + "</div>";
-		}
-	}
-
 	//count the number of cards in zones
 	$("#libCounter").html(libraryArray.length);
 	$("#graveyardCounter").html(graveyardArray.length);
@@ -82,6 +85,9 @@ function onLoad() {
 	//graveyard and exiled hidden by default as game starts with them empty
 	$(".graveyardPlaceholder").hide();
 	$(".exiledPlaceholder").hide();
+
+	//hide card buttons
+	$("#buttonsDiv").hide();
 
 	$(".card").draggable({ cursor: 'move', snap: true, snapTolerance: 5, stack: ".card", delay: 10,
 		stop: function(event, ui){
@@ -96,7 +102,14 @@ function onLoad() {
 	$(".cardInfoBox").click(function(event){
 		event.stopImmediatePropagation();
 		var id = $(this).parent().attr("id");
+		$("#cardinfo").removeClass();
+		$("#cardinfo").addClass(id);
 		$("#cardinfo").html(outputCardType(id));
+		$("#buttonsDiv").show();
+		$(".selected").removeClass("selected");
+		tappedArray.splice(0,1);
+		$(this).parent().addClass("selected");
+		tappedArray.push(id);
 	});
 
 	$(".libraryPlaceholder").draggable({ cursor: 'move', revert: 'invalid', helper: "clone",
@@ -191,13 +204,7 @@ function onLoad() {
 			    if(libraryArray.length == 0) { $(".libraryPlaceholder").hide(); }
 			    $("#container").append(newDiv);
 			    $("#libCounter").html(libraryArray.length);
-
-			    $(".cardInfoBox").click(function(event){
-					event.stopImmediatePropagation();
-					var cardID = $(this).parent().attr("id");
-					$("#cardinfo").html(outputCardType(cardID));
-				});
-
+			    
 			    $("#"+cardID).draggable({ cursor: 'move', snap: true, snapTolerance: 5, 
 			    	stack: ".card", delay: 50, containment: 'window',
 					stop: function(event, ui){
@@ -230,12 +237,6 @@ function onLoad() {
 			    $("#container").append(newDiv);
 			    $("#graveyardCounter").html(graveyardArray.length);									
 
-			    $(".cardInfoBox").click(function(event){
-					event.stopImmediatePropagation();
-					var cardID = $(this).parent().attr("id");
-					$("#cardinfo").html(outputCardType(cardID));
-				});
-
 			    $("#"+cardID).draggable({ cursor: 'move', snap: true, snapTolerance: 5, 
 			    	stack: ".card", delay: 50, containment: 'window',
 					stop: function(event, ui){
@@ -251,7 +252,7 @@ function onLoad() {
 				});
 		    }
 		    else if (ui.draggable.hasClass("exiledPlaceholder"))   
-		    {	    	
+		    {
 		    	var cardID = $(exiledArray).get(0);
 		    	var card = fetchCard(cardID);
 				exiledArray.splice(0,1);
@@ -268,12 +269,6 @@ function onLoad() {
 			    $("#container").append(newDiv);
 			    $("#exiledCounter").html(exiledArray.length);			    			
 
-			    $(".cardInfoBox").click(function(event){
-					event.stopImmediatePropagation();
-					var cardID = $(this).parent().attr("id");
-					$("#cardinfo").html(outputCardType(cardID));
-				});
-
 			    $("#"+cardID).draggable({ cursor: 'move', snap: true, snapTolerance: 5, 
 			    	stack: ".card", delay: 50, containment: 'window',
 					stop: function(event, ui){
@@ -288,6 +283,20 @@ function onLoad() {
 					}
 				});		    
 		    }
+
+		    $(".cardInfoBox").click(function(event){
+				event.stopImmediatePropagation();
+				var id = $(this).parent().attr("id");
+				$("#cardinfo").removeClass();
+				$("#cardinfo").addClass(id);
+				$("#cardinfo").html(outputCardType(id));
+				$("#buttonsDiv").show();
+				$(".selected").removeClass("selected");
+				tappedArray.splice(0,1);
+				$(this).parent().addClass("selected");
+				tappedArray.push(id);
+			});
+
 		    $("#library").css('border-color', '#d6d3c0');
 		    $("#hand").css('border-color', '#d6d3c0');
 		    $("#graveyard").css('border-color', '#d6d3c0');
@@ -342,19 +351,27 @@ function onLoad() {
 			$("#graveyard").css('border-color', '#d6d3c0');			
 			var cardID = ui.draggable.attr("id");
 			ui.draggable.remove();
-			if(graveyardArray.length == 0) { $(".graveyardPlaceholder").show(); }			
+			$(".graveyardPlaceholder").show();			
 			graveyardArray.unshift(cardID);
 			$("#graveyardCounter").html(graveyardArray.length);
+			$("#buttonsDiv").hide();
 
 			$(".graveyardPlaceholder")
+				.addClass(cardID)
 				.html(outputCardType(cardID))
 				.append("<div class='cardInfoBox'></div>");	
 			
-
 			$(".cardInfoBox").click(function(event){
 				event.stopImmediatePropagation();
 				var id = $(graveyardArray).get(0);
+				$("#cardinfo").removeClass();
+				$("#cardinfo").addClass(id);
 				$("#cardinfo").html(outputCardType(id));
+				$("#buttonsDiv").show();
+				$(".selected").removeClass("selected");
+				tappedArray.splice(0,1);
+				$(".graveyardPlaceholder").addClass("selected");
+				tappedArray.push(id);
 			});
 
 			$('body').css('cursor','default');
@@ -373,19 +390,27 @@ function onLoad() {
 			$("#exile").css('border-color', '#d6d3c0');			
 			var cardID = ui.draggable.attr("id");
 			ui.draggable.remove();
-			if(exiledArray.length == 0) { $(".exiledPlaceholder").show(); }			
+			$(".exiledPlaceholder").show();			
 			exiledArray.unshift(cardID);
 			$("#exiledCounter").html(exiledArray.length);
+			$("#buttonsDiv").hide();
 
 			$(".exiledPlaceholder")
+				.addClass(cardID)
 				.html(outputCardType(cardID))
-				.append("<div class='cardInfoBox'></div>");	
-			
+				.append("<div class='cardInfoBox'></div>");			
 
 			$(".cardInfoBox").click(function(event){
 				event.stopImmediatePropagation();
 				var id = $(exiledArray).get(0);
+				$("#cardinfo").removeClass();
+				$("#cardinfo").addClass(id);
 				$("#cardinfo").html(outputCardType(id));
+				$("#buttonsDiv").show();
+				$(".selected").removeClass("selected");
+				tappedArray.splice(0,1);
+				$(".exiledPlaceholder").addClass("selected");
+				tappedArray.push(id);
 			});
 
 			$('body').css('cursor','default');
@@ -405,6 +430,128 @@ function onLoad() {
 		}
 	});
 };
+
+function sendToFront(){
+	$(".libraryPlaceholder").show();
+	var id = $("#cardinfo").attr('class');
+	if($("#"+id).hasClass("card")){
+		$("#"+id).remove();
+	}
+	else if($(".graveyardPlaceholder").hasClass(id)){
+		if(graveyardArray.length==1){ 
+			$(".graveyardPlaceholder").hide();
+		}
+		else if(graveyardArray.length>1){
+			$(".graveyardPlaceholder").html(outputCardType(graveyardArray[1])).append("<div class='cardInfoBox'></div>");
+			$(".cardInfoBox").click(function(event){
+				event.stopImmediatePropagation();
+				var id = $(graveyardArray).get(0);
+				$("#cardinfo").removeClass();
+				$("#cardinfo").addClass(id);
+				$("#cardinfo").html(outputCardType(id));
+				$("#buttonsDiv").show();
+				$(".selected").removeClass("selected");
+				tappedArray.splice(0,1);
+				$(".graveyardPlaceholder").addClass("selected");
+				tappedArray.push(id);
+			});
+		}
+		graveyardArray.splice(0,1);
+		$("#graveyardCounter").html(graveyardArray.length);
+		$("#graveyardPlaceholder").removeClass();
+	}
+	else if($(".exiledPlaceholder").hasClass(id)){
+		if(exiledArray.length==1){ 
+			$(".exiledPlaceholder").hide();
+		}
+		else if(exiledArray.length>1){
+			$(".exiledPlaceholder").html(outputCardType(exiledArray[1])).append("<div class='cardInfoBox'></div>");
+			$(".cardInfoBox").click(function(event){
+				event.stopImmediatePropagation();
+				var id = $(exiledArray).get(0);
+				$("#cardinfo").removeClass();
+				$("#cardinfo").addClass(id);
+				$("#cardinfo").html(outputCardType(id));
+				$("#buttonsDiv").show();
+				$(".selected").removeClass("selected");
+				tappedArray.splice(0,1);
+				$(".exiledPlaceholder").addClass("selected");
+				tappedArray.push(id);
+			});
+		}
+		exiledArray.splice(0,1);
+		$("#exiledCounter").html(exiledArray.length);
+		$("#exiledPlaceholder").removeClass();
+	}
+	
+	libraryArray.unshift(id);
+	$("#libCounter").html(libraryArray.length);
+	$("#cardinfo").html("");
+	$("#cardinfo").removeClass();
+	$("#buttonsDiv").hide();
+	tappedArray = [];
+}
+
+function sendToBack(){
+	$(".libraryPlaceholder").show();
+	var id = $("#cardinfo").attr('class');
+	if($("#"+id).hasClass("card")){
+		$("#"+id).remove();
+	}
+	else if($(".graveyardPlaceholder").hasClass(id)){
+		if(graveyardArray.length==1){ 
+			$(".graveyardPlaceholder").hide();
+		}
+		else if(graveyardArray.length>1){
+			$(".graveyardPlaceholder").html(outputCardType(graveyardArray[1])).append("<div class='cardInfoBox'></div>");
+			$(".cardInfoBox").click(function(event){
+				event.stopImmediatePropagation();
+				var id = $(graveyardArray).get(0);
+				$("#cardinfo").removeClass();
+				$("#cardinfo").addClass(id);
+				$("#cardinfo").html(outputCardType(id));
+				$("#buttonsDiv").show();
+				$(".selected").removeClass("selected");
+				tappedArray.splice(0,1);
+				$(".graveyardPlaceholder").addClass("selected");
+				tappedArray.push(id);
+			});
+		}
+		graveyardArray.splice(0,1);
+		$("#graveyardCounter").html(graveyardArray.length);
+		$("#graveyardPlaceholder").removeClass();
+	}
+	else if($(".exiledPlaceholder").hasClass(id)){
+		if(exiledArray.length==1){ 
+			$(".exiledPlaceholder").hide();
+		}
+		else if(exiledArray.length>1){
+			$(".exiledPlaceholder").html(outputCardType(exiledArray[1])).append("<div class='cardInfoBox'></div>");
+			$(".cardInfoBox").click(function(event){
+				event.stopImmediatePropagation();
+				var id = $(exiledArray).get(0);
+				$("#cardinfo").removeClass();
+				$("#cardinfo").addClass(id);
+				$("#cardinfo").html(outputCardType(id));
+				$("#buttonsDiv").show();
+				$(".selected").removeClass("selected");
+				tappedArray.splice(0,1);
+				$(".exiledPlaceholder").addClass("selected");
+				tappedArray.push(id);
+			});
+		}
+		exiledArray.splice(0,1);
+		$("#exiledCounter").html(exiledArray.length);
+		$("#exiledPlaceholder").removeClass();
+	}
+
+	libraryArray.push(id);
+	$("#libCounter").html(libraryArray.length);
+	$("#cardinfo").html("");
+	$("#cardinfo").removeClass();
+	$("#buttonsDiv").hide();
+	tappedArray = [];
+}
 
 
 function validate()

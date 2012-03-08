@@ -97,12 +97,10 @@ ability to duplicate a card
 		if(confirm('Are you sure?'))
 		{
 			localStorage.clear();
-			alert('Deck Cleared.');
 			window.location.reload();
 		}
 		else
 		{
-			alert('Operation cancelled.');
 		} 
 	}	
 
@@ -141,25 +139,41 @@ ability to duplicate a card
 		}
 	}
 
-
 	function populateTest()
 	{
-		for(var i = 0; i < 60; i++)
-		{	
+		for(var i = 1; i <= 60; i++)
+		{			
 			var newDate = new Date();
-			var card = { 
-				'name': i,
-				'cost': i,
-				'type': i,
-				'text': i,
-				'power': i,
-				'toughness': i
-			}	
+			if(i%4 == 0)
+			{
+				var card = {
+					'name': i,
+					'cost': i,
+					'type': i,
+					'text': i,
+					'power': i,
+					'toughness': i
+				};		
+			}
+			else if(i%5 == 0)
+			{
+				var card = {
+					'name': i,
+					'cost': i,
+					'type': i,
+					'text': i
+				};
+			}
+			else if(i%2 == 0)
+			{
+				var card = { 'name': i };
+			}
 			localStorage.setItem(newDate.getTime(), JSON.stringify(card));
 		}
 		window.location.reload();
 	}
 	</script>
+
 	<?php include "./functions.php"; ?>
 </head>
 

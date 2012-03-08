@@ -11,7 +11,7 @@ Property of Matt Kennedy and Southampton Solent University.
 	<script type='text/javascript' src='jquery.js'></script>
 	<script type='text/javascript' src='jquery-ui.js'></script>
 	<script type='text/javascript' src='mainscript.js'></script>
-	
+
 	<?php include "./functions.php"; ?>
 </head>
 
@@ -27,13 +27,15 @@ Property of Matt Kennedy and Southampton Solent University.
 	<div id="info">
 		<div id="topinfo">		
 			<h3 class="infoheader">Card Information</h3>
-			<div id="cardinfo"></div>
+			<div id="cardinfo" class=""></div>
 		</div>
 		
 		<div id="cardcontrols">
 			<h3 class="infoheader">Card Controls</h3>
-			<button>Top of Library</button> &nbsp; <button>+1/+1</button> &nbsp; <button>Face Up</button><br />
-			<button>Bottom of Library</button> &nbsp; <button>-1/-1</button> <button>Face Down</button>
+			<div id="buttonsDiv">
+				<button onclick="sendToFront()">Top of Library</button> &nbsp; <button>+1/+1</button> &nbsp; <button>Face Up</button><br />
+				<button onclick="sendToBack()">Bottom of Library</button> &nbsp; <button>-1/-1</button> <button>Face Down</button>
+			</div>
 		</div>
 	</div>
 	
