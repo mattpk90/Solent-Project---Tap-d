@@ -67,7 +67,7 @@ body { background-image: url('images/woodbg.jpg'); background-repeat: repeat; ba
 	-moz-border-radius: 10px; -webkit-border-radius: 10px; }
 
 
-.cardback{ background-color: #2E2E2E; width: 100px; height: 160px; position: relative; margin: 0px auto;
+.libraryPlaceholder{ background-color: #2E2E2E; width: 100px; height: 160px; position: relative; margin: 0px auto;
 	margin-bottom: 5px; border-color: #fff; border-width: 2px;
 	border-radius: 10px; -moz-border-radius: 10px; -webkit-border-radius: 10px; }
 
