@@ -458,65 +458,7 @@ function onLoad() {
 	});
 };
 
-function sendToFront(){
-	$(".libraryPlaceholder").show();
-	var id = $("#cardinfo").attr('class');
-	if($("#"+id).hasClass("card")){
-		$("#"+id).remove();
-	}
-	else if($(".graveyardPlaceholder").hasClass(id)){
-		if(graveyardArray.length==1){ 
-			$(".graveyardPlaceholder").hide();
-		}
-		else if(graveyardArray.length >= 2){
-			$(".graveyardPlaceholder").show();
-			$(".graveyardPlaceholder").html(outputCardType(graveyardArray[1])).append("<div class='cardInfoBox'></div>");
-			$(".graveyardPlaceholder").addClass(graveyardArray[1]);
-			
-			$(".cardInfoBox").click(function(event){
-				event.stopImmediatePropagation();
-				var id = graveyardArray[0];
-				$("#cardinfo").addClass(id);
-				$("#cardinfo").html(outputCardType(id));
-				$("#buttonsDiv").show();
-			});
-		}
-		graveyardArray.splice(0,1);
-		$("#graveyardCounter").html(graveyardArray.length);
-		$(".graveyardPlaceholder").removeClass(id);
-	}
-	else if($(".exiledPlaceholder").hasClass(id)){
-		if(exiledArray.length == 1){
-			$(".exiledPlaceholder").hide();
-		}
-		else if(exiledArray.length > 1){
-			$(".exiledPlaceholder").show();
-			$(".exiledPlaceholder").html(outputCardType(exiledArray[1])).append("<div class='cardInfoBox'></div>");
-			$(".exiledPlaceholder").addClass(exiledArray[1]);
-			
-			$(".cardInfoBox").click(function(event){
-				event.stopImmediatePropagation();
-				var id = exiledArray[0];
-				$("#cardinfo").addClass(id);
-				$("#cardinfo").html(outputCardType(id));
-				$("#buttonsDiv").show();
-			});
-		}
-		exiledArray.splice(0,1);
-		$("#exiledCounter").html(exiledArray.length);
-		$(".exiledPlaceholder").removeClass(id);
-	}
-	
-	libraryArray.unshift(id);
-	$("#libCounter").html(libraryArray.length);
-	$("#cardinfo").html("");
-	$("#cardinfo").removeClass();
-	$("#buttonsDiv").hide();
-	$(".selected").removeClass("selected");
-	activeCard = null;
-}
-
-function sendToBack(){
+function sendToLib(l){
 	$(".libraryPlaceholder").show();
 	var id = $("#cardinfo").attr('class');
 	if($("#"+id).hasClass("card")){
@@ -565,7 +507,8 @@ function sendToBack(){
 		$(".exiledPlaceholder").removeClass(id);
 	}
 
-	libraryArray.push(id);
+	if(l == "f") libraryArray.unshift(id);
+	else if(l == "b") libraryArray.push(id);
 	$("#libCounter").html(libraryArray.length);
 	$("#cardinfo").html("");
 	$("#cardinfo").removeClass();
@@ -573,7 +516,6 @@ function sendToBack(){
 	$(".selected").removeClass("selected");
 	activeCard = null;
 }
-
 
 function validate()
 {
