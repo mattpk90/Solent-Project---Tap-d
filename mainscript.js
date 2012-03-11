@@ -217,7 +217,7 @@ function onLoad() {
 					{
 						$(this).removeClass("cardTapped");
 					}else{
-					$(this).addClass("cardTapped");
+						$(this).addClass("cardTapped");
 					}
 				});
 		    }
@@ -239,12 +239,13 @@ function onLoad() {
 			    }
 			    else if(graveyardArray.length >= 2){
 			    	$(".graveyardPlaceholder").addClass(graveyardArray[0]);
-
 			    }
 			    $("#container").append(newDiv);
-			    if(cardID == activeCard){ $("#"+cardID).addClass("selected"); }
 			    $(".graveyardPlaceholder").removeClass("selected");
-			    $("#graveyardCounter").html(graveyardArray.length);									
+			    $("#graveyardCounter").html(graveyardArray.length);		
+			    $("#cardinfo").html("");
+			    $("#cardinfo").removeClass();
+			    $("#buttonsDiv").hide();					
 
 			    $("#"+cardID).draggable({ cursor: 'move', snap: true, snapTolerance: 5, 
 			    	stack: ".card", delay: 50, containment: 'window',
@@ -256,7 +257,7 @@ function onLoad() {
 					{
 						$(this).removeClass("cardTapped");
 					}else{
-					$(this).addClass("cardTapped");
+						$(this).addClass("cardTapped");
 					}
 				});
 		    }
@@ -281,9 +282,11 @@ function onLoad() {
 			    	$(".exiledPlaceholder").addClass(exiledArray[0]);
 			    }
 			    $("#container").append(newDiv);
-			    if(cardID == activeCard){ $("#"+cardID).addClass("selected"); }
 			    $(".exiledPlaceholder").removeClass("selected");
-			    $("#exiledCounter").html(exiledArray.length);			    			
+			    $("#exiledCounter").html(exiledArray.length);
+			    $("#cardinfo").html("");
+			    $("#cardinfo").removeClass();
+			    $("#buttonsDiv").hide();		    			
 
 			    $("#"+cardID).draggable({ cursor: 'move', snap: true, snapTolerance: 5, 
 			    	stack: ".card", delay: 50, containment: 'window',
@@ -336,7 +339,12 @@ function onLoad() {
 				ui.draggable.remove();			
 				libraryArray.unshift(cardID);
 				$('body').css('cursor','default');
-				$("#libCounter").html(libraryArray.length);										
+				$("#libCounter").html(libraryArray.length);
+				if(cardID == activeCard){
+					$("#cardinfo").removeClass();
+					$("#cardinfo").html("");
+					$("#buttonsDiv").hide();
+				}					
 		}
 	});	
 
@@ -375,14 +383,13 @@ function onLoad() {
 			$("#graveyardCounter").html(graveyardArray.length);
 			$("#buttonsDiv").hide();
 			$("#cardinfo").html("");
+			$("#cardinfo").removeClass();
 			$(".selected").removeClass("selected");
 
 			$(".graveyardPlaceholder")
 				.addClass(cardID)
 				.html(outputCardType(cardID))
 				.append("<div class='cardInfoBox'></div>");
-
-			if(cardID == activeCard){ $(".graveyardPlaceholder").addClass("selected"); }
 			
 			$(".cardInfoBox").click(function(event){
 				event.stopImmediatePropagation();
@@ -420,14 +427,13 @@ function onLoad() {
 			$("#exiledCounter").html(exiledArray.length);
 			$("#buttonsDiv").hide();
 			$("#cardinfo").html("");
+			$("#cardinfo").removeClass();
 			$(".selected").removeClass("selected");
 
 			$(".exiledPlaceholder")
 				.addClass(cardID)
 				.html(outputCardType(cardID))
-				.append("<div class='cardInfoBox'></div>");	
-
-			if(cardID == activeCard){ $(".exiledPlaceholder").addClass("selected"); }
+				.append("<div class='cardInfoBox'></div>");
 			
 			$(".cardInfoBox").click(function(event){
 				event.stopImmediatePropagation();
@@ -516,6 +522,18 @@ function sendToLib(l){
 	$(".selected").removeClass("selected");
 	activeCard = null;
 }
+
+/*
+function modStats(t)
+{
+	var id = $("#cardinfo").attr("class");
+	if(t == "u"){
+		$("#"+id).children("")
+	}
+	else if(t == "d"){
+
+	}
+}*/
 
 function validate()
 {
