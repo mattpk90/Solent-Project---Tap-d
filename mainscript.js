@@ -18,6 +18,7 @@ $(document).ready(onLoad);
 var libraryArray = [];
 var graveyardArray = [];
 var exiledArray = [];
+var activeCard;
 
 //return a card object from localstorage
 function fetchCard(id){
@@ -105,6 +106,9 @@ function onLoad() {
 		$("#cardinfo").addClass(id);
 		$("#cardinfo").html(outputCardType(id));
 		$("#buttonsDiv").show();
+		$(".selected").removeClass("selected");
+		$(this).parent().addClass("selected");
+		activeCard = id;
 	});
 
 	$(".libraryPlaceholder").draggable({ cursor: 'move', revert: 'invalid', helper: "clone",
@@ -188,7 +192,7 @@ function onLoad() {
 		drop: function(event, ui) {
 			if(ui.draggable.hasClass("libraryPlaceholder"))
 			{
-				var cardID = $(libraryArray).get(0);
+				var cardID = libraryArray[0];
 				var card = fetchCard(cardID);
 				libraryArray.splice(0,1);
 			
@@ -199,8 +203,8 @@ function onLoad() {
 			      	.attr('id', cardID)
 			      	.html(outputCardType(cardID))
 			      	.append("<div class='cardInfoBox'></div>");
-			    if(libraryArray.length == 0) { $(".libraryPlaceholder").hide(); }
-			    $("#container").append(newDiv);
+			    if(libraryArray.length == 0){ $(".libraryPlaceholder").hide(); }
+			    $("#container").append(newDiv);		   
 			    $("#libCounter").html(libraryArray.length);
 			    
 			    $("#"+cardID).draggable({ cursor: 'move', snap: true, snapTolerance: 5, 
@@ -238,6 +242,8 @@ function onLoad() {
 
 			    }
 			    $("#container").append(newDiv);
+			    if(cardID == activeCard){ $("#"+cardID).addClass("selected"); }
+			    $(".graveyardPlaceholder").removeClass("selected");
 			    $("#graveyardCounter").html(graveyardArray.length);									
 
 			    $("#"+cardID).draggable({ cursor: 'move', snap: true, snapTolerance: 5, 
@@ -275,6 +281,8 @@ function onLoad() {
 			    	$(".exiledPlaceholder").addClass(exiledArray[0]);
 			    }
 			    $("#container").append(newDiv);
+			    if(cardID == activeCard){ $("#"+cardID).addClass("selected"); }
+			    $(".exiledPlaceholder").removeClass("selected");
 			    $("#exiledCounter").html(exiledArray.length);			    			
 
 			    $("#"+cardID).draggable({ cursor: 'move', snap: true, snapTolerance: 5, 
@@ -299,6 +307,9 @@ function onLoad() {
 				$("#cardinfo").addClass(id);
 				$("#cardinfo").html(outputCardType(id));
 				$("#buttonsDiv").show();
+				$(".selected").removeClass("selected");
+				$(this).parent().addClass("selected");
+				activeCard = id;
 			});
 
 		    $("#library").css('border-color', '#d6d3c0');
@@ -363,11 +374,15 @@ function onLoad() {
 			$(".graveyardPlaceholder").addClass(cardID);
 			$("#graveyardCounter").html(graveyardArray.length);
 			$("#buttonsDiv").hide();
+			$("#cardinfo").html("");
+			$(".selected").removeClass("selected");
 
 			$(".graveyardPlaceholder")
 				.addClass(cardID)
 				.html(outputCardType(cardID))
-				.append("<div class='cardInfoBox'></div>");	
+				.append("<div class='cardInfoBox'></div>");
+
+			if(cardID == activeCard){ $(".graveyardPlaceholder").addClass("selected"); }
 			
 			$(".cardInfoBox").click(function(event){
 				event.stopImmediatePropagation();
@@ -376,6 +391,9 @@ function onLoad() {
 				$("#cardinfo").addClass(id);
 				$("#cardinfo").html(outputCardType(id));
 				$("#buttonsDiv").show();
+				$(".selected").removeClass("selected");
+				$(".graveyardPlaceholder").addClass("selected");
+				activeCard = id;
 			});
 			$('body').css('cursor','default');
 		}
@@ -401,11 +419,15 @@ function onLoad() {
 			$(".exiledPlaceholder").addClass(cardID);
 			$("#exiledCounter").html(exiledArray.length);
 			$("#buttonsDiv").hide();
+			$("#cardinfo").html("");
+			$(".selected").removeClass("selected");
 
 			$(".exiledPlaceholder")
 				.addClass(cardID)
 				.html(outputCardType(cardID))
 				.append("<div class='cardInfoBox'></div>");	
+
+			if(cardID == activeCard){ $(".exiledPlaceholder").addClass("selected"); }
 			
 			$(".cardInfoBox").click(function(event){
 				event.stopImmediatePropagation();
@@ -414,6 +436,9 @@ function onLoad() {
 				$("#cardinfo").addClass(id);
 				$("#cardinfo").html(outputCardType(id));
 				$("#buttonsDiv").show();
+				$(".selected").removeClass("selected");
+				$(".exiledPlaceholder").addClass("selected");
+				activeCard = id;
 			});
 			$('body').css('cursor','default');
 		}
@@ -487,6 +512,8 @@ function sendToFront(){
 	$("#cardinfo").html("");
 	$("#cardinfo").removeClass();
 	$("#buttonsDiv").hide();
+	$(".selected").removeClass("selected");
+	activeCard = null;
 }
 
 function sendToBack(){
@@ -494,19 +521,19 @@ function sendToBack(){
 	var id = $("#cardinfo").attr('class');
 	if($("#"+id).hasClass("card")){
 		$("#"+id).remove();
-		$("#cardinfo").removeClass();
 	}
 	else if($(".graveyardPlaceholder").hasClass(id)){
 		if(graveyardArray.length==1){ 
 			$(".graveyardPlaceholder").hide();
-			$("#cardinfo").removeClass();
 		}
-		else if(graveyardArray.length>1){
+		else if(graveyardArray.length >= 2){
+			$(".graveyardPlaceholder").show();
 			$(".graveyardPlaceholder").html(outputCardType(graveyardArray[1])).append("<div class='cardInfoBox'></div>");
+			$(".graveyardPlaceholder").addClass(graveyardArray[1]);
+			
 			$(".cardInfoBox").click(function(event){
 				event.stopImmediatePropagation();
-				var id = $(graveyardArray).get(0);
-				$("#cardinfo").removeClass();
+				var id = graveyardArray[0];
 				$("#cardinfo").addClass(id);
 				$("#cardinfo").html(outputCardType(id));
 				$("#buttonsDiv").show();
@@ -514,19 +541,20 @@ function sendToBack(){
 		}
 		graveyardArray.splice(0,1);
 		$("#graveyardCounter").html(graveyardArray.length);
-		$(".graveyardPlaceholder").removeClass();
+		$(".graveyardPlaceholder").removeClass(id);
 	}
 	else if($(".exiledPlaceholder").hasClass(id)){
-		if(exiledArray.length==1){ 
+		if(exiledArray.length == 1){
 			$(".exiledPlaceholder").hide();
-			$("#cardinfo").removeClass();
 		}
-		else if(exiledArray.length>1){
+		else if(exiledArray.length > 1){
+			$(".exiledPlaceholder").show();
 			$(".exiledPlaceholder").html(outputCardType(exiledArray[1])).append("<div class='cardInfoBox'></div>");
+			$(".exiledPlaceholder").addClass(exiledArray[1]);
+			
 			$(".cardInfoBox").click(function(event){
 				event.stopImmediatePropagation();
-				var id = $(exiledArray).get(0);
-				$("#cardinfo").removeClass();
+				var id = exiledArray[0];
 				$("#cardinfo").addClass(id);
 				$("#cardinfo").html(outputCardType(id));
 				$("#buttonsDiv").show();
@@ -534,7 +562,7 @@ function sendToBack(){
 		}
 		exiledArray.splice(0,1);
 		$("#exiledCounter").html(exiledArray.length);
-		$(".exiledPlaceholder").removeClass();
+		$(".exiledPlaceholder").removeClass(id);
 	}
 
 	libraryArray.push(id);
@@ -542,6 +570,8 @@ function sendToBack(){
 	$("#cardinfo").html("");
 	$("#cardinfo").removeClass();
 	$("#buttonsDiv").hide();
+	$(".selected").removeClass("selected");
+	activeCard = null;
 }
 
 

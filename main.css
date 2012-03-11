@@ -24,7 +24,7 @@ body { background-image: url('images/woodbg.jpg'); background-repeat: repeat; ba
 .card { background-color: #2986ce; width: 100px; height: 160px; float: left; position: absolute;
 	text-align: center; border-radius: 10px; -moz-border-radius: 10px; -webkit-border-radius: 10px; }
 
-.selected { background-color: red; }
+.selected { background-color: #1443a3 !important; }
 
 .cardName { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; padding: 1px;
 	width: 100px; height: 22px; text-align: center; }
