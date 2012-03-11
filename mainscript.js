@@ -18,7 +18,6 @@ $(document).ready(onLoad);
 var libraryArray = [];
 var graveyardArray = [];
 var exiledArray = [];
-var tappedArray = [];
 
 //return a card object from localstorage
 function fetchCard(id){
@@ -106,10 +105,6 @@ function onLoad() {
 		$("#cardinfo").addClass(id);
 		$("#cardinfo").html(outputCardType(id));
 		$("#buttonsDiv").show();
-		$(".selected").removeClass("selected");
-		tappedArray.splice(0,1);
-		$(this).parent().addClass("selected");
-		tappedArray.push(id);
 	});
 
 	$(".libraryPlaceholder").draggable({ cursor: 'move', revert: 'invalid', helper: "clone",
@@ -135,6 +130,8 @@ function onLoad() {
 
 				$(".graveyardPlaceholder").html(outputCardType(graveyardArray[1]))
 					.append("<div class='cardInfoBox'></div>");
+				$(".graveyardPlaceholder").removeClass(graveyardArray[0]);
+				$(".graveyardPlaceholder").addClass(graveyardArray[1]);				
 
 				ui.helper.html(outputCardType(graveyardArray[0])).append("<div class='cardInfoBox'></div>");
 				ui.helper.show();
@@ -166,6 +163,8 @@ function onLoad() {
 
 				$(".exiledPlaceholder").html(outputCardType(exiledArray[1]))
 					.append("<div class='cardInfoBox'></div>");
+				$(".exiledPlaceholder").removeClass(exiledArray[0]);
+				$(".exiledPlaceholder").addClass(exiledArray[1]);	
 
 				ui.helper.html(outputCardType(exiledArray[0])).append("<div class='cardInfoBox'></div>");
 				ui.helper.show();
@@ -194,13 +193,12 @@ function onLoad() {
 				libraryArray.splice(0,1);
 			
 				var newDiv = $(ui.helper).clone(false)
-			      .addClass('card')
-			      .addClass('ui-draggable')
-			      .removeClass('ui-draggable-dragging')
-			      .removeClass('libraryPlaceholder')
-			      .attr('id', cardID)
-			      .html(outputCardType(cardID))
-			      .append("<div class='cardInfoBox'></div>");
+					.removeClass()
+			      	.addClass('card')
+			      	.addClass('ui-draggable')		      
+			      	.attr('id', cardID)
+			      	.html(outputCardType(cardID))
+			      	.append("<div class='cardInfoBox'></div>");
 			    if(libraryArray.length == 0) { $(".libraryPlaceholder").hide(); }
 			    $("#container").append(newDiv);
 			    $("#libCounter").html(libraryArray.length);
@@ -221,19 +219,24 @@ function onLoad() {
 		    }
 		    else if (ui.draggable.hasClass("graveyardPlaceholder"))   
 		    {
-		    	var cardID = $(graveyardArray).get(0);
+		    	var cardID = graveyardArray[0];
 		    	var card = fetchCard(cardID);
 				graveyardArray.splice(0,1);
 
 				var newDiv = $(ui.helper).clone(false)
-			      .addClass('card')
-			      .addClass('ui-draggable')
-			      .removeClass('ui-draggable-dragging')
-			      .removeClass('graveyardPlaceholder')
-			      .attr('id', cardID)
-			      .html(outputCardType(cardID))
-			      .append("<div class='cardInfoBox'></div>");
-			    if(graveyardArray.length == 0) { $(".graveyardPlaceholder").hide(); }
+				  	.removeClass()
+			      	.addClass('card')
+			     	.addClass('ui-draggable')
+			    	.attr('id', cardID)
+			    	.html(outputCardType(cardID))
+			    	.append("<div class='cardInfoBox'></div>");
+			    if(graveyardArray.length == 0){ 
+			    	$(".graveyardPlaceholder").removeClass(cardID);
+			    }
+			    else if(graveyardArray.length >= 2){
+			    	$(".graveyardPlaceholder").addClass(graveyardArray[0]);
+
+			    }
 			    $("#container").append(newDiv);
 			    $("#graveyardCounter").html(graveyardArray.length);									
 
@@ -253,19 +256,24 @@ function onLoad() {
 		    }
 		    else if (ui.draggable.hasClass("exiledPlaceholder"))   
 		    {
-		    	var cardID = $(exiledArray).get(0);
+		    	var cardID = exiledArray[0];
 		    	var card = fetchCard(cardID);
 				exiledArray.splice(0,1);
 
 				var newDiv = $(ui.helper).clone(false)
-			      .addClass('card')
-			      .addClass('ui-draggable')
-			      .removeClass('ui-draggable-dragging')
-			      .removeClass('exiledPlaceholder')
-			      .attr('id', cardID)
-			      .html(outputCardType(cardID))
-			      .append("<div class='cardInfoBox'></div>");
-			    if(exiledArray.length == 0) { $(".exiledPlaceholder").hide(); }
+					.removeClass()
+			      	.addClass('card')
+			      	.addClass('ui-draggable')		      
+			      	.attr('id', cardID)
+			      	.html(outputCardType(cardID))
+			      	.append("<div class='cardInfoBox'></div>");
+			    if(exiledArray.length == 0){ 
+			    	$(".exiledPlaceholder").hide();
+			    	$(".exiledPlaceholder").removeClass(cardID); 
+			    }
+			    else if(exiledArray.length > 1){
+			    	$(".exiledPlaceholder").addClass(exiledArray[0]);
+			    }
 			    $("#container").append(newDiv);
 			    $("#exiledCounter").html(exiledArray.length);			    			
 
@@ -291,10 +299,6 @@ function onLoad() {
 				$("#cardinfo").addClass(id);
 				$("#cardinfo").html(outputCardType(id));
 				$("#buttonsDiv").show();
-				$(".selected").removeClass("selected");
-				tappedArray.splice(0,1);
-				$(this).parent().addClass("selected");
-				tappedArray.push(id);
 			});
 
 		    $("#library").css('border-color', '#d6d3c0');
@@ -321,7 +325,7 @@ function onLoad() {
 				ui.draggable.remove();			
 				libraryArray.unshift(cardID);
 				$('body').css('cursor','default');
-				$("#libCounter").html(libraryArray.length);							
+				$("#libCounter").html(libraryArray.length);										
 		}
 	});	
 
@@ -348,11 +352,15 @@ function onLoad() {
 			$("#graveyard").css('border-color', '#d6d3c0');
 		},
 		drop: function(event, ui){
-			$("#graveyard").css('border-color', '#d6d3c0');			
+			$("#graveyard").css('border-color', '#d6d3c0');	
+			$(".graveyardPlaceholder").show();
+			if(graveyardArray.length >= 1){
+				$(".graveyardPlaceholder").removeClass(graveyardArray[0]);
+			}
 			var cardID = ui.draggable.attr("id");
-			ui.draggable.remove();
-			$(".graveyardPlaceholder").show();			
+			ui.draggable.remove();				
 			graveyardArray.unshift(cardID);
+			$(".graveyardPlaceholder").addClass(cardID);
 			$("#graveyardCounter").html(graveyardArray.length);
 			$("#buttonsDiv").hide();
 
@@ -363,17 +371,12 @@ function onLoad() {
 			
 			$(".cardInfoBox").click(function(event){
 				event.stopImmediatePropagation();
-				var id = $(graveyardArray).get(0);
+				var id = graveyardArray[0];
 				$("#cardinfo").removeClass();
 				$("#cardinfo").addClass(id);
 				$("#cardinfo").html(outputCardType(id));
 				$("#buttonsDiv").show();
-				$(".selected").removeClass("selected");
-				tappedArray.splice(0,1);
-				$(".graveyardPlaceholder").addClass("selected");
-				tappedArray.push(id);
 			});
-
 			$('body').css('cursor','default');
 		}
 	});
@@ -387,32 +390,31 @@ function onLoad() {
 			$("#exile").css('border-color', '#d6d3c0');
 		},
 		drop: function(event, ui){
-			$("#exile").css('border-color', '#d6d3c0');			
+			$("#exile").css('border-color', '#d6d3c0');		
+			$(".exiledPlaceholder").show();		
+			if(exiledArray.length >= 1){
+				$(".exiledPlaceholder").removeClass(exiledArray[0]);
+			}
 			var cardID = ui.draggable.attr("id");
-			ui.draggable.remove();
-			$(".exiledPlaceholder").show();			
+			ui.draggable.remove();				
 			exiledArray.unshift(cardID);
+			$(".exiledPlaceholder").addClass(cardID);
 			$("#exiledCounter").html(exiledArray.length);
 			$("#buttonsDiv").hide();
 
 			$(".exiledPlaceholder")
 				.addClass(cardID)
 				.html(outputCardType(cardID))
-				.append("<div class='cardInfoBox'></div>");			
-
+				.append("<div class='cardInfoBox'></div>");	
+			
 			$(".cardInfoBox").click(function(event){
 				event.stopImmediatePropagation();
-				var id = $(exiledArray).get(0);
+				var id = exiledArray[0];
 				$("#cardinfo").removeClass();
 				$("#cardinfo").addClass(id);
 				$("#cardinfo").html(outputCardType(id));
 				$("#buttonsDiv").show();
-				$(".selected").removeClass("selected");
-				tappedArray.splice(0,1);
-				$(".exiledPlaceholder").addClass("selected");
-				tappedArray.push(id);
 			});
-
 			$('body').css('cursor','default');
 		}
 	});
@@ -441,47 +443,43 @@ function sendToFront(){
 		if(graveyardArray.length==1){ 
 			$(".graveyardPlaceholder").hide();
 		}
-		else if(graveyardArray.length>1){
+		else if(graveyardArray.length >= 2){
+			$(".graveyardPlaceholder").show();
 			$(".graveyardPlaceholder").html(outputCardType(graveyardArray[1])).append("<div class='cardInfoBox'></div>");
+			$(".graveyardPlaceholder").addClass(graveyardArray[1]);
+			
 			$(".cardInfoBox").click(function(event){
 				event.stopImmediatePropagation();
-				var id = $(graveyardArray).get(0);
-				$("#cardinfo").removeClass();
+				var id = graveyardArray[0];
 				$("#cardinfo").addClass(id);
 				$("#cardinfo").html(outputCardType(id));
 				$("#buttonsDiv").show();
-				$(".selected").removeClass("selected");
-				tappedArray.splice(0,1);
-				$(".graveyardPlaceholder").addClass("selected");
-				tappedArray.push(id);
 			});
 		}
 		graveyardArray.splice(0,1);
 		$("#graveyardCounter").html(graveyardArray.length);
-		$("#graveyardPlaceholder").removeClass();
+		$(".graveyardPlaceholder").removeClass(id);
 	}
 	else if($(".exiledPlaceholder").hasClass(id)){
-		if(exiledArray.length==1){ 
+		if(exiledArray.length == 1){
 			$(".exiledPlaceholder").hide();
 		}
-		else if(exiledArray.length>1){
+		else if(exiledArray.length > 1){
+			$(".exiledPlaceholder").show();
 			$(".exiledPlaceholder").html(outputCardType(exiledArray[1])).append("<div class='cardInfoBox'></div>");
+			$(".exiledPlaceholder").addClass(exiledArray[1]);
+			
 			$(".cardInfoBox").click(function(event){
 				event.stopImmediatePropagation();
-				var id = $(exiledArray).get(0);
-				$("#cardinfo").removeClass();
+				var id = exiledArray[0];
 				$("#cardinfo").addClass(id);
 				$("#cardinfo").html(outputCardType(id));
 				$("#buttonsDiv").show();
-				$(".selected").removeClass("selected");
-				tappedArray.splice(0,1);
-				$(".exiledPlaceholder").addClass("selected");
-				tappedArray.push(id);
 			});
 		}
 		exiledArray.splice(0,1);
 		$("#exiledCounter").html(exiledArray.length);
-		$("#exiledPlaceholder").removeClass();
+		$(".exiledPlaceholder").removeClass(id);
 	}
 	
 	libraryArray.unshift(id);
@@ -489,7 +487,6 @@ function sendToFront(){
 	$("#cardinfo").html("");
 	$("#cardinfo").removeClass();
 	$("#buttonsDiv").hide();
-	tappedArray = [];
 }
 
 function sendToBack(){
@@ -497,10 +494,12 @@ function sendToBack(){
 	var id = $("#cardinfo").attr('class');
 	if($("#"+id).hasClass("card")){
 		$("#"+id).remove();
+		$("#cardinfo").removeClass();
 	}
 	else if($(".graveyardPlaceholder").hasClass(id)){
 		if(graveyardArray.length==1){ 
 			$(".graveyardPlaceholder").hide();
+			$("#cardinfo").removeClass();
 		}
 		else if(graveyardArray.length>1){
 			$(".graveyardPlaceholder").html(outputCardType(graveyardArray[1])).append("<div class='cardInfoBox'></div>");
@@ -511,19 +510,16 @@ function sendToBack(){
 				$("#cardinfo").addClass(id);
 				$("#cardinfo").html(outputCardType(id));
 				$("#buttonsDiv").show();
-				$(".selected").removeClass("selected");
-				tappedArray.splice(0,1);
-				$(".graveyardPlaceholder").addClass("selected");
-				tappedArray.push(id);
 			});
 		}
 		graveyardArray.splice(0,1);
 		$("#graveyardCounter").html(graveyardArray.length);
-		$("#graveyardPlaceholder").removeClass();
+		$(".graveyardPlaceholder").removeClass();
 	}
 	else if($(".exiledPlaceholder").hasClass(id)){
 		if(exiledArray.length==1){ 
 			$(".exiledPlaceholder").hide();
+			$("#cardinfo").removeClass();
 		}
 		else if(exiledArray.length>1){
 			$(".exiledPlaceholder").html(outputCardType(exiledArray[1])).append("<div class='cardInfoBox'></div>");
@@ -534,15 +530,11 @@ function sendToBack(){
 				$("#cardinfo").addClass(id);
 				$("#cardinfo").html(outputCardType(id));
 				$("#buttonsDiv").show();
-				$(".selected").removeClass("selected");
-				tappedArray.splice(0,1);
-				$(".exiledPlaceholder").addClass("selected");
-				tappedArray.push(id);
 			});
 		}
 		exiledArray.splice(0,1);
 		$("#exiledCounter").html(exiledArray.length);
-		$("#exiledPlaceholder").removeClass();
+		$(".exiledPlaceholder").removeClass();
 	}
 
 	libraryArray.push(id);
@@ -550,7 +542,6 @@ function sendToBack(){
 	$("#cardinfo").html("");
 	$("#cardinfo").removeClass();
 	$("#buttonsDiv").hide();
-	tappedArray = [];
 }
 
 
