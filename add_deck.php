@@ -173,13 +173,12 @@ ability to duplicate a card
 		window.location.reload();
 	}
 	</script>
-
 	<?php include "./functions.php"; ?>
 </head>
 
 <body>
 	<div id="login"> <?php panel() ?> </div>
-	<a href="index.php"><div id="logoDiv"></div></a>
+	<a class="logo" href="index.php"><div id="logoDiv"><img src="images/logo2.png" title="Home" alt="Tap'd"/></div></a>
 	<h3 class="deckTitle">Current Deck</h3><br />
 	<div id="countDiv">Count: <div id="deckCounter"></div></div>
 	<br />

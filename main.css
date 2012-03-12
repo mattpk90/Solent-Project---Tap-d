@@ -3,13 +3,19 @@
 	text color: #d6d3c0
 */
 
-body { background-image: url('images/woodbg.jpg'); background-repeat: repeat; background-color: #151515; 
+html, body { height: 100%; margin: 0; padding: 0 5px 0 5px; background-image: url('images/woodbg.jpg'); 
+	background-repeat: repeat; background-color: #151515; 
 	color: #d6d3c0; font-family: palatino linotype, serif; }
 
-#container { background-color: transparent; width: 1240px; height: 620px; position: relative; margin: auto; }
+#container { background-color: transparent; width: 100%; height: 99%; position: relative; margin: auto; }
 
-#logoDiv { background-color: transparent; width: 100px; height: 53px; background-image: url('images/logo2.png');
-	background-repeat: no-repeat; position: relative; }
+#top { width: 100%; height: 7%; margin: 0; padding: 5px 0 8px 0; }
+
+#stage { width: 100%; height: 92%; padding: 0; margin: 0; }
+
+#logoDiv { width: 10%; height: 80%; background-repeat: no-repeat; 
+	position: relative; margin-top: -5px; }
+	.logo { display: block; width: 10%; }
 
 #login { background-color: #151515; width: 550px; height: 35px; float: right; margin-left: 4px; 
 	line-height: 35px; border-color: #d6d3c0; 
@@ -19,27 +25,29 @@ body { background-image: url('images/woodbg.jpg'); background-repeat: repeat; ba
 	.panelForm { float: left; padding: 0; margin: 0; margin-left: 3px; }
 	.panelRegister { float: right; padding: 0; margin: 0; margin-right: 30px; }
 
+/*#nav { height: 30px; width: 400px; float: right; margin: auto; background-color: red; }*/
+
 .deckManageButton { float: right; }
+
 
 .card { background-color: #2986ce; width: 100px; height: 160px; float: left; position: absolute;
 	text-align: center; border-radius: 10px; -moz-border-radius: 10px; -webkit-border-radius: 10px; }
 
+	.cardName { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; padding: 1px;
+		width: 100px; height: 22px; text-align: center; }
+
+	.cardCost { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; 
+		width: 100px; text-align: center; font-size: 10px; }
+
+	.cardType { overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+		text-align: center; font-size: 10px; }
+
+	.cardText { overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+		text-align: center; font-size: 10px; }
+
+	.cardStats { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; position: relative; bottom: 20px; }
+
 .selected { background-color: #1443a3 !important; }
-
-.cardName { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; padding: 1px;
-	width: 100px; height: 22px; text-align: center; }
-
-.cardCost { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; 
-	width: 100px; text-align: center; font-size: 10px; }
-
-.cardType { overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
-	text-align: center; font-size: 10px; }
-
-.cardText { overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
-	text-align: center; font-size: 10px; }
-
-.cardStats { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; position: relative; bottom: 20px; }
-
 
 .cardTapped { -moz-transform: rotate(90deg); -webkit-transform: rotate(90deg); }
 
@@ -77,48 +85,48 @@ body { background-image: url('images/woodbg.jpg'); background-repeat: repeat; ba
 		background-image: url('images/logocardbg.png'); background-repeat: no-repeat;
 		background-position: 50%; }
 		
-#battlefield { background-color: transparent; width: 953px; height: 345px; 
+#battlefield { background-color: transparent; width: 80%; height: 60%; 
 	margin: auto; margin-bottom: 5px; float: left; text-align: center;
 	border-color: #d6d3c0; border-style: dashed; border-width: 2px;
 	border-radius: 10px; -moz-border-radius: 10px; -webkit-border-radius: 10px; }
 
 
-#info { background-color: #151515; width: 271px; height: 345px; margin: auto; margin-bottom: 5px; float: right;
+#info { background-color: #151515; width: 19%; height: 60%; margin: auto; margin-bottom: 5px; float: right;
 	border-color: #d6d3c0; border-style: solid; border-width: 2px;
 	border-radius: 10px; -moz-border-radius: 10px; -webkit-border-radius: 10px; }
 
 	.infoheader { text-align: center; margin: auto; }
 
-	#topinfo { background-color: #151515; width: 271px; height: 195px; margin: auto; float: right;
+	#topinfo { background-color: #151515; width: 100%; height: 49%; margin: auto; float: right;
 		border-radius: 10px; -moz-border-radius: 10px; -webkit-border-radius: 10px; }
 
-		#cardinfo { background-color: transparent; width: 271px; height: 150px; float: left;
+		#cardinfo { background-color: transparent; width: 100%; height: 100%; float: left;
 			border-radius: 10px; -moz-border-radius: 10px; -webkit-border-radius: 10px; }
 
-	#cardcontrols { background-color: transparent; width: 271px; height: 150px; float: left;
+	#cardcontrols { background-color: transparent; width: 100%; height: 49%; float: left;
 		border-radius: 10px; -moz-border-radius: 10px; -webkit-border-radius: 10px; }
 
-		#buttonsDiv { }
-
-#bottomContainer  { background-color: transparent; width: 1240px; height: 215px; margin: auto; display: block;
+		#buttonsDiv { width: 100%; height: 50%; }
+		
+#hand { background-color: transparent; width: 69%; height: 36%; float: left; margin-right: 9px;
+	border-color: #d6d3c0; border-style: dashed; border-width: 2px;
 	border-radius: 10px; -moz-border-radius: 10px; -webkit-border-radius: 10px; }
-					
-	#hand { background-color: transparent; width: 815px; height: 210px; float: left; margin-right: 5px;
-		border-color: #d6d3c0; border-style: dashed; border-width: 2px;
-		border-radius: 10px; -moz-border-radius: 10px; -webkit-border-radius: 10px; }
 
-	#library { background-color: transparent; width: 130px; height: 210px; float: left; margin-right: 4px;
-		border-color: #d6d3c0; border-style: dashed; border-width: 2px; text-align: center;
-		border-radius: 10px; -moz-border-radius: 10px; -webkit-border-radius: 10px; }
-	
-	#graveyard { background-color: transparent; width: 130px; height: 210px; float: left; margin-left: 3px;
-		border-color: #d6d3c0; border-style: dashed; border-width: 2px; text-align: center;
-		border-radius: 10px; -moz-border-radius: 10px; -webkit-border-radius: 10px; }	
+#library { background-color: transparent; width: 10%; height: 36%; float: left; margin-right: 4px;
+	border-color: #d6d3c0; border-style: dashed; border-width: 2px; text-align: center;
+	border-radius: 10px; -moz-border-radius: 10px; -webkit-border-radius: 10px; }
 
-	#exile { background-color: transparent; width: 130px; height: 210px; float: right;
-		border-color: #d6d3c0; border-style: dashed; border-width: 2px; text-align: center;
-		border-radius: 10px; -moz-border-radius: 10px; -webkit-border-radius: 10px; }
+#graveyard { background-color: transparent; width: 9%; height: 36%; float: left; margin-left: 5px;
+	border-color: #d6d3c0; border-style: dashed; border-width: 2px; text-align: center;
+	border-radius: 10px; -moz-border-radius: 10px; -webkit-border-radius: 10px; }	
 
+#exile { background-color: transparent; width: 9%; height: 36%; float: right;
+	border-color: #d6d3c0; border-style: dashed; border-width: 2px; text-align: center;
+	border-radius: 10px; -moz-border-radius: 10px; -webkit-border-radius: 10px; }
+
+
+
+/* Add Deck Page */
 
 #addCardForm { background-color: transparent; width: 500px; height: 200px;
 	border-color: #d6d3c0; border-style: dashed;
