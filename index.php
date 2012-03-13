@@ -38,8 +38,16 @@ Property of Matt Kennedy and Southampton Solent University.
 				</div>
 			</div>
 		</div>
-		
-		<div id="hand"></div>
+
+		<div id="hand">
+			<!--
+			<ul id="sortable">
+			<li class="ui-state-default"><div class="inHand">card1</div></li>
+			<li class="ui-state-default"><div class="inHand">card2</div></li>
+			<li class="ui-state-default"><div class="inHand">card3</div></li>
+			<li class="ui-state-default"><div class="inHand">card4</div></li>
+			</ul> -->
+		</div>
 
 		<div id="library">Library<br />
 			<p id="libCounter"></p>

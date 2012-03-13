@@ -89,6 +89,9 @@ function onLoad() {
 	//hide card buttons
 	$("#buttonsDiv").hide();
 
+	$("#sortable").sortable();
+	$("#sortable").disableSelection();
+
 	$(".card").draggable({ cursor: 'move', snap: true, snapTolerance: 5, stack: ".card", delay: 10,
 		stop: function(event, ui){
 			$('body').css('cursor','default');}})
@@ -106,8 +109,15 @@ function onLoad() {
 		$("#cardinfo").addClass(id);
 		$("#cardinfo").html(outputCardType(id));
 		$("#buttonsDiv").show();
-		$(".selected").removeClass("selected");
-		$(this).parent().addClass("selected");
+		if($(this).parent().hasClass("selected")){
+			$(".selected").removeClass("selected");
+		}else{
+			$(".selected").removeClass("selected");
+			$(this).parent().addClass("selected");
+			$("#cardinfo").html("");
+			$("#cardinfo").removeClass();
+			$("#buttonsDiv").hide();
+		}
 		activeCard = id;
 	});
 
@@ -304,15 +314,23 @@ function onLoad() {
 		    }
 
 		    $(".cardInfoBox").click(function(event){
-				event.stopImmediatePropagation();
-				var id = $(this).parent().attr("id");
-				$("#cardinfo").removeClass();
-				$("#cardinfo").addClass(id);
-				$("#cardinfo").html(outputCardType(id));
-				$("#buttonsDiv").show();
-				$(".selected").removeClass("selected");
-				$(this).parent().addClass("selected");
-				activeCard = id;
+				event.stopImmediatePropagation();			
+				if($(this).parent().hasClass("selected")){
+					$(".selected").removeClass("selected");
+					$("#cardinfo").html("");
+					$("#cardinfo").removeClass();
+					$("#buttonsDiv").hide();
+					activeCard = null;
+				}else{
+					var id = $(this).parent().attr("id");
+					$("#cardinfo").removeClass();
+					$("#cardinfo").addClass(id);
+					$("#cardinfo").html(outputCardType(id));
+					$("#buttonsDiv").show();
+					$(".selected").removeClass("selected");
+					$(this).parent().addClass("selected");	
+					activeCard = id;		
+				}			
 			});
 
 		    $("#library").css('border-color', '#d6d3c0');
@@ -392,15 +410,23 @@ function onLoad() {
 				.append("<div class='cardInfoBox'></div>");
 			
 			$(".cardInfoBox").click(function(event){
-				event.stopImmediatePropagation();
-				var id = graveyardArray[0];
-				$("#cardinfo").removeClass();
-				$("#cardinfo").addClass(id);
-				$("#cardinfo").html(outputCardType(id));
-				$("#buttonsDiv").show();
-				$(".selected").removeClass("selected");
-				$(".graveyardPlaceholder").addClass("selected");
-				activeCard = id;
+				event.stopImmediatePropagation();			
+				if($(this).parent().hasClass("selected")){
+					$(".selected").removeClass("selected");
+					$("#cardinfo").html("");
+					$("#cardinfo").removeClass();
+					$("#buttonsDiv").hide();
+					activeCard = null;
+				}else{
+					var id = graveyardArray[0];
+					$("#cardinfo").removeClass();
+					$("#cardinfo").addClass(id);
+					$("#cardinfo").html(outputCardType(id));
+					$("#buttonsDiv").show();
+					$(".selected").removeClass("selected");
+					$(".graveyardPlaceholder").addClass("selected");
+					activeCard = id;		
+				}			
 			});
 			$('body').css('cursor','default');
 		}
@@ -436,15 +462,23 @@ function onLoad() {
 				.append("<div class='cardInfoBox'></div>");
 			
 			$(".cardInfoBox").click(function(event){
-				event.stopImmediatePropagation();
-				var id = exiledArray[0];
-				$("#cardinfo").removeClass();
-				$("#cardinfo").addClass(id);
-				$("#cardinfo").html(outputCardType(id));
-				$("#buttonsDiv").show();
-				$(".selected").removeClass("selected");
-				$(".exiledPlaceholder").addClass("selected");
-				activeCard = id;
+				event.stopImmediatePropagation();			
+				if($(this).parent().hasClass("selected")){
+					$(".selected").removeClass("selected");
+					$("#cardinfo").html("");
+					$("#cardinfo").removeClass();
+					$("#buttonsDiv").hide();
+					activeCard = null;
+				}else{
+					var id = exiledArray[0];
+					$("#cardinfo").removeClass();
+					$("#cardinfo").addClass(id);
+					$("#cardinfo").html(outputCardType(id));
+					$("#buttonsDiv").show();
+					$(".selected").removeClass("selected");
+					$(".exiledPlaceholder").addClass("selected");	
+					activeCard = id;		
+				}			
 			});
 			$('body').css('cursor','default');
 		}
