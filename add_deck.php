@@ -177,8 +177,15 @@ ability to duplicate a card
 </head>
 
 <body>
+	<div id="top">
 	<div id="login"> <?php panel() ?> </div>
+	<div id="nav">
+		<ul>
+			<li><a href='index.php'>Home</a></li>
+		</ul>
+	</div>
 	<a class="logo" href="index.php"><div id="logoDiv"><img src="images/logo2.png" title="Home" alt="Tap'd"/></div></a>
+	</div>
 	<h3 class="deckTitle">Current Deck</h3><br />
 	<div id="countDiv">Count: <div id="deckCounter"></div></div>
 	<br />

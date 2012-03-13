@@ -17,7 +17,12 @@ Property of Matt Kennedy and Southampton Solent University.
 <div id="container">
 	<div id="top">
 		<div id="login"> <?php panel() ?> </div>
-		<a class="deckManageButton" href='add_deck.php'><button name='addcard' type='button'>Deck Management</button></a>
+		<div id="nav">
+			<ul>
+				<li><a href='index.php'>Home</a></li>
+				<li><a href='add_deck.php'>Deck Management</a></li>
+			</ul>
+		</div>
 		<a class="logo" href="index.php"><div id="logoDiv"><img src="images/logo2.png" title="Home" alt="Tap'd"/></div></a>
 	</div>
 
