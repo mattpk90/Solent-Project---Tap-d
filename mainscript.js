@@ -46,12 +46,10 @@ function outputCardType(id){
 	}
 	else if(card.type == "Creature")
 	{
-		return "<div class='cardName'>" + card.name + 
-		    "</div><div class='cardCost'>" + card.cost + 
-		   	"</div><br /><div class='cardType'>" + card.type + "&nbsp; - &nbsp;" + card.subtype +
-		    "</div><br /><div class='cardText'>" +
-		    card.text + "</div><br /><div class='cardStats'>" +
-		    card.power + "/" + card.toughness + "</div>";
+		return "<div class='cardName'>" + card.name + "</div><div class='cardCost'>" + card.cost + 
+		      	"</div><br /><div class='cardType'>" + card.type + "&nbsp; - &nbsp;" + card.subtype + "</div><br /><div class='cardText'>" 
+		      	+ card.text + "</div><br /><div class='cardStats'><div class='cardPower'>" 
+		      	+ card.power + "</div>/<div class='cardToughness'>" + card.toughness + "</div></div>";
 	}
 }
 
@@ -559,17 +557,26 @@ function sendToLib(l){
 	activeCard = null;
 }
 
-/*
+
 function modStats(t)
 {
 	var id = $("#cardinfo").attr("class");
+
 	if(t == "u"){
-		$("#"+id).children("")
+		var p = $("#"+id).find('.cardPower').html();
+		$("#"+id).find('.cardPower').html(++p);
+
+		var t = $("#"+id).find('.cardToughness').html();
+		$("#"+id).find('.cardToughness').html(++t);
 	}
 	else if(t == "d"){
+		var p = $("#"+id).find('.cardPower').html();
+		$("#"+id).find('.cardPower').html(--p);
 
+		var t = $("#"+id).find('.cardToughness').html();
+		$("#"+id).find('.cardToughness').html(--t);
 	}
-}*/
+}
 
 function validate()
 {

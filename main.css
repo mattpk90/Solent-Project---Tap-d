@@ -61,6 +61,8 @@ a:hover { text-decoration: none; color: #d6d3c0; }
 		text-align: center; font-size: 10px; }
 
 	.cardStats { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; position: relative; bottom: 20px; }
+		.cardPower { display: inline; }
+		.cardToughness { display: inline; }
 
 .selected { background-color: #1443a3 !important; }
 

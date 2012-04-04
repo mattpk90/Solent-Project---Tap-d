@@ -88,8 +88,8 @@ ability to duplicate a card
 				{
 					$("#cardView").html("<div class='cardName'>" + card.name + "</div><div class='cardCost'>" + card.cost + 
 				      	"</div><br /><div class='cardType'>" + card.type + "&nbsp; - &nbsp;" + card.subtype + "</div><br /><div class='cardText'>" 
-				      		+ card.text + "</div><br /><div class='cardStats'>" 
-				      		+ card.power + "/" + card.toughness + "</div>");
+				      		+ card.text + "</div><br /><div class='cardStats'><div class='cardPower'>" 
+				      		+ card.power + "</div>/<div class='cardToughness'>" + card.toughness + "</div></div>");
 				}
 			}
 		});
