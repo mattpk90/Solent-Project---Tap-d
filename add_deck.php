@@ -48,25 +48,46 @@ ability to duplicate a card
 			}
 		});
 
+		$("#duplicateCard").droppable({
+			over: function(event, ui){
+				$("#duplicateCard").css("backgroundColor", "#565656");
+			},
+			out: function(event, ui){
+				$("#duplicateCard").css("backgroundColor", "#151515");
+			},
+			drop: function(event, ui){
+				var card = fetchCard($(ui.helper).attr("id"));
+				var newDate = new Date();
+				var cardID = newDate.getTime();
+
+				localStorage.setItem(cardID, JSON.stringify(card));
+				alert("Card duplicated.");
+				window.location.reload();
+			}
+		});
+
+		
 		$("#cardView").droppable({
 			drop: function(event, ui){
 				var id = $(ui.helper).attr("id");
 				var card = fetchCard(id);
 
-				if(typeof card.cost == "undefined") //land card
+				if(card.type == "Land") //land card
 				{
-					$("#cardView").html("<div class='cardName'>" + card.name + "</div>");
+					$("#cardView").html("<div class='cardName'>" + card.name + "</div><div class='cardType'>" +
+						card.type + "</div>");
 				}
-				else if(typeof card.power == "undefined") //spell card
+				else if(card.type == "Instant" || card.type == "Sorcery" || 
+					card.type == "Enchantment" || card.type == "Artifact") //spell card
 				{
 					$("#cardView").html("<div class='cardName'>" + card.name + "</div><div class='cardCost'>" + card.cost + 
 				      	"</div><br /><div class='cardType'>" + card.type + "</div><br /><div class='cardText'>" 
 				      		+ card.text + "</div>");
 				}
-				else //creature card
+				else if(card.type == "Creature") //creature card
 				{
 					$("#cardView").html("<div class='cardName'>" + card.name + "</div><div class='cardCost'>" + card.cost + 
-				      	"</div><br /><div class='cardType'>" + card.type + "</div><br /><div class='cardText'>" 
+				      	"</div><br /><div class='cardType'>" + card.type + "&nbsp; - &nbsp;" + card.subtype + "</div><br /><div class='cardText'>" 
 				      		+ card.text + "</div><br /><div class='cardStats'>" 
 				      		+ card.power + "/" + card.toughness + "</div>");
 				}
@@ -104,37 +125,108 @@ ability to duplicate a card
 		} 
 	}	
 
+
 	function addLandCard(l){
 		var newDate = new Date();
 		var cardID = newDate.getTime();
 		if(l == "p")
 		{		
-			var plains = { 'name': "Plains" };
+			var plains = { 'name': "Plains", 'type': "Land" };
 			localStorage.setItem(cardID, JSON.stringify(plains));
 			window.location.reload();
 		}
 		else if(l == "i")
 		{
-			var island = { 'name': "Island" };
+			var island = { 'name': "Island", 'type': "Land" };
 			localStorage.setItem(cardID, JSON.stringify(island));
 			window.location.reload();
 		}
 		else if(l == "m")
 		{
-			var mountain = { 'name': "Mountain" };
+			var mountain = { 'name': "Mountain", 'type': "Land" };
 			localStorage.setItem(cardID, JSON.stringify(mountain));
 			window.location.reload();
 		}
 		else if(l == "f")
 		{
-			var forest = { 'name': "Forest" };
+			var forest = { 'name': "Forest", 'type': "Land" };
 			localStorage.setItem(cardID, JSON.stringify(forest));
 			window.location.reload();
 		}
 		else if(l == "s")
 		{
-			var swamp = { 'name': "Swamp" };
+			var swamp = { 'name': "Swamp", 'type': "Land" };
 			localStorage.setItem(cardID, JSON.stringify(swamp));
+			window.location.reload();
+		}
+	}
+
+	function addPreset(p){
+		var newDate = new Date();
+		var cardID = newDate.getTime();
+		if(p == "c")
+		{		
+			var card = {
+				'name': 'Cancel',
+				'cost': '1UU',
+				'type': 'Instant',
+				'text': 'Counter target spell.'
+			};
+
+			localStorage.setItem(cardID, JSON.stringify(card));
+			window.location.reload();
+		}
+		else if(p == "g")
+		{
+			var card = {
+				'name': 'Gemhide Sliver',
+				'cost': '1G',
+				'type': 'Creature',
+				'subtype': 'Sliver',
+				'text': 'All slivers have Tap: add one mana of any colour to your mana pool.',
+				'power': '1',
+				'toughness': '1'
+			};
+			localStorage.setItem(cardID, JSON.stringify(card));
+			window.location.reload();
+		}
+		else if(p == "s")
+		{
+			var card = {
+				'name': 'Shifting Sliver',
+				'cost': '3U',
+				'type': 'Creature',
+				'subtype': 'Sliver',
+				'text': 'Slivers are unblockable except by slivers.',
+				'power': '2',
+				'toughness': '2'
+			};
+			localStorage.setItem(cardID, JSON.stringify(card));
+			window.location.reload();
+		}
+		else if(p == "cs")
+		{
+			var card = {
+				'name': 'Crystalline Sliver',
+				'cost': 'UW',
+				'type': 'Creature',
+				'subtype': 'Sliver',
+				'text': 'All slivers have shroud.',
+				'power': '2',
+				'toughness': '2'
+			};
+			localStorage.setItem(cardID, JSON.stringify(card));
+			window.location.reload();
+		}
+		else if(p == "m")
+		{
+			var card = {
+				'name': 'Mox Opal',
+				'cost': '0',
+				'type': 'Artifact',
+				'text': 'Metalcraft. Tap: Add one mana of any colour to your manapool.'
+			};
+			localStorage.setItem(cardID, JSON.stringify(card));
 			window.location.reload();
 		}
 	}
@@ -197,10 +289,19 @@ ability to duplicate a card
 	<table>
 	<tr>	<td>Card Name:</td> <td><input type="text" id="name" /></td>			</tr>
 	<tr>	<td>Mana Cost:</td> <td><input type="text" id="cost" /></td>			</tr>
-	<tr>	<td>Type:</td> <td><input type="text" id="type" /></td>					</tr>
-	<tr>	<td>Text:</td> <td><input type="text" id="text" /></td>					</tr>
-	<tr>	<td>Power:</td> <td><input type="text" id="power" />&nbsp;&nbsp;</td>
-			<td>Toughness:</td> <td><input type="text" id="toughness" /></td>		</tr>
+	<tr>	<td>Type:</td> <td><select id="type">
+									<option value="Land">Land</option>
+									<option value="Instant">Instant</option>
+									<option value="Sorcery">Sorcery</option>
+									<option value="Enchantment">Enchantment</option>
+									<option value="Artifact">Artifact</option>
+									<option value="Creature">Creature</option>
+								</select>&nbsp;&nbsp;
+			Subtype:&nbsp;<input type="text" id="subtype" /></td>
+	</tr>
+	<tr>	<td>Text:</td> <td><textarea id="text" rows="5" cols="30"> </textarea></td>		</tr>
+	<tr>	<td>Power:</td> <td><input type="text" id="power" size="5"/>&nbsp;&nbsp;
+			Toughness:&nbsp;<input type="text" id="toughness" size="5"/></td>		</tr>
 	<tr>	<td><button id="addSingleCard" type="submit"/>Add Card</button></td>	</tr>
 	</table>
 	</form>
@@ -211,7 +312,16 @@ ability to duplicate a card
 			<td><button onclick="addLandCard('i')">Add Island</button></td>
 			<td><button onclick="addLandCard('m')">Add Mountain</button></td>
 			<td><button onclick="addLandCard('f')">Add Forest</button></td>
-			<td><button onclick="addLandCard('s')">Add Swamp</button></td></tr></table>
+			<td><button onclick="addLandCard('s')">Add Swamp</button></td></tr>
+	</table>
+
+	<table>
+			<tr><td><button onclick="addPreset('c')">Add Cancel</button></td>
+			<td><button onclick="addPreset('g')">Add Gemhide Sliver</button></td>
+			<td><button onclick="addPreset('s')">Add Shifting Sliver</button></td>
+			<td><button onclick="addPreset('cs')">Add Crystalline Sliver</button></td>
+			<td><button onclick="addPreset('m')">Add Mox Opal</button></td></tr>
+	</table>
 
 	<br />
 
@@ -227,8 +337,9 @@ ability to duplicate a card
 	?>
 	
 
-	<br /><br /><br /><br />
+	<br /><br />
 	<div id="deckManagementTrash">Drag and drop to remove card.</div>
+	<div id="duplicateCard">Drag and drop to clone card.</div>
 	<div id="cardView"></div>
 	</div>
 
@@ -242,6 +353,7 @@ ability to duplicate a card
 			var nameVal = $("#name").val();
 			var costVal = $("#cost").val();
 			var typeVal = $("#type").val();
+			var subTypeVal = $("#subtype").val();
 			var textVal = $("#text").val();
 			var powerVal = $("#power").val();
 			var toughnessVal = $("#toughness").val();
@@ -250,6 +362,7 @@ ability to duplicate a card
 				'name': nameVal,
 				'cost': costVal,
 				'type': typeVal,
+				'subtype': subTypeVal,
 				'text': textVal,
 				'power': powerVal,
 				'toughness': toughnessVal

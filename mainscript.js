@@ -31,22 +31,24 @@ function fetchCard(id){
 function outputCardType(id){
 	var card = fetchCard(id);
 
-	if(typeof card.cost == "undefined")
+	if(card.type == "Land")
 	{
-		return "<div class='cardName'>" + card.name + "</div>";			
+		return "<div class='cardName'>" + card.name + "</div><div class='cardType'>" +
+						card.type + "</div>";			
 	}
-	else if(card.power == "")
+	else if(card.type == "Instant" || card.type == "Sorcery" || 
+				card.type == "Enchantment" || card.type == "Artifact")
 	{
 		return "<div class='cardName'>" + card.name + 
 		   "</div><div class='cardCost'>" + card.cost + 
 		    "</div><br /><div class='cardType'>" + card.type + 
 		    "</div><br /><div class='cardText'>" + card.text + "</div>";
 	}
-	else
+	else if(card.type == "Creature")
 	{
 		return "<div class='cardName'>" + card.name + 
 		    "</div><div class='cardCost'>" + card.cost + 
-		   	"</div><br /><div class='cardType'>" + card.type + 
+		   	"</div><br /><div class='cardType'>" + card.type + "&nbsp; - &nbsp;" + card.subtype +
 		    "</div><br /><div class='cardText'>" +
 		    card.text + "</div><br /><div class='cardStats'>" +
 		    card.power + "/" + card.toughness + "</div>";
