@@ -28,28 +28,55 @@ function fetchCard(id){
 }
 
 //set card to either land, spell or creature
-function outputCardType(id){
+function outputCardType(id, l){
 	var card = fetchCard(id);
 
-	if(card.type == "Land")
+	if(l == "c")
 	{
-		return "<div class='cardName'>" + card.name + "</div><div class='cardType'>" +
-						card.type + "</div>";			
+		if(card.type == "Land")
+		{
+			return "<div class='cardName'>" + card.name + "</div><div class='cardType'>" +
+							card.type + "</div>";			
+		}
+		else if(card.type == "Instant" || card.type == "Sorcery" || 
+					card.type == "Enchantment" || card.type == "Artifact")
+		{
+			return "<div class='cardName'>" + card.name + 
+			   "</div><div class='cardCost'>" + card.cost + 
+			    "</div><br /><div class='cardType'>" + card.type + 
+			    "</div><br /><div class='cardText'>" + card.text + "</div>";
+		}
+		else if(card.type == "Creature")
+		{
+			return "<div class='cardName'>" + card.name + "</div><div class='cardCost'>" + card.cost + 
+			      	"</div><br /><div class='cardType'>" + card.type + "&nbsp; - &nbsp;" + card.subtype + "</div><br /><div class='cardText'>" 
+			      	+ card.text + "</div><br /><div class='cardStats'><div class='cardPower'>" 
+			      	+ card.power + "</div>/<div class='cardToughness'>" + card.toughness + "</div></div>";
+		}
 	}
-	else if(card.type == "Instant" || card.type == "Sorcery" || 
-				card.type == "Enchantment" || card.type == "Artifact")
+	else if(l == "i")
 	{
-		return "<div class='cardName'>" + card.name + 
-		   "</div><div class='cardCost'>" + card.cost + 
-		    "</div><br /><div class='cardType'>" + card.type + 
-		    "</div><br /><div class='cardText'>" + card.text + "</div>";
-	}
-	else if(card.type == "Creature")
-	{
-		return "<div class='cardName'>" + card.name + "</div><div class='cardCost'>" + card.cost + 
-		      	"</div><br /><div class='cardType'>" + card.type + "&nbsp; - &nbsp;" + card.subtype + "</div><br /><div class='cardText'>" 
-		      	+ card.text + "</div><br /><div class='cardStats'><div class='cardPower'>" 
-		      	+ card.power + "</div>/<div class='cardToughness'>" + card.toughness + "</div></div>";
+		if(card.type == "Land")
+		{
+			return "<div class='infoCardName'>" + card.name + "</div><div class='infoCardType'>" +
+							card.type + "</div>";			
+		}
+		else if(card.type == "Instant" || card.type == "Sorcery" || 
+					card.type == "Enchantment" || card.type == "Artifact")
+		{
+			return "<div class='infoCardName'>" + card.name + 
+			   "</div><div class='infoCardCost'>" + card.cost + 
+			    "</div><div class='infoCardType'>" + card.type + 
+			    "</div><br /><div class='infoCardText'>" + card.text + "</div>";
+		}
+		else if(card.type == "Creature")
+		{
+			return "<div class='infoCardName'>" + card.name + "</div><div class='infoCardCost'>" + card.cost + 
+			      	"</div><div class='infoCardType'>" + card.type + "&nbsp; - &nbsp;" + card.subtype + 
+			      	"</div><br /><div class='infoCardText'>" + card.text + 
+			      	"</div><br /><div class='infoCardStats'><div class='infoCardPower'>" 
+			      	+ card.power + "</div>/<div class='infoCardToughness'>" + card.toughness + "</div></div>";
+		}
 	}
 }
 
@@ -89,8 +116,8 @@ function onLoad() {
 	//hide card buttons
 	$("#buttonsDiv").hide();
 
-	$("#sortable").sortable();
-	$("#sortable").disableSelection();
+	//$("#sortable").sortable();
+	//$("#sortable").disableSelection();
 
 	$(".card").draggable({ cursor: 'move', snap: true, snapTolerance: 5, stack: ".card", delay: 10,
 		stop: function(event, ui){
@@ -107,7 +134,7 @@ function onLoad() {
 		var id = $(this).parent().attr("id");
 		$("#cardinfo").removeClass();
 		$("#cardinfo").addClass(id);
-		$("#cardinfo").html(outputCardType(id));
+		$("#cardinfo").html(outputCardType(id, "i"));
 		$("#buttonsDiv").show();
 		if($(this).parent().hasClass("selected")){
 			$(".selected").removeClass("selected");
@@ -135,24 +162,24 @@ function onLoad() {
 				$("#graveyardCounter").html("0");
 				$(".graveyardPlaceholder").hide();
 
-				ui.helper.html(outputCardType(graveyardArray[0])).append("<div class='cardInfoBox'></div>");
-				ui.helper.show();						
+				ui.helper.html(outputCardType(graveyardArray[0], "c")).append("<div class='cardInfoBox'></div>");
+				ui.helper.show();
 			}
 			else if(graveyardArray.length >= 2) //replaces placeholder with card below it in array
 			{
 				$("#graveyardCounter").html(graveyardArray.length-1);
 
-				$(".graveyardPlaceholder").html(outputCardType(graveyardArray[1]))
+				$(".graveyardPlaceholder").html(outputCardType(graveyardArray[1], "c"))
 					.append("<div class='cardInfoBox'></div>");
 				$(".graveyardPlaceholder").removeClass(graveyardArray[0]);
 				$(".graveyardPlaceholder").addClass(graveyardArray[1]);				
 
-				ui.helper.html(outputCardType(graveyardArray[0])).append("<div class='cardInfoBox'></div>");
+				ui.helper.html(outputCardType(graveyardArray[0], "c")).append("<div class='cardInfoBox'></div>");
 				ui.helper.show();
 				
 				$(".cardInfoBox").click(function(event){
 					event.stopImmediatePropagation();
-					$("#cardinfo").html(outputCardType(graveyardArray[0]));
+					$("#cardinfo").html(outputCardType(graveyardArray[0], "c"));
 				});
 				
 			}
@@ -168,24 +195,24 @@ function onLoad() {
 				$("#exiledPlaceholder").html("0");
 				$(".exiledPlaceholder").hide();
 
-				ui.helper.html(outputCardType(exiledArray[0])).append("<div class='cardInfoBox'></div>");
+				ui.helper.html(outputCardType(exiledArray[0], "c")).append("<div class='cardInfoBox'></div>");
 				ui.helper.show();						
 			}
 			else if(exiledArray.length >= 2) 
 			{
 				$("#exiledCounter").html(exiledArray.length-1);
 
-				$(".exiledPlaceholder").html(outputCardType(exiledArray[1]))
+				$(".exiledPlaceholder").html(outputCardType(exiledArray[1], "c"))
 					.append("<div class='cardInfoBox'></div>");
 				$(".exiledPlaceholder").removeClass(exiledArray[0]);
 				$(".exiledPlaceholder").addClass(exiledArray[1]);	
 
-				ui.helper.html(outputCardType(exiledArray[0])).append("<div class='cardInfoBox'></div>");
+				ui.helper.html(outputCardType(exiledArray[0], "c")).append("<div class='cardInfoBox'></div>");
 				ui.helper.show();
 				
 				$(".cardInfoBox").click(function(event){
 					event.stopImmediatePropagation();
-					$("#cardinfo").html(outputCardType(exiledArray[0]));
+					$("#cardinfo").html(outputCardType(exiledArray[0], "i"));
 				});
 				
 			}
@@ -211,7 +238,7 @@ function onLoad() {
 			      	.addClass('card')
 			      	.addClass('ui-draggable')		      
 			      	.attr('id', cardID)
-			      	.html(outputCardType(cardID))
+			      	.html(outputCardType(cardID, "c"))
 			      	.append("<div class='cardInfoBox'></div>");
 			    if(libraryArray.length == 0){ $(".libraryPlaceholder").hide(); }
 			    $("#container").append(newDiv);		   
@@ -242,7 +269,7 @@ function onLoad() {
 			      	.addClass('card')
 			     	.addClass('ui-draggable')
 			    	.attr('id', cardID)
-			    	.html(outputCardType(cardID))
+			    	.html(outputCardType(cardID, "c"))
 			    	.append("<div class='cardInfoBox'></div>");
 			    if(graveyardArray.length == 0){ 
 			    	$(".graveyardPlaceholder").removeClass(cardID);
@@ -282,7 +309,7 @@ function onLoad() {
 			      	.addClass('card')
 			      	.addClass('ui-draggable')		      
 			      	.attr('id', cardID)
-			      	.html(outputCardType(cardID))
+			      	.html(outputCardType(cardID, "c"))
 			      	.append("<div class='cardInfoBox'></div>");
 			    if(exiledArray.length == 0){ 
 			    	$(".exiledPlaceholder").hide();
@@ -325,7 +352,7 @@ function onLoad() {
 					var id = $(this).parent().attr("id");
 					$("#cardinfo").removeClass();
 					$("#cardinfo").addClass(id);
-					$("#cardinfo").html(outputCardType(id));
+					$("#cardinfo").html(outputCardType(id, "i"));
 					$("#buttonsDiv").show();
 					$(".selected").removeClass("selected");
 					$(this).parent().addClass("selected");	
@@ -406,7 +433,7 @@ function onLoad() {
 
 			$(".graveyardPlaceholder")
 				.addClass(cardID)
-				.html(outputCardType(cardID))
+				.html(outputCardType(cardID, "c"))
 				.append("<div class='cardInfoBox'></div>");
 			
 			$(".cardInfoBox").click(function(event){
@@ -421,7 +448,7 @@ function onLoad() {
 					var id = graveyardArray[0];
 					$("#cardinfo").removeClass();
 					$("#cardinfo").addClass(id);
-					$("#cardinfo").html(outputCardType(id));
+					$("#cardinfo").html(outputCardType(id, "i"));
 					$("#buttonsDiv").show();
 					$(".selected").removeClass("selected");
 					$(".graveyardPlaceholder").addClass("selected");
@@ -458,7 +485,7 @@ function onLoad() {
 
 			$(".exiledPlaceholder")
 				.addClass(cardID)
-				.html(outputCardType(cardID))
+				.html(outputCardType(cardID, "c"))
 				.append("<div class='cardInfoBox'></div>");
 			
 			$(".cardInfoBox").click(function(event){
@@ -473,7 +500,7 @@ function onLoad() {
 					var id = exiledArray[0];
 					$("#cardinfo").removeClass();
 					$("#cardinfo").addClass(id);
-					$("#cardinfo").html(outputCardType(id));
+					$("#cardinfo").html(outputCardType(id, "i"));
 					$("#buttonsDiv").show();
 					$(".selected").removeClass("selected");
 					$(".exiledPlaceholder").addClass("selected");	
@@ -510,14 +537,14 @@ function sendToLib(l){
 		}
 		else if(graveyardArray.length >= 2){
 			$(".graveyardPlaceholder").show();
-			$(".graveyardPlaceholder").html(outputCardType(graveyardArray[1])).append("<div class='cardInfoBox'></div>");
+			$(".graveyardPlaceholder").html(outputCardType(graveyardArray[1], "c")).append("<div class='cardInfoBox'></div>");
 			$(".graveyardPlaceholder").addClass(graveyardArray[1]);
 			
 			$(".cardInfoBox").click(function(event){
 				event.stopImmediatePropagation();
 				var id = graveyardArray[0];
 				$("#cardinfo").addClass(id);
-				$("#cardinfo").html(outputCardType(id));
+				$("#cardinfo").html(outputCardType(id, "i"));
 				$("#buttonsDiv").show();
 			});
 		}
@@ -531,14 +558,14 @@ function sendToLib(l){
 		}
 		else if(exiledArray.length > 1){
 			$(".exiledPlaceholder").show();
-			$(".exiledPlaceholder").html(outputCardType(exiledArray[1])).append("<div class='cardInfoBox'></div>");
+			$(".exiledPlaceholder").html(outputCardType(exiledArray[1], "c")).append("<div class='cardInfoBox'></div>");
 			$(".exiledPlaceholder").addClass(exiledArray[1]);
 			
 			$(".cardInfoBox").click(function(event){
 				event.stopImmediatePropagation();
 				var id = exiledArray[0];
 				$("#cardinfo").addClass(id);
-				$("#cardinfo").html(outputCardType(id));
+				$("#cardinfo").html(outputCardType(id, "i"));
 				$("#buttonsDiv").show();
 			});
 		}
@@ -575,6 +602,61 @@ function modStats(t)
 
 		var t = $("#"+id).find('.cardToughness').html();
 		$("#"+id).find('.cardToughness').html(--t);
+	}
+}
+
+function turnCard(a)
+{
+	var id = $("#cardinfo").attr("class");
+
+	if(a == "u")
+	{
+		$("#"+id).removeClass("faceDown");
+		$("#"+id).html(outputCardType(id, "c")).append("<div class='cardInfoBox'></div>");
+		$(".cardInfoBox").click(function(event){
+			event.stopImmediatePropagation();			
+			if($(this).parent().hasClass("selected")){
+				$(".selected").removeClass("selected");
+				$("#cardinfo").html("");
+				$("#cardinfo").removeClass();
+				$("#buttonsDiv").hide();
+				activeCard = null;
+			}else{
+				var id = $(this).parent().attr("id");
+				$("#cardinfo").removeClass();
+				$("#cardinfo").addClass(id);
+				$("#cardinfo").html(outputCardType(id, "i"));
+				$("#buttonsDiv").show();
+				$(".selected").removeClass("selected");
+				$(this).parent().addClass("selected");	
+				activeCard = id;		
+			}			
+		});
+
+}
+	else if(a == "d")
+	{
+		$("#"+id).addClass("faceDown");
+		$("#"+id).html("<div class='backDesign'></div>").append("<div class='cardInfoBox'></div>");
+		$(".cardInfoBox").click(function(event){
+			event.stopImmediatePropagation();			
+			if($(this).parent().hasClass("selected")){
+				$(".selected").removeClass("selected");
+				$("#cardinfo").html("");
+				$("#cardinfo").removeClass();
+				$("#buttonsDiv").hide();
+				activeCard = null;
+			}else{
+				var id = $(this).parent().attr("id");
+				$("#cardinfo").removeClass();
+				$("#cardinfo").addClass(id);
+				$("#cardinfo").html(outputCardType(id, "i"));
+				$("#buttonsDiv").show();
+				$(".selected").removeClass("selected");
+				$(this).parent().addClass("selected");	
+				activeCard = id;		
+			}			
+		});
 	}
 }
 

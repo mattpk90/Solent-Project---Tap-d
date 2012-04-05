@@ -38,8 +38,8 @@ Property of Matt Kennedy and Southampton Solent University.
 			<div id="cardcontrols">
 				<h3 class="infoheader">Card Controls</h3>
 				<div id="buttonsDiv">
-					<button onclick="sendToLib('f')">Top of Library</button> &nbsp; <button onclick="modStats('u')">+1/+1</button> &nbsp; <button>Face Up</button><br />
-					<button onclick="sendToLib('b')">Bottom of Library</button> &nbsp; <button onclick="modStats('d')">-1/-1</button> <button>Face Down</button>
+					<button onclick="sendToLib('f')">Library Top</button> &nbsp; <button onclick="modStats('u')">+1/+1</button> &nbsp; <button onclick="turnCard('u')">Face Up</button><br />
+					<button onclick="sendToLib('b')">Library Bottom</button> &nbsp; <button onclick="modStats('d')">-1/-1</button> <button onclick="turnCard('d')">Face Down</button>
 				</div>
 			</div>
 		</div>
