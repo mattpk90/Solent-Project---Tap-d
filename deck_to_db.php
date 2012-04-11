@@ -8,16 +8,24 @@
 	<script type='text/javascript' src='jquery-ui.js'></script>
 	
 	<script type='text/javascript'>	
-	function storeInDB()
+	$(document).ready(onLoad);
+
+	function onLoad()
 	{
-		
+		var count = 0;
+		for (var i = 0; i < localStorage.length; i++){
+		    var card = localStorage.getItem(localStorage.key(i));
+		    $("#hi").append(card + "<br />");
+		    count++;
+		}
+		alert(count);
 	}
 	</script>
 </head>
 
 <body>
 	<a href="index.php"><button name="home" type="button"/>Home</button></a><br /><br />
-	<button name="home" type="button" onclick="storeInDB"/>Add localstorage Deck to Database</button>
+	<textarea id="hi" rows="100" cols="60"></textarea>
 
 	
 </body>

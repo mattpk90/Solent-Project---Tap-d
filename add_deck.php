@@ -299,7 +299,7 @@ ability to duplicate a card
 								</select>&nbsp;&nbsp;
 			Subtype:&nbsp;<input type="text" id="subtype" /></td>
 	</tr>
-	<tr>	<td>Text:</td> <td><textarea id="text" rows="5" cols="30"> </textarea></td>		</tr>
+	<tr>	<td>Text:</td> <td><textarea id="text" rows="3" cols="30"> </textarea></td>		</tr>
 	<tr>	<td>Power:</td> <td><input type="text" id="power" size="5"/>&nbsp;&nbsp;
 			Toughness:&nbsp;<input type="text" id="toughness" size="5"/></td>		</tr>
 	<tr>	<td><button id="addSingleCard" type="submit"/>Add Card</button></td>	</tr>
@@ -331,7 +331,7 @@ ability to duplicate a card
 	if(isset($_COOKIE['id']))
 	{
 		echo "<a href='deck_to_db.php'><button name='decktodb' type='button'>
-			Store Deck in Database
+			Generate Deck Script
 		</button></a>";
 	}
 	?>
