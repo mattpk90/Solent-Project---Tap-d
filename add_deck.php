@@ -74,22 +74,22 @@ ability to duplicate a card
 
 				if(card.type == "Land") //land card
 				{
-					$("#cardView").html("<div class='cardName'>" + card.name + "</div><div class='cardType'>" +
+					$("#cardView").html("<div class='infoCardName'>" + card.name + "</div><div class='infoCardType'>" +
 						card.type + "</div>");
 				}
 				else if(card.type == "Instant" || card.type == "Sorcery" || 
 					card.type == "Enchantment" || card.type == "Artifact") //spell card
 				{
-					$("#cardView").html("<div class='cardName'>" + card.name + "</div><div class='cardCost'>" + card.cost + 
-				      	"</div><br /><div class='cardType'>" + card.type + "</div><br /><div class='cardText'>" 
+					$("#cardView").html("<div class='infoCardName'>" + card.name + "</div><div class='infoCardCost'>" + card.cost + 
+				      	"</div><br /><div class='infoCardType'>" + card.type + "</div><br /><div class='infoCardText'>" 
 				      		+ card.text + "</div>");
 				}
 				else if(card.type == "Creature") //creature card
 				{
-					$("#cardView").html("<div class='cardName'>" + card.name + "</div><div class='cardCost'>" + card.cost + 
-				      	"</div><br /><div class='cardType'>" + card.type + "&nbsp; - &nbsp;" + card.subtype + "</div><br /><div class='cardText'>" 
-				      		+ card.text + "</div><br /><div class='cardStats'><div class='cardPower'>" 
-				      		+ card.power + "</div>/<div class='cardToughness'>" + card.toughness + "</div></div>");
+					$("#cardView").html("<div class='infoCardName'>" + card.name + "</div><div class='infoCardCost'>" + card.cost + 
+				      	"</div><br /><div class='cinfoCardType'>" + card.type + "&nbsp; - &nbsp;" + card.subtype + "</div><br /><div class='infoCardText'>" 
+				      		+ card.text + "</div><br /><div class='infoCardStats'><div class='infoCardPower'>" 
+				      		+ card.power + "</div>/<div class='infoCardToughness'>" + card.toughness + "</div></div>");
 				}
 			}
 		});
@@ -233,34 +233,17 @@ ability to duplicate a card
 
 	function populateTest()
 	{
-		for(var i = 1; i <= 60; i++)
-		{			
+		for(var i=0; i < 60; i++)
+		{
 			var newDate = new Date();
-			if(i%4 == 0)
-			{
-				var card = {
-					'name': i,
-					'cost': i,
-					'type': i,
-					'text': i,
-					'power': i,
-					'toughness': i
-				};		
-			}
-			else if(i%5 == 0)
-			{
-				var card = {
-					'name': i,
-					'cost': i,
-					'type': i,
-					'text': i
-				};
-			}
-			else if(i%2 == 0)
-			{
-				var card = { 'name': i };
-			}
-			localStorage.setItem(newDate.getTime(), JSON.stringify(card));
+			var card = {
+				'name': i,
+				'cost': i,
+				'type': i,
+				'text': i,
+				'power': i,
+				'toughness': i};	
+			localStorage.setItem("" + i + newDate.getTime(), JSON.stringify(card));
 		}
 		window.location.reload();
 	}
@@ -332,15 +315,19 @@ ability to duplicate a card
 	{
 		echo "<a href='deck_to_db.php'><button name='decktodb' type='button'>
 			Generate Deck Script
-		</button></a>";
+		</button></a>
+		<a href='script.html'><button>
+			Paste Deck Script
+		</button></a><br />
+		";
 	}
 	?>
 	
 
-	<br /><br />
+	<br />
 	<div id="deckManagementTrash">Drag and drop to remove card.</div>
 	<div id="duplicateCard">Drag and drop to clone card.</div>
-	<div id="cardView"></div>
+	<div id="cardView">Drag and drop to view card details.</div>
 	</div>
 
 

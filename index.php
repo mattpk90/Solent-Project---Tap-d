@@ -27,7 +27,8 @@ Property of Matt Kennedy and Southampton Solent University.
 	</div>
 
 	<div id="stage">
-		<div id="battlefield"></div>
+		<div id="searchDialog"><div id="dialogInner"></div></div>
+ 		<div id="battlefield"></div>
 
 		<div id="info">
 			<div id="topinfo">		
@@ -38,13 +39,19 @@ Property of Matt Kennedy and Southampton Solent University.
 			<div id="cardcontrols">
 				<h3 class="infoheader">Card Controls</h3>
 				<div id="buttonsDiv">
-					<button onclick="sendToLib('f')">Library Top</button> &nbsp; <button onclick="modStats('u')">+1/+1</button> &nbsp; <button onclick="turnCard('u')">Face Up</button><br />
-					<button onclick="sendToLib('b')">Library Bottom</button> &nbsp; <button onclick="modStats('d')">-1/-1</button> <button onclick="turnCard('d')">Face Down</button>
+					<table>
+						<tr><td><button onclick="sendToLib('f')">Library Top</button></td> <td><button onclick="sendToLib('b')">Library Bottom</button></td></tr>
+						<tr><td><button onclick="turnCard('u')">Face Up</button></td> <td><button onclick="turnCard('d')">Face Down</button><td></tr>
+						<tr><td><button onclick="modStats('pu')">+1</button><button onclick="modStats('tu')">+1</button></td>
+						<td><button onclick="modStats('pd')">-1</button><button onclick="modStats('td')">-1</button></td></tr>
+					</table>
 				</div>
 			</div>
 		</div>
 
 		<div id="hand">
+			<button onclick="shuffleLib()">Shuffle Library</button>
+			<button onclick="searchLib()">Search Library</button>
 			<!--
 			<ul id="sortable">
 			<li class="ui-state-default"><div class="inHand">card1</div></li>

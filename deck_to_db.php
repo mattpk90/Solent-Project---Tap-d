@@ -24,8 +24,9 @@
 </head>
 
 <body>
-	<a href="index.php"><button name="home" type="button"/>Home</button></a><br /><br />
-	<textarea id="hi" rows="100" cols="60"></textarea>
+	<a href="index.php"><button name="home" type="button">Home</button></a>
+	<a href='script.html'><button>Paste Deck Script</button></a><br /><br />
+	<textarea id="hi" rows="30" cols="60"></textarea>
 
 	
 </body>

@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Paste Deck</title>
+	<link rel="stylesheet" type="text/css" href="main.css" />
+	<link rel="stylesheet" type="text/css" href="jquery-ui-css.css" />
+	<script type='text/javascript' src='jquery.js'></script>
+	<script type='text/javascript' src='jquery-ui.js'></script>
+	
+	<script type='text/javascript'>	
+	//$(document).ready(onLoad);
+
+	function deck()
+	{
+		localStorage.clear();
+
+		var script = $("#scriptText").val();
+		var substr = script.split('}');
+		substr.pop();
+
+		for(var i=0; i < substr.length; i++)
+		{	
+			substr[i] = substr[i]+"}";
+		}
+
+		for(var i=0; i < substr.length; i++)
+		{
+			var newDate = new Date();
+			var cardID = newDate.getTime();			
+			localStorage.setItem("" + i + cardID, substr[i]);
+		}
+		window.location.reload();
+	}
+	</script>
+</head>
+
+<body>
+	<a href="index.php"><button name="home" type="button">Home</button></a>
+	<a href="add_deck.php"><button name="home" type="button">Deck Management</button></a><br /><br />
+	<textarea id="scriptText" rows="30" cols="60"></textarea><br />
+	<button onclick="deck()">Convert Script to Deck</button>
+
+	
+</body>
+</html>

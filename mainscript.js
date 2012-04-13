@@ -80,6 +80,11 @@ function outputCardType(id, l){
 	}
 }
 
+shuffle = function(v){
+	    for(var j, x, i = v.length; i; j = parseInt(Math.random() * i), x = v[--i], v[i] = v[j], v[j] = x);
+	    return v;
+	};
+
 function onLoad() {
 	
 	//populate the library
@@ -98,10 +103,6 @@ function onLoad() {
 	}
 
 	//randomise library on page load
-	shuffle = function(v){
-	    for(var j, x, i = v.length; i; j = parseInt(Math.random() * i), x = v[--i], v[i] = v[j], v[j] = x);
-	    return v;
-	};
 	shuffle(libraryArray);
 
 	//count the number of cards in zones
@@ -118,6 +119,10 @@ function onLoad() {
 
 	//$("#sortable").sortable();
 	//$("#sortable").disableSelection();
+
+	$('#searchDialog').dialog({autoOpen: false, width: 300,
+		close: function(event, ui) { $("#dialogInner").html(""); }
+	});
 
 	$(".card").draggable({ cursor: 'move', snap: true, snapTolerance: 5, stack: ".card", delay: 10,
 		stop: function(event, ui){
@@ -371,6 +376,7 @@ function onLoad() {
 
 	$("#library").droppable({
 		tolerance: 'pointer',
+		accept: '.card, .graveyardPlaceholder, .exiledPlaceholder',
 		over: function(event, ui){
 			$("#library").css('border-color', 'yellow');
 		},
@@ -389,7 +395,7 @@ function onLoad() {
 					$("#cardinfo").removeClass();
 					$("#cardinfo").html("");
 					$("#buttonsDiv").hide();
-				}					
+				}			
 		}
 	});	
 
@@ -409,6 +415,7 @@ function onLoad() {
 
 	$("#graveyard").droppable({
 		tolerance: 'pointer',
+		accept: '.card',
 		over: function(event, ui){
 			$("#graveyard").css('border-color', 'yellow');
 		},
@@ -461,6 +468,7 @@ function onLoad() {
 
 	$("#exile").droppable({
 		tolerance: 'pointer',
+		accept: '.card',
 		over: function(event, ui){
 			$("#exile").css('border-color', 'yellow');
 		},
@@ -589,17 +597,19 @@ function modStats(t)
 {
 	var id = $("#cardinfo").attr("class");
 
-	if(t == "u"){
+	if(t == "pu"){
 		var p = $("#"+id).find('.cardPower').html();
 		$("#"+id).find('.cardPower').html(++p);
-
+	}
+	else if(t == "pd"){
+		var p = $("#"+id).find('.cardPower').html();
+		$("#"+id).find('.cardPower').html(--p);
+	}
+	else if(t == "tu"){
 		var t = $("#"+id).find('.cardToughness').html();
 		$("#"+id).find('.cardToughness').html(++t);
 	}
-	else if(t == "d"){
-		var p = $("#"+id).find('.cardPower').html();
-		$("#"+id).find('.cardPower').html(--p);
-
+	else if(t == "td"){
 		var t = $("#"+id).find('.cardToughness').html();
 		$("#"+id).find('.cardToughness').html(--t);
 	}
@@ -659,6 +669,76 @@ function turnCard(a)
 		});
 	}
 }
+
+function shuffleLib()
+{
+	shuffle(libraryArray);
+	alert("Shuffle Complete.")
+}
+
+function searchLib()
+{
+	//alert(libraryArray[0] + " " + libraryArray[1]);
+	for(var i=0; i < libraryArray.length; i++)
+	{
+		var card = fetchCard(libraryArray[i]);
+		$("#dialogInner").append("<tr><td>" + card.name +
+			"&nbsp;</td><td><button onclick='removeLib(" + libraryArray[i] + ", " + i + ")'>Remove</button></td</tr>");
+	}
+	$("#searchDialog").dialog('open');
+}
+
+function removeLib(id, pos)
+{
+	//alert(id);
+	//var cardID = libraryArray.indexOf(id);
+	libraryArray.splice(pos, 1);
+	//alert(libraryArray[0] + " " + libraryArray[1]);
+	if(libraryArray.length == 0){ $(".libraryPlaceholder").hide(); }
+
+    var t = outputCardType(id,"c");
+	$("#stage").append("<div class='card ui-draggable' id="+id+">" + t + "</div>");
+	$("#"+id).append("<div class='cardInfoBox'></div>");
+
+	$("#"+id).draggable({ cursor: 'move', snap: true, snapTolerance: 5, 
+    	stack: ".card", delay: 50, containment: 'window',
+		stop: function(event, ui){
+			$('body').css('cursor','default');}})
+	.click(function(){
+		//var cardID = $(this).attr("id");
+		if($(this).hasClass("cardTapped"))
+		{
+			$(this).removeClass("cardTapped");
+		}else{
+			$(this).addClass("cardTapped");
+		}
+	});
+
+	$(".cardInfoBox").click(function(event){
+		event.stopImmediatePropagation();			
+		if($(this).parent().hasClass("selected")){
+			$(".selected").removeClass("selected");
+			$("#cardinfo").html("");
+			$("#cardinfo").removeClass();
+			$("#buttonsDiv").hide();
+			activeCard = null;
+		}else{
+			var id = $(this).parent().attr("id");
+			$("#cardinfo").removeClass();
+			$("#cardinfo").addClass(id);
+			$("#cardinfo").html(outputCardType(id, "i"));
+			$("#buttonsDiv").show();
+			$(".selected").removeClass("selected");
+			$(this).parent().addClass("selected");	
+			activeCard = id;		
+		}			
+	});
+
+	$("#libCounter").html(libraryArray.length);
+	$("#searchDialog").dialog('close');
+	$("#dialogInner").html("");
+}
+
 
 function validate()
 {
