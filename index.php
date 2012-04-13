@@ -21,6 +21,7 @@ Property of Matt Kennedy and Southampton Solent University.
 			<ul>
 				<li><a href='index.php'>Home</a></li>
 				<li><a href='add_deck.php'>Deck Management</a></li>
+				<li><a href='help.php'>Help</a></li>
 			</ul>
 		</div>
 		<a class="logo" href="index.php"><div id="logoDiv"><img src="images/logo2.png" title="Home" alt="Tap'd"/></div></a>

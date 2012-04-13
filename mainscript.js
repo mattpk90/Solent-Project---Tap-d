@@ -678,22 +678,24 @@ function shuffleLib()
 
 function searchLib()
 {
-	//alert(libraryArray[0] + " " + libraryArray[1]);
-	for(var i=0; i < libraryArray.length; i++)
-	{
-		var card = fetchCard(libraryArray[i]);
-		$("#dialogInner").append("<tr><td>" + card.name +
-			"&nbsp;</td><td><button onclick='removeLib(" + libraryArray[i] + ", " + i + ")'>Remove</button></td</tr>");
+	if($("#searchDialog").is(":visible")){
+		$("#searchDialog").dialog('close');
 	}
-	$("#searchDialog").dialog('open');
+	else
+	{
+		for(var i=0; i < libraryArray.length; i++)
+		{
+			var card = fetchCard(libraryArray[i]);
+			$("#dialogInner").append("<tr><td>" + card.name +
+				"&nbsp;</td><td><button onclick='removeLib(" + libraryArray[i] + ", " + i + ")'>Remove</button></td</tr>");
+		}
+		$("#searchDialog").dialog('open');
+	}
 }
 
 function removeLib(id, pos)
 {
-	//alert(id);
-	//var cardID = libraryArray.indexOf(id);
 	libraryArray.splice(pos, 1);
-	//alert(libraryArray[0] + " " + libraryArray[1]);
 	if(libraryArray.length == 0){ $(".libraryPlaceholder").hide(); }
 
     var t = outputCardType(id,"c");
@@ -705,7 +707,6 @@ function removeLib(id, pos)
 		stop: function(event, ui){
 			$('body').css('cursor','default');}})
 	.click(function(){
-		//var cardID = $(this).attr("id");
 		if($(this).hasClass("cardTapped"))
 		{
 			$(this).removeClass("cardTapped");

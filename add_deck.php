@@ -257,6 +257,7 @@ ability to duplicate a card
 	<div id="nav">
 		<ul>
 			<li><a href='index.php'>Home</a></li>
+			<li><a href='help.php'>Help</a></li>
 		</ul>
 	</div>
 	<a class="logo" href="index.php"><div id="logoDiv"><img src="images/logo2.png" title="Home" alt="Tap'd"/></div></a>
@@ -316,8 +317,11 @@ ability to duplicate a card
 		echo "<a href='deck_to_db.php'><button name='decktodb' type='button'>
 			Generate Deck Script
 		</button></a>
-		<a href='script.html'><button>
+		<a href='script.php'><button>
 			Paste Deck Script
+		</button></a>
+		<a href='sampleScript.php'><button name='decktodb' type='button'>
+			Sample Deck Script
 		</button></a><br />
 		";
 	}

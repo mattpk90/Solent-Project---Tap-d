@@ -12,21 +12,30 @@
 
 	function onLoad()
 	{
-		var count = 0;
 		for (var i = 0; i < localStorage.length; i++){
 		    var card = localStorage.getItem(localStorage.key(i));
-		    $("#hi").append(card + "<br />");
-		    count++;
+		    $("#scriptArea").append(card + "<br />");
 		}
-		alert(count);
 	}
 	</script>
+	<?php include "./functions.php"; ?>
 </head>
 
 <body>
-	<a href="index.php"><button name="home" type="button">Home</button></a>
-	<a href='script.html'><button>Paste Deck Script</button></a><br /><br />
-	<textarea id="hi" rows="30" cols="60"></textarea>
+	<div id="top">
+	<div id="login"> <?php panel() ?> </div>
+	<div id="nav">
+		<ul>
+			<li><a href='index.php'>Home</a></li>
+			<li><a href='add_deck.php'>Deck Management</a></li>
+			<li><a href='help.php'>Help</a></li>
+		</ul>
+	</div>
+	<a class="logo" href="index.php"><div id="logoDiv"><img src="images/logo2.png" title="Home" alt="Tap'd"/></div></a>
+	</div>
+	<a href="script.php"><button>Paste Deck Script</button></a><br /><br />
+	Copy this script to a text file and save it.<br />
+	<textarea id="scriptArea" rows="30" cols="60"></textarea>
 
 	
 </body>

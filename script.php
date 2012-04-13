@@ -32,11 +32,22 @@
 		window.location.reload();
 	}
 	</script>
+	<?php include "./functions.php"; ?>
 </head>
 
 <body>
-	<a href="index.php"><button name="home" type="button">Home</button></a>
-	<a href="add_deck.php"><button name="home" type="button">Deck Management</button></a><br /><br />
+	<div id="top">
+	<div id="login"> <?php panel() ?> </div>
+	<div id="nav">
+		<ul>
+			<li><a href='index.php'>Home</a></li>
+			<li><a href='add_deck.php'>Deck Management</a></li>
+			<li><a href='help.php'>Help</a></li>
+		</ul>
+	</div>
+	<a class="logo" href="index.php"><div id="logoDiv"><img src="images/logo2.png" title="Home" alt="Tap'd"/></div></a>
+	</div>
+	Paste your saved deck script here to load it into your browser.<br />
 	<textarea id="scriptText" rows="30" cols="60"></textarea><br />
 	<button onclick="deck()">Convert Script to Deck</button>
 
