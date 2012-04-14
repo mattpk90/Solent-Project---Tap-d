@@ -53,6 +53,7 @@ Property of Matt Kennedy and Southampton Solent University.
 		<div id="hand">
 			<button onclick="shuffleLib()">Shuffle Library</button>
 			<button onclick="searchLib()">Search Library</button>
+			<button onclick="untap()">Untap All</button>
 			<!--
 			<ul id="sortable">
 			<li class="ui-state-default"><div class="inHand">card1</div></li>

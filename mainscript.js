@@ -740,6 +740,10 @@ function removeLib(id, pos)
 	$("#dialogInner").html("");
 }
 
+function untap(){
+	$(".cardTapped").removeClass("cardTapped");
+}
+
 
 function validate()
 {
