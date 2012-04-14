@@ -376,7 +376,7 @@ function onLoad() {
 
 	$("#library").droppable({
 		tolerance: 'pointer',
-		accept: '.card, .graveyardPlaceholder, .exiledPlaceholder',
+		accept: '.card',
 		over: function(event, ui){
 			$("#library").css('border-color', 'yellow');
 		},
