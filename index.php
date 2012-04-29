@@ -29,6 +29,7 @@ Property of Matt Kennedy and Southampton Solent University.
 
 	<div id="stage">
 		<div id="searchDialog"><div id="dialogInner"></div></div>
+		<div id="tokenDialog"><div id="tokenDialogInner"></div></div>
  		<div id="battlefield"></div>
 
 		<div id="info">
@@ -53,14 +54,9 @@ Property of Matt Kennedy and Southampton Solent University.
 		<div id="hand">
 			<button onclick="shuffleLib()">Shuffle Library</button>
 			<button onclick="searchLib()">Search Library</button>
-			<button onclick="untap()">Untap All</button>
-			<!--
-			<ul id="sortable">
-			<li class="ui-state-default"><div class="inHand">card1</div></li>
-			<li class="ui-state-default"><div class="inHand">card2</div></li>
-			<li class="ui-state-default"><div class="inHand">card3</div></li>
-			<li class="ui-state-default"><div class="inHand">card4</div></li>
-			</ul> -->
+			<button onclick="untap()">Untap All</button>&nbsp;&nbsp;&nbsp;
+			Hit Points:<select id="hp"></select>&nbsp;&nbsp;
+			Poison Counters:<select id="poison"></select> 
 		</div>
 
 		<div id="library">Library<br />

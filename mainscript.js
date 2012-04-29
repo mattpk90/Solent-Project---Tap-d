@@ -23,7 +23,12 @@ var activeCard;
 //return a card object from localstorage
 function fetchCard(id){
 	var getCardString = localStorage.getItem(id);
-	var card = JSON.parse(getCardString);
+	if(getCardString == null){
+		var card = $("#"+id).html();
+	}
+	else{
+		var card = JSON.parse(getCardString);
+	}
 	return card;
 }
 
@@ -31,51 +36,56 @@ function fetchCard(id){
 function outputCardType(id, l){
 	var card = fetchCard(id);
 
-	if(l == "c")
-	{
-		if(card.type == "Land")
-		{
-			return "<div class='cardName'>" + card.name + "</div><div class='cardType'>" +
-							card.type + "</div>";			
-		}
-		else if(card.type == "Instant" || card.type == "Sorcery" || 
-					card.type == "Enchantment" || card.type == "Artifact")
-		{
-			return "<div class='cardName'>" + card.name + 
-			   "</div><div class='cardCost'>" + card.cost + 
-			    "</div><br /><div class='cardType'>" + card.type + 
-			    "</div><br /><div class='cardText'>" + card.text + "</div>";
-		}
-		else if(card.type == "Creature")
-		{
-			return "<div class='cardName'>" + card.name + "</div><div class='cardCost'>" + card.cost + 
-			      	"</div><br /><div class='cardType'>" + card.type + "&nbsp; - &nbsp;" + card.subtype + "</div><br /><div class='cardText'>" 
-			      	+ card.text + "</div><br /><div class='cardStats'><div class='cardPower'>" 
-			      	+ card.power + "</div>/<div class='cardToughness'>" + card.toughness + "</div></div>";
-		}
+	if(typeof card === "string"){
+		return card;
 	}
-	else if(l == "i")
-	{
-		if(card.type == "Land")
+	else if(typeof card === "object"){
+		if(l == "c")
 		{
-			return "<div class='infoCardName'>" + card.name + "</div><div class='infoCardType'>" +
-							card.type + "</div>";			
+			if(card.type == "Land")
+			{
+				return "<div class='cardName'>" + card.name + "</div><div class='cardType'>" +
+								card.type + "</div>";			
+			}
+			else if(card.type == "Instant" || card.type == "Sorcery" || 
+						card.type == "Enchantment" || card.type == "Artifact")
+			{
+				return "<div class='cardName'>" + card.name + 
+				   "</div><div class='cardCost'>" + card.cost + 
+				    "</div><br /><div class='cardType'>" + card.type + 
+				    "</div><br /><div class='cardText'>" + card.text + "</div>";
+			}
+			else if(card.type == "Creature")
+			{
+				return "<div class='cardName'>" + card.name + "</div><div class='cardCost'>" + card.cost + 
+				      	"</div><br /><div class='cardType'>" + card.type + "&nbsp; - &nbsp;" + card.subtype + "</div><br /><div class='cardText'>" 
+				      	+ card.text + "</div><br /><div class='cardStats'><div class='cardPower'>" 
+				      	+ card.power + "</div>/<div class='cardToughness'>" + card.toughness + "</div></div>";
+			}
 		}
-		else if(card.type == "Instant" || card.type == "Sorcery" || 
-					card.type == "Enchantment" || card.type == "Artifact")
+		else if(l == "i")
 		{
-			return "<div class='infoCardName'>" + card.name + 
-			   "</div><div class='infoCardCost'>" + card.cost + 
-			    "</div><div class='infoCardType'>" + card.type + 
-			    "</div><br /><div class='infoCardText'>" + card.text + "</div>";
-		}
-		else if(card.type == "Creature")
-		{
-			return "<div class='infoCardName'>" + card.name + "</div><div class='infoCardCost'>" + card.cost + 
-			      	"</div><div class='infoCardType'>" + card.type + "&nbsp; - &nbsp;" + card.subtype + 
-			      	"</div><br /><div class='infoCardText'>" + card.text + 
-			      	"</div><br /><div class='infoCardStats'><div class='infoCardPower'>" 
-			      	+ card.power + "</div>/<div class='infoCardToughness'>" + card.toughness + "</div></div>";
+			if(card.type == "Land")
+			{
+				return "<div class='infoCardName'>" + card.name + "</div><div class='infoCardType'>" +
+								card.type + "</div>";			
+			}
+			else if(card.type == "Instant" || card.type == "Sorcery" || 
+						card.type == "Enchantment" || card.type == "Artifact")
+			{
+				return "<div class='infoCardName'>" + card.name + 
+				   "</div><div class='infoCardCost'>" + card.cost + 
+				    "</div><div class='infoCardType'>" + card.type + 
+				    "</div><br /><div class='infoCardText'>" + card.text + "</div>";
+			}
+			else if(card.type == "Creature")
+			{
+				return "<div class='infoCardName'>" + card.name + "</div><div class='infoCardCost'>" + card.cost + 
+				      	"</div><div class='infoCardType'>" + card.type + "&nbsp; - &nbsp;" + card.subtype + 
+				      	"</div><br /><div class='infoCardText'>" + card.text + 
+				      	"</div><br /><div class='infoCardStats'><div class='infoCardPower'>" 
+				      	+ card.power + "</div>/<div class='infoCardToughness'>" + card.toughness + "</div></div>";
+			}
 		}
 	}
 }
@@ -120,9 +130,25 @@ function onLoad() {
 	//$("#sortable").sortable();
 	//$("#sortable").disableSelection();
 
+	//create hit points and poison counter dropdown
+	for(i=0; i<=40;i++){
+		if(i==20){
+			$("#hp").append("<option selected='selected'>20</option>")
+		}else{
+			$("#hp").append("<option>"+i+"</option>")
+		}
+	}
+
+	for(i=0; i<=10;i++){
+		$("#poison").append("<option>"+i+"</option>")
+	}
+
+
 	$('#searchDialog').dialog({autoOpen: false, width: 300,
 		close: function(event, ui) { $("#dialogInner").html(""); }
 	});
+
+	$('#tokenDialog').dialog({autoOpen: false, width: 300});
 
 	$(".card").draggable({ cursor: 'move', snap: true, snapTolerance: 5, stack: ".card", delay: 10,
 		stop: function(event, ui){
@@ -742,6 +768,63 @@ function removeLib(id, pos)
 
 function untap(){
 	$(".cardTapped").removeClass("cardTapped");
+}
+
+function token(){
+	if($("#tokenDialog").is(":visible")){
+		$("#tokenDialog").dialog('close');
+		$("#tokenDialogInner").html("");	
+	}
+	else
+	{
+		$("#tokenDialogInner").append("<tr><td><button onclick='addToken()'>Add Token</button></td</tr>");		
+		$("#tokenDialog").dialog('open');
+	}
+}
+
+function addToken(){
+	var newDate = new Date();
+	var id = newDate.getTime();	
+
+	var t = outputCardType(id,"c");
+	$("#stage").append("<div class='token ui-draggable' id="+id+">" + t + "</div>");
+	$("#"+id).append("<div class='cardInfoBox'></div>");
+
+	$("#"+id).draggable({ cursor: 'move', snap: true, snapTolerance: 5, 
+    	stack: ".card", delay: 50, containment: 'window',
+		stop: function(event, ui){
+			$('body').css('cursor','default');}})
+	.click(function(){
+		if($(this).hasClass("cardTapped"))
+		{
+			$(this).removeClass("cardTapped");
+		}else{
+			$(this).addClass("cardTapped");
+		}
+	});
+
+	$(".cardInfoBox").click(function(event){
+		event.stopImmediatePropagation();			
+		if($(this).parent().hasClass("selected")){
+			$(".selected").removeClass("selected");
+			$("#cardinfo").html("");
+			$("#cardinfo").removeClass();
+			$("#buttonsDiv").hide();
+			activeCard = null;
+		}else{
+			var id = $(this).parent().attr("id");
+			$("#cardinfo").removeClass();
+			$("#cardinfo").addClass(id);
+			$("#cardinfo").html(outputCardType(id, "i"));
+			$("#buttonsDiv").show();
+			$(".selected").removeClass("selected");
+			$(this).parent().addClass("selected");	
+			activeCard = id;		
+		}			
+	});
+
+	$("#tokenDialog").dialog('close');
+	$("#tokenDialogInner").html("");
 }
 
 

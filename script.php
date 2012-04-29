@@ -27,7 +27,7 @@
 		{
 			var newDate = new Date();
 			var cardID = newDate.getTime();			
-			localStorage.setItem("" + i + cardID, substr[i]);
+			localStorage.setItem("1" + i + cardID, substr[i]);
 		}
 		window.location.reload();
 	}

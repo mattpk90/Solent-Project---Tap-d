@@ -78,7 +78,6 @@ a:hover { text-decoration: none; color: #d6d3c0; }
 		.infoCardPower { display: inline; word-wrap: break-word; }
 		.infoCardToughness { display: inline; word-wrap: break-word; }
 
-
 .selected { background-color: #1443a3 !important; }
 
 .cardTapped { -moz-transform: rotate(90deg); -webkit-transform: rotate(90deg); }
@@ -149,6 +148,10 @@ a:hover { text-decoration: none; color: #d6d3c0; }
 #sortable li { margin: 0; padding: 1px; float: left; width: 105px; height: 165px; }
 
 #searchDialog { max-height: 300px; max-width: 400px; overflow-y: auto; border-color: #d6d3c0; 
+	border-style: dashed; border-width: 2px; border-radius: 10px; -moz-border-radius: 10px; 
+	-webkit-border-radius: 10px; }
+
+#tokenDialog { max-height: 300px; max-width: 400px; overflow-y: auto; border-color: #d6d3c0; 
 	border-style: dashed; border-width: 2px; border-radius: 10px; -moz-border-radius: 10px; 
 	-webkit-border-radius: 10px; }
 
