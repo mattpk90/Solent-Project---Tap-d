@@ -230,23 +230,6 @@ ability to duplicate a card
 			window.location.reload();
 		}
 	}
-
-	function populateTest()
-	{
-		for(var i=0; i < 60; i++)
-		{
-			var newDate = new Date();
-			var card = {
-				'name': i,
-				'cost': i,
-				'type': i,
-				'text': i,
-				'power': i,
-				'toughness': i};	
-			localStorage.setItem("" + i + newDate.getTime(), JSON.stringify(card));
-		}
-		window.location.reload();
-	}
 	</script>
 	<?php include "./functions.php"; ?>
 </head>
@@ -310,7 +293,6 @@ ability to duplicate a card
 	<br />
 
 	<button onclick="clearDeck()">Remove All Cards</button><br />
-	<button onclick="populateTest()">Populate Test Deck</button>
 	<?php
 	if(isset($_COOKIE['id']))
 	{
