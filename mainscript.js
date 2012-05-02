@@ -770,64 +770,6 @@ function untap(){
 	$(".cardTapped").removeClass("cardTapped");
 }
 
-function token(){
-	if($("#tokenDialog").is(":visible")){
-		$("#tokenDialog").dialog('close');
-		$("#tokenDialogInner").html("");	
-	}
-	else
-	{
-		$("#tokenDialogInner").append("<tr><td><button onclick='addToken()'>Add Token</button></td</tr>");		
-		$("#tokenDialog").dialog('open');
-	}
-}
-
-function addToken(){
-	var newDate = new Date();
-	var id = newDate.getTime();	
-
-	var t = outputCardType(id,"c");
-	$("#stage").append("<div class='token ui-draggable' id="+id+">" + t + "</div>");
-	$("#"+id).append("<div class='cardInfoBox'></div>");
-
-	$("#"+id).draggable({ cursor: 'move', snap: true, snapTolerance: 5, 
-    	stack: ".card", delay: 50, containment: 'window',
-		stop: function(event, ui){
-			$('body').css('cursor','default');}})
-	.click(function(){
-		if($(this).hasClass("cardTapped"))
-		{
-			$(this).removeClass("cardTapped");
-		}else{
-			$(this).addClass("cardTapped");
-		}
-	});
-
-	$(".cardInfoBox").click(function(event){
-		event.stopImmediatePropagation();			
-		if($(this).parent().hasClass("selected")){
-			$(".selected").removeClass("selected");
-			$("#cardinfo").html("");
-			$("#cardinfo").removeClass();
-			$("#buttonsDiv").hide();
-			activeCard = null;
-		}else{
-			var id = $(this).parent().attr("id");
-			$("#cardinfo").removeClass();
-			$("#cardinfo").addClass(id);
-			$("#cardinfo").html(outputCardType(id, "i"));
-			$("#buttonsDiv").show();
-			$(".selected").removeClass("selected");
-			$(this).parent().addClass("selected");	
-			activeCard = id;		
-		}			
-	});
-
-	$("#tokenDialog").dialog('close');
-	$("#tokenDialogInner").html("");
-}
-
-
 function validate()
 {
 	var e = document.forms["loginform"]["email"].value;
